@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-09-21T22:21:08.492377",
+  "total_tests": 6,
+  "passed_tests": 6,
+  "success_rate": 1.0,
+  "test_details": [
+    [
+      "配置系统",
+      true
+    ],
+    [
+      "LLM接口",
+      true
+    ],
+    [
+      "多智能体系统",
+      true
+    ],
+    [
+      "示例代码分析",
+      true
+    ],
+    [
+      "前端组件",
+      true
+    ],
+    [
+      "API后端",
+      true
+    ]
+  ]
+}

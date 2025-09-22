@@ -1,0 +1,5 @@
+INFO:     Will watch for changes in these directories: ['/home/coder-gw/Interruptr']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [4055039] using StatReload
+ERROR:    Error loading ASGI app. Attribute "app" not found in module "api.main".
+INFO:     Stopping reloader process [4055039]

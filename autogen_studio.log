@@ -1,0 +1,111 @@
+INFO:     Loading environment from '/home/coder-gw/.autogenstudio/temp_env_vars.env'
+2025-08-30 22:22:13.100 | INFO     | autogenstudio.web.initialization:__init__:39 - Initializing application data folder: /home/coder-gw/.autogenstudio 
+2025-08-30 22:22:13.100 | INFO     | autogenstudio.web.auth.manager:__init__:26 - Initialized auth manager with provider: none
+INFO:     Started server process [172376]
+INFO:     Waiting for application startup.
+2025-08-30 22:22:13.129 | INFO     | autogenstudio.web.app:lifespan:39 - Application startup complete. Navigate to http://0.0.0.0:8081
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8081 (Press CTRL+C to quit)
+INFO:     127.0.0.1:33916 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39348 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51554 - "GET /?id=b572696e-3f3d-477c-bfec-bb393487dd6b&vscodeBrowserReqId=1756617804062 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51554 - "GET /webpack-runtime-b55b5838ff1abcdc995a.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /framework-57bdae7ff6dea3b36346.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /app-7cd623a450cac627506e.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /page-data/index/page-data.json?id=b572696e-3f3d-477c-bfec-bb393487dd6b&vscodeBrowserReqId=1756617804062 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51554 - "GET /page-data/app-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /5c0b189e-e8c267a8f6d19d4c3625.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51568 - "GET /ca88a25c496f72ffce378f9fa6d04faf2ca0f265-cc33870238862de8e714.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51554 - "GET /e8c4b161-b1ca269a783378815522.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51566 - "GET /4c7ff9d695ce7dd513dbecbd7f887a7062c0a149-7ce880bba44d11dbc5d3.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51570 - "GET /ab750f64be8d86ca202166508d19c906dd1c960d-21879d91873a6d9d3d59.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /ac9637fc46bc1f6d812d954ce915b60ead6677c4-11523dfd34cc8047a009.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /febf2f12c27657ec738fa287d5ba21fddfc3e3e8-b6f43e7b7630a9ac173a.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51566 - "GET /d8f268ac9f2b87d121a872ac85fce383f250aa9f-fc7486aa69dd43bf2d43.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /component---src-pages-index-tsx-d7b657b67345ab73c95e.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /bc9057a5b9c08ad3084ff0c44967ba5a97734a96-34190ad0f38c40cf847c.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /api/version HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51586 - "GET /api/auth/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51586 - "GET /api/sessions/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51556 - "GET /api/teams/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51556 - "GET /page-data/index/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51566 - "GET /page-data/deploy/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /page-data/settings/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51566 - "GET /page-data/deploy/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /page-data/index/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /page-data/settings/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51556 - "GET /page-data/gallery/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /page-data/build/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /page-data/gallery/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:51586 - "GET /page-data/build/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET / HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /webpack-runtime-b55b5838ff1abcdc995a.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /framework-57bdae7ff6dea3b36346.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /app-7cd623a450cac627506e.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /page-data/app-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57130 - "GET /page-data/index/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57146 - "GET /manifest.webmanifest HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57130 - "GET /5c0b189e-e8c267a8f6d19d4c3625.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /e8c4b161-b1ca269a783378815522.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57130 - "GET /4c7ff9d695ce7dd513dbecbd7f887a7062c0a149-7ce880bba44d11dbc5d3.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /ca88a25c496f72ffce378f9fa6d04faf2ca0f265-cc33870238862de8e714.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57130 - "GET /ab750f64be8d86ca202166508d19c906dd1c960d-21879d91873a6d9d3d59.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57158 - "GET /ac9637fc46bc1f6d812d954ce915b60ead6677c4-11523dfd34cc8047a009.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57158 - "GET /febf2f12c27657ec738fa287d5ba21fddfc3e3e8-b6f43e7b7630a9ac173a.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57170 - "GET /component---src-pages-index-tsx-d7b657b67345ab73c95e.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57130 - "GET /d8f268ac9f2b87d121a872ac85fce383f250aa9f-fc7486aa69dd43bf2d43.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /bc9057a5b9c08ad3084ff0c44967ba5a97734a96-34190ad0f38c40cf847c.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /api/version HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57130 - "GET /api/auth/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57130 - "GET /api/sessions/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57118 - "GET /api/teams/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57118 - "GET /page-data/build/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57118 - "GET /071a7a8b27165c0a3e069b9edab6a5a9f8f229cc-7b5e4b43ea7a5453c259.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57158 - "GET /component---src-pages-build-tsx-34d8f410f6df7e60cea6.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57130 - "GET /fea25e403f7cf4f6c7352c9a59c3f8f4372c2770-673333103db2a927e4c0.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57170 - "GET /cbfeb58e892aec0ea1b2f284fde7da1224b6b055-a8e76a0802733d810496.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57170 - "GET /api/gallery/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57130 - "GET /api/teams/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57170 - "GET /api/teams/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+/home/coder-gw/anaconda3/envs/interruptr/lib/python3.11/site-packages/autogen_core/_component_config.py:252: UserWarning: 
+⚠️  SECURITY WARNING ⚠️
+Loading a FunctionTool from config will execute code to import the provided global imports and and function code.
+Only load configs from TRUSTED sources to prevent arbitrary code execution.
+  instance = component_class._from_config(validated_config)  # type: ignore
+INFO:     127.0.0.1:57130 - "POST /api/validate/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57130 - "GET /page-data/settings/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57158 - "GET /page-data/gallery/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57170 - "GET /page-data/deploy/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57170 - "GET /page-data/settings/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57170 - "GET /page-data/deploy/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57158 - "GET /page-data/gallery/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:48924 - "GET /6be23114e43bcb7eaa5d44e1c459a9e00d37e5e0-aaf5056eca2868da3f54.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:48932 - "GET /component---src-pages-gallery-tsx-b70067f72084f2d47ba0.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41344 - "GET /build/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41360 - "GET /manifest.webmanifest HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41344 - "GET /5c0b189e-e8c267a8f6d19d4c3625.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /e8c4b161-b1ca269a783378815522.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /4c7ff9d695ce7dd513dbecbd7f887a7062c0a149-7ce880bba44d11dbc5d3.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /ca88a25c496f72ffce378f9fa6d04faf2ca0f265-cc33870238862de8e714.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41362 - "GET /071a7a8b27165c0a3e069b9edab6a5a9f8f229cc-7b5e4b43ea7a5453c259.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /ab750f64be8d86ca202166508d19c906dd1c960d-21879d91873a6d9d3d59.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41344 - "GET /ac9637fc46bc1f6d812d954ce915b60ead6677c4-11523dfd34cc8047a009.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41344 - "GET /febf2f12c27657ec738fa287d5ba21fddfc3e3e8-b6f43e7b7630a9ac173a.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /fea25e403f7cf4f6c7352c9a59c3f8f4372c2770-673333103db2a927e4c0.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /d8f268ac9f2b87d121a872ac85fce383f250aa9f-fc7486aa69dd43bf2d43.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /cbfeb58e892aec0ea1b2f284fde7da1224b6b055-a8e76a0802733d810496.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /component---src-pages-build-tsx-34d8f410f6df7e60cea6.js HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:41352 - "GET /api/version HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41344 - "GET /api/auth/type HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41344 - "GET /api/gallery/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41352 - "GET /api/teams/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41344 - "GET /api/teams/?user_id=guestuser@gmail.com HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41352 - "POST /api/validate/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43564 - "GET /page-data/gallery/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43592 - "GET /page-data/settings/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43578 - "GET /page-data/index/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43578 - "GET /page-data/gallery/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43592 - "GET /page-data/deploy/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43564 - "GET /page-data/settings/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43564 - "GET /page-data/index/page-data.json HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:43564 - "GET /page-data/deploy/page-data.json HTTP/1.1" 304 Not Modified
