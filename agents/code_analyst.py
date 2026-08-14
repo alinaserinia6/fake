@@ -1,38 +1,36 @@
 """
-代码分析师智能体 - 专注于静态代码分析和代码质量评估
+Code Analyst Agent - Focused on static code analysis and code quality assessment
 """
 
 import os
 from typing import Dict, List, Any
 from pathlib import Path
-import tree_sitter
 from tree_sitter import Language, Parser
 import tree_sitter_cpp as tscpp
 
 class CodeAnalystAgent:
-    """代码分析师智能体，负责静态代码分析"""
+    """Code Analyst Agent, responsible for static code analysis"""
     
     def __init__(self, llm_config: Dict[str, Any]):
         self.llm_config = llm_config
-        self.name = "代码分析师"
-        self.role = "静态代码分析和代码质量评估"
+        self.name = "Code Analyst"
+        self.role = "Static code analysis and code quality assessment"
         
-        # 初始化Tree-sitter解析器
-        self.language = Language(tscpp.language(), "cpp")
-        self.parser = Parser()
-        self.parser.set_language(self.language)
+        # Initialize Tree-sitter parser
+        self.language = Language(tscpp.language())
+        self.parser = Parser(self.language)
         
     def analyze_code_file(self, file_path: str) -> Dict[str, Any]:
-        """分析单个代码文件"""
+        """Analyse a single code file"""
         
         if not os.path.exists(file_path):
-            return {"error": f"文件不存在: {file_path}"}
+            return {"error": f"File does not exist: {file_path}"}
             
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 code_content = f.read()
                 
-            # 使用Tree-sitter解析代码
+            # Parse code with Tree-sitter
             tree = self.parser.parse(bytes(code_content, 'utf-8'))
             
             analysis_result = {
@@ -49,15 +47,15 @@ class CodeAnalystAgent:
             return analysis_result
             
         except Exception as e:
-            return {"error": f"分析文件时出错: {str(e)}"}
+            return {"error": f"Error while analysing file: {str(e)}"}
     
     def _extract_functions(self, node, code_content: str) -> List[Dict[str, Any]]:
-        """提取函数信息"""
+        """Extract function information"""
         functions = []
         
         def traverse(node):
             if node.type == 'function_definition':
-                # 获取函数名
+                # Get function name
                 name_node = None
                 for child in node.children:
                     if child.type == 'function_declarator':
@@ -85,7 +83,7 @@ class CodeAnalystAgent:
         return functions
     
     def _extract_classes(self, node, code_content: str) -> List[Dict[str, Any]]:
-        """提取类信息"""
+        """Extract class information"""
         classes = []
         
         def traverse(node):
@@ -114,7 +112,7 @@ class CodeAnalystAgent:
         return classes
     
     def _extract_includes(self, node, code_content: str) -> List[str]:
-        """提取包含的头文件"""
+        """Extract included header files"""
         includes = []
         
         def traverse(node):
@@ -129,7 +127,7 @@ class CodeAnalystAgent:
         return includes
     
     def _calculate_complexity(self, node, code_content: str) -> Dict[str, Any]:
-        """计算代码复杂度指标"""
+        """Calculate code complexity metrics"""
         
         complexity_metrics = {
             "cyclomatic_complexity": 0,
@@ -139,7 +137,7 @@ class CodeAnalystAgent:
             "max_function_length": 0
         }
         
-        # 简化的圈复杂度计算
+        # Simplified cyclomatic complexity calculation
         decision_points = 0
         max_depth = 0
         current_depth = 0
@@ -147,12 +145,12 @@ class CodeAnalystAgent:
         def traverse(node):
             nonlocal decision_points, max_depth, current_depth
             
-            # 决策点节点
+            # Decision point nodes
             if node.type in ['if_statement', 'while_statement', 'for_statement', 
                            'switch_statement', 'case_statement', 'conditional_expression']:
                 decision_points += 1
             
-            # 嵌套深度
+            # Nesting depth
             if node.type in ['compound_statement', 'if_statement', 'while_statement', 'for_statement']:
                 current_depth += 1
                 max_depth = max(max_depth, current_depth)
@@ -171,11 +169,11 @@ class CodeAnalystAgent:
         return complexity_metrics
     
     def _identify_issues(self, node, code_content: str) -> List[Dict[str, Any]]:
-        """识别潜在的代码问题"""
+        """Identify potential code issues"""
         issues = []
         
         def traverse(node):
-            # 检查过长的函数
+            # Check for overlong functions
             if node.type == 'function_definition':
                 line_count = node.end_point[0] - node.start_point[0] + 1
                 if line_count > 50:
@@ -183,16 +181,16 @@ class CodeAnalystAgent:
                         "type": "long_function",
                         "severity": "warning",
                         "line": node.start_point[0] + 1,
-                        "message": f"函数过长 ({line_count} 行)，建议拆分"
+                        "message": f"Function is too long ({line_count} lines), consider splitting it"
                     })
             
-            # 检查深度嵌套
+            # Check for deep nesting
             if self._calculate_nesting_depth(node) > 4:
                 issues.append({
                     "type": "deep_nesting",
                     "severity": "warning", 
                     "line": node.start_point[0] + 1,
-                    "message": "嵌套层次过深，影响代码可读性"
+                    "message": "Nesting depth is too deep, affecting code readability"
                 })
             
             for child in node.children:
@@ -202,7 +200,7 @@ class CodeAnalystAgent:
         return issues
     
     def _calculate_nesting_depth(self, node) -> int:
-        """计算节点的嵌套深度"""
+        """Calculate the nesting depth of a node"""
         if not node.children:
             return 0
         
@@ -218,58 +216,59 @@ class CodeAnalystAgent:
             return max_child_depth
     
     def _extract_parameters(self, node, code_content: str) -> List[str]:
-        """提取函数参数"""
-        # 简化实现，实际需要更复杂的解析
+        """Extract function parameters"""
+        # Simplified implementation; more complex parsing would be needed in practice
         return []
     
     def _extract_return_type(self, node, code_content: str) -> str:
-        """提取函数返回类型"""
-        # 简化实现，实际需要更复杂的解析
+        """Extract function return type"""
+        # Simplified implementation; more complex parsing would be needed in practice
         return "unknown"
     
     def _extract_class_methods(self, node, code_content: str) -> List[str]:
-        """提取类方法"""
-        # 简化实现，实际需要更复杂的解析
+        """Extract class methods"""
+        # Simplified implementation; more complex parsing would be needed in practice
         return []
     
     def _extract_class_members(self, node, code_content: str) -> List[str]:
-        """提取类成员变量"""
-        # 简化实现，实际需要更复杂的解析
+        """Extract class member variables"""
+        # Simplified implementation; more complex parsing would be needed in practice
         return []
     
     def generate_analysis_report(self, analysis_result: Dict[str, Any]) -> str:
-        """生成分析报告"""
+        """Generate analysis report"""
         
         if "error" in analysis_result:
-            return f"分析失败: {analysis_result['error']}"
+            return f"Analysis failed: {analysis_result['error']}"
         
         report = f"""
-## 代码分析报告 - {analysis_result['file_path']}
+        ## Code Analysis Report - {analysis_result['file_path']}
 
-### 基本信息
-- 文件大小: {analysis_result['file_size']} 字节
-- 代码行数: {analysis_result['line_count']} 行
-- 函数数量: {len(analysis_result['functions'])}
-- 类数量: {len(analysis_result['classes'])}
+        ### Basic Information
+        - File size: {analysis_result['file_size']} bytes
+        - Lines of code: {analysis_result['line_count']} lines
+        - Number of functions: {len(analysis_result['functions'])}
+        - Number of classes: {len(analysis_result['classes'])}
 
-### 复杂度指标
-- 圈复杂度: {analysis_result['complexity_metrics']['cyclomatic_complexity']}
-- 最大嵌套深度: {analysis_result['complexity_metrics']['nesting_depth']}
+        ### Complexity Metrics
+        - Cyclomatic complexity: {analysis_result['complexity_metrics']['cyclomatic_complexity']}
+        - Maximum nesting depth: {analysis_result['complexity_metrics']['nesting_depth']}
 
-### 包含的头文件
-{chr(10).join(f"- {inc}" for inc in analysis_result['includes'])}
+        ### Included Headers
+        {chr(10).join(f"- {inc}" for inc in analysis_result['includes'])}
 
-### 函数列表
-{chr(10).join(f"- {func['name']} (第{func['start_line']}-{func['end_line']}行)" for func in analysis_result['functions'])}
+        ### Function List
+        {chr(10).join(f"- {func['name']} (lines {func['start_line']}-{func['end_line']})" for func in analysis_result['functions'])}
 
-### 潜在问题
-{chr(10).join(f"- 第{issue['line']}行: {issue['message']} ({issue['severity']})" for issue in analysis_result['potential_issues'])}
+        ### Potential Issues
+        {chr(10).join(f"- Line {issue['line']}: {issue['message']} ({issue['severity']})" for issue in analysis_result['potential_issues'])}
 
-### 建议
-1. 保持函数长度适中（建议不超过50行）
-2. 减少嵌套层次（建议不超过4层）
-3. 添加适当的注释和文档
-4. 考虑重构复杂的函数
+        ### Recommendations
+        1. Keep function length moderate (recommended no more than 50 lines)
+        2. Reduce nesting depth (recommended no more than 4 levels)
+        3. Add appropriate comments and documentation
+        4. Consider refactoring complex functions
         """
         
         return report
+ 

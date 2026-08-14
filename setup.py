@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Interruptr 配置检查和初始化脚本
+Interruptr Configuration Check and Initialization Script
 """
 
 import os
@@ -9,54 +9,54 @@ from pathlib import Path
 import shutil
 
 def create_env_file():
-    """创建环境配置文件"""
+    """Create environment configuration file"""
     env_example = Path('.env.example')
     env_file = Path('.env')
     
     if not env_file.exists() and env_example.exists():
-        print("🔧 创建环境配置文件...")
+        print("🔧 Creating environment configuration file...")
         shutil.copy(env_example, env_file)
-        print(f"✅ 已创建 {env_file}")
-        print("⚠️  请编辑 .env 文件并添加您的API密钥")
+        print(f"✅ Created {env_file}")
+        print("⚠️  Please edit the .env file and add your API keys")
         return False
     elif env_file.exists():
-        print(f"✅ 环境配置文件已存在: {env_file}")
+        print(f"✅ Environment configuration file already exists: {env_file}")
         return True
     else:
-        print("❌ 缺少环境配置模板文件")
+        print("❌ Missing environment configuration template file")
         return False
 
 def check_api_keys():
-    """检查API密钥配置"""
+    """Check API key configuration"""
     from config.env_config import config
     
-    print("\n🔑 检查API密钥配置...")
+    print("\n🔑 Checking API key configuration...")
     
     openai_configured = bool(config.openai_api_key and config.openai_api_key != 'your-openai-api-key-here')
     anthropic_configured = bool(config.anthropic_api_key and config.anthropic_api_key != 'your-anthropic-api-key-here')
     
     if openai_configured:
-        print("✅ OpenAI API密钥已配置")
+        print("✅ OpenAI API key configured")
     else:
-        print("⚠️  OpenAI API密钥未配置")
+        print("⚠️  OpenAI API key not configured")
     
     if anthropic_configured:
-        print("✅ Anthropic API密钥已配置")
+        print("✅ Anthropic API key configured")
     else:
-        print("⚠️  Anthropic API密钥未配置")
+        print("⚠️  Anthropic API key not configured")
     
     if not openai_configured and not anthropic_configured:
-        print("❌ 请至少配置一个LLM API密钥")
-        print("   在 .env 文件中设置 OPENAI_API_KEY 或 ANTHROPIC_API_KEY")
+        print("❌ Please configure at least one LLM API key")
+        print("   Set OPENAI_API_KEY or ANTHROPIC_API_KEY in the .env file")
         return False
     
     return True
 
 def check_system_tools():
-    """检查系统工具"""
+    """Check system tools"""
     from config.env_config import config
     
-    print("\n🛠️  检查系统工具...")
+    print("\n🛠️  Checking system tools...")
     
     tools = {
         'GCC': config.gcc_path,
@@ -71,18 +71,18 @@ def check_system_tools():
         if Path(tool_path).exists():
             print(f"✅ {tool_name}: {tool_path}")
         else:
-            print(f"❌ {tool_name}: {tool_path} (不存在)")
+            print(f"❌ {tool_name}: {tool_path} (does not exist)")
             all_available = False
     
     if not all_available:
-        print("\n安装缺失的工具:")
+        print("\nInstall missing tools:")
         print("sudo apt install -y gcc gdb valgrind cppcheck clang-tools")
     
     return all_available
 
 def check_python_packages():
-    """检查Python包"""
-    print("\n📦 检查Python依赖包...")
+    """Check Python packages"""
+    print("\n📦 Checking Python dependencies...")
     
     required_packages = [
         ('fastapi', 'FastAPI'),
@@ -109,15 +109,15 @@ def check_python_packages():
             missing_packages.append(package)
     
     if missing_packages:
-        print(f"\n缺少包: {', '.join(missing_packages)}")
-        print("运行: pip install -r requirements.txt")
+        print(f"\nMissing packages: {', '.join(missing_packages)}")
+        print("Run: pip install -r requirements.txt")
         return False
     
     return True
 
 def create_directories():
-    """创建必要的目录"""
-    print("\n📁 创建项目目录...")
+    """Create necessary directories"""
+    print("\n📁 Creating project directories...")
     
     directories = [
         'logs',
@@ -130,58 +130,58 @@ def create_directories():
         dir_path = Path(directory)
         if not dir_path.exists():
             dir_path.mkdir(parents=True, exist_ok=True)
-            print(f"✅ 创建目录: {directory}")
+            print(f"✅ Created directory: {directory}")
         else:
-            print(f"📁 目录已存在: {directory}")
+            print(f"📁 Directory already exists: {directory}")
 
 def validate_configuration():
-    """验证完整配置"""
-    print("\n🔍 验证配置...")
+    """Validate full configuration"""
+    print("\n🔍 Validating configuration...")
     
     try:
         from config.env_config import config
         validation = config.validate_config()
         
         if validation['valid']:
-            print("✅ 配置验证通过")
+            print("✅ Configuration validation passed")
             
-            # 显示配置摘要
+            # Display configuration summary
             summary = validation['config_summary']
-            print("\n📋 配置摘要:")
-            print(f"  默认LLM: {summary['llm_providers']['default']}")
-            print(f"  API地址: {summary['api_config']['host']}:{summary['api_config']['port']}")
-            print(f"  安全级别: {summary['security_level']}")
-            print(f"  最大文件: {summary['max_file_size']}")
+            print("\n📋 Configuration summary:")
+            print(f"  Default LLM: {summary['llm_providers']['default']}")
+            print(f"  API address: {summary['api_config']['host']}:{summary['api_config']['port']}")
+            print(f"  Security level: {summary['security_level']}")
+            print(f"  Max file size: {summary['max_file_size']}")
             
             return True
         else:
-            print("❌ 配置验证失败:")
+            print("❌ Configuration validation failed:")
             for issue in validation['issues']:
                 print(f"  - {issue}")
             return False
             
     except Exception as e:
-        print(f"❌ 配置验证错误: {e}")
+        print(f"❌ Configuration validation error: {e}")
         return False
 
 def main():
-    """主函数"""
-    print("🚀 Interruptr 配置检查和初始化")
+    """Main function"""
+    print("🚀 Interruptr Configuration Check and Initialization")
     print("=" * 50)
     
-    # 检查当前目录
+    # Check current directory
     if not Path('config').exists():
-        print("❌ 请在项目根目录运行此脚本")
+        print("❌ Please run this script from the project root directory")
         sys.exit(1)
     
-    # 执行检查步骤
+    # Run check steps
     steps = [
-        ("创建环境文件", create_env_file),
-        ("检查Python包", check_python_packages),
-        ("创建目录结构", create_directories),
-        ("检查系统工具", check_system_tools),
-        ("检查API密钥", check_api_keys),
-        ("验证配置", validate_configuration)
+        ("Create environment file", create_env_file),
+        ("Check Python packages", check_python_packages),
+        ("Create directory structure", create_directories),
+        ("Check system tools", check_system_tools),
+        ("Check API keys", check_api_keys),
+        ("Validate configuration", validate_configuration)
     ]
     
     all_passed = True
@@ -192,23 +192,23 @@ def main():
             if not step_func():
                 all_passed = False
         except Exception as e:
-            print(f"❌ {step_name} 失败: {e}")
+            print(f"❌ {step_name} failed: {e}")
             all_passed = False
     
-    # 总结
+    # Summary
     print("\n" + "=" * 50)
     if all_passed:
-        print("🎉 所有检查通过！项目配置完成")
-        print("\n下一步:")
-        print("1. 编辑 .env 文件添加API密钥")
-        print("2. 运行 ./start.sh 启动服务")
+        print("🎉 All checks passed! Project configuration complete")
+        print("\nNext steps:")
+        print("1. Edit the .env file to add API keys")
+        print("2. Run ./start.sh to start the service")
     else:
-        print("⚠️  部分检查未通过，请根据上述提示解决问题")
+        print("⚠️  Some checks failed. Please resolve the issues as indicated above")
         
-    print("\n配置帮助:")
-    print("- 环境配置: 编辑 .env 文件")
-    print("- 启动服务: ./start.sh")
-    print("- 查看文档: README.md")
+    print("\nConfiguration help:")
+    print("- Environment configuration: edit the .env file")
+    print("- Start service: ./start.sh")
+    print("- View documentation: README.md")
 
 if __name__ == "__main__":
     main()

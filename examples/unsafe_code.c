@@ -1,33 +1,33 @@
 /*
-示例C代码文件 - 包含一些常见的安全问题用于测试
+Example C code file - contains some common security issues for testing
 */
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-// 缓冲区溢出风险
+// Buffer overflow risk
 void unsafe_copy(char* source) {
     char buffer[100];
-    strcpy(buffer, source);  // 潜在缓冲区溢出
+    strcpy(buffer, source);  // Potential buffer overflow
     printf("Copied: %s\n", buffer);
 }
 
-// 内存泄漏风险
+// Memory leak risk
 void memory_leak_example() {
     char* ptr = malloc(1000);
     if (ptr == NULL) {
-        return;  // 没有释放内存
+        return;  // Memory not freed
     }
-    // 忘记调用 free(ptr)
+    // Forgot to call free(ptr)
 }
 
-// 空指针解引用风险
+// Null pointer dereference risk
 void null_pointer_risk(int* data) {
-    *data = 42;  // 没有检查指针是否为NULL
+    *data = 42;  // No check for NULL pointer
 }
 
-// 复杂的嵌套结构
+// Complex nested structure
 void complex_function(int x, int y, int z) {
     if (x > 0) {
         if (y > 0) {
@@ -52,7 +52,7 @@ int main() {
     memory_leak_example();
     
     int* null_ptr = NULL;
-    null_pointer_risk(null_ptr);  // 这会导致段错误
+    null_pointer_risk(null_ptr);  // This will cause a segmentation fault
     
     complex_function(10, 10, 50);
     

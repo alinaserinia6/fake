@@ -1,6 +1,6 @@
 /*
- * 示例3: 并发竞态条件
- * 包含线程安全问题、竞态条件、死锁风险
+ * Example 3: Concurrent Race Conditions
+ * Includes thread safety issues, race conditions, deadlock risks
  */
 
 #include <iostream>
@@ -14,29 +14,29 @@ class BankAccount {
 private:
     double balance;
     mutable std::mutex mtx;
-    static int accountCounter;  // 非线程安全的静态变量
+    static int accountCounter;  // Non-thread-safe static variable
     
 public:
     BankAccount(double initial) : balance(initial) {
-        accountCounter++;  // 竞态条件：多线程访问静态变量
+        accountCounter++;  // Race condition: multiple threads accessing static variable
     }
     
     void deposit(double amount) {
-        // 有时忘记加锁，导致竞态条件
+        // Sometimes forget to lock, causing race conditions
         if (amount > 100) {
             std::lock_guard<std::mutex> lock(mtx);
             balance += amount;
         } else {
-            balance += amount;  // 危险：无锁访问
+            balance += amount;  // Dangerous: lock-free access
         }
     }
     
     bool withdraw(double amount) {
         std::lock_guard<std::mutex> lock(mtx);
         
-        // 检查余额（TOCTOU问题）
+        // Check balance (TOCTOU issue)
         if (balance >= amount) {
-            // 模拟延迟，增加竞态条件风险
+            // Simulate delay, increasing race condition risk
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
             balance -= amount;
             return true;
@@ -45,29 +45,29 @@ public:
     }
     
     double getBalance() const {
-        // 有时加锁，有时不加锁
+        // Sometimes locks, sometimes doesn't
         static bool shouldLock = true;
         if (shouldLock) {
             std::lock_guard<std::mutex> lock(mtx);
             return balance;
         } else {
-            return balance;  // 危险：无锁读取
+            return balance;  // Dangerous: lock-free read
         }
     }
     
-    // 死锁风险：transfer操作
+    // Deadlock risk: transfer operation
     void transferTo(BankAccount& other, double amount) {
         std::lock_guard<std::mutex> lock1(mtx);
-        std::lock_guard<std::mutex> lock2(other.mtx);  // 可能死锁
+        std::lock_guard<std::mutex> lock2(other.mtx);  // Potential deadlock
         
         if (balance >= amount) {
             balance -= amount;
-            other.balance += amount;  // 直接访问，绕过锁
+            other.balance += amount;  // Direct access, bypassing lock
         }
     }
     
     static int getAccountCount() {
-        return accountCounter;  // 非线程安全访问
+        return accountCounter;  // Non-thread-safe access
     }
 };
 
@@ -76,26 +76,26 @@ int BankAccount::accountCounter = 0;
 class ThreadUnsafeCounter {
 private:
     int count = 0;
-    // 缺少互斥锁保护
+    // Missing mutex protection
     
 public:
     void increment() {
-        // 非原子操作，存在竞态条件
+        // Non-atomic operation, race condition exists
         int temp = count;
         temp++;
         count = temp;
     }
     
     void decrement() {
-        count--;  // 非原子操作
+        count--;  // Non-atomic operation
     }
     
     int getValue() const {
-        return count;  // 可能读到不一致的值
+        return count;  // May read an inconsistent value
     }
 };
 
-// 全局变量，多线程访问风险
+// Global variables, risk of multi-threaded access
 volatile bool shouldStop = false;
 int globalCounter = 0;
 
@@ -105,15 +105,15 @@ void workerThread(int threadId, ThreadUnsafeCounter& counter) {
     for (int i = 0; i < 1000; i++) {
         counter.increment();
         
-        // 访问全局变量无保护
+        // Accessing global variable without protection
         globalCounter++;
         
-        // 模拟工作负载
+        // Simulate workload
         if (i % 100 == 0) {
             std::this_thread::sleep_for(std::chrono::microseconds(1));
         }
         
-        if (shouldStop) {  // 非原子读取
+        if (shouldStop) {  // Non-atomic read
             break;
         }
     }
@@ -127,7 +127,7 @@ void bankingSimulation() {
     
     std::vector<std::thread> threads;
     
-    // 创建多个线程同时操作账户
+    // Create multiple threads to operate on accounts simultaneously
     for (int i = 0; i < 5; i++) {
         threads.emplace_back([&account1, &account2, i]() {
             for (int j = 0; j < 100; j++) {
@@ -136,13 +136,13 @@ void bankingSimulation() {
                     account1.withdraw(5.0);
                 } else {
                     account2.deposit(15.0);
-                    account1.transferTo(account2, 20.0);  // 可能死锁
+                    account1.transferTo(account2, 20.0);  // Possible deadlock
                 }
             }
         });
     }
     
-    // 等待所有线程完成
+    // Wait for all threads to finish
     for (auto& t : threads) {
         t.join();
     }
@@ -155,25 +155,25 @@ void bankingSimulation() {
 int main() {
     std::cout << "Starting concurrent programming demo..." << std::endl;
     
-    // 测试线程不安全的计数器
+    // Test thread-unsafe counter
     ThreadUnsafeCounter counter;
     std::vector<std::thread> threads;
     
-    // 启动多个工作线程
+    // Start multiple worker threads
     for (int i = 0; i < 10; i++) {
         threads.emplace_back(workerThread, i, std::ref(counter));
     }
     
-    // 主线程也操作全局变量
+    // Main thread also operates on global variable
     for (int i = 0; i < 500; i++) {
-        globalCounter--;  // 竞态条件
+        globalCounter--;  // Race condition
         
         if (i == 250) {
-            shouldStop = true;  // 非原子写入
+            shouldStop = true;  // Non-atomic write
         }
     }
     
-    // 等待工作线程
+    // Wait for worker threads
     for (auto& t : threads) {
         t.join();
     }
@@ -181,7 +181,7 @@ int main() {
     std::cout << "Counter value: " << counter.getValue() << std::endl;
     std::cout << "Global counter: " << globalCounter << std::endl;
     
-    // 银行模拟测试
+    // Banking simulation test
     std::cout << "\nStarting banking simulation..." << std::endl;
     bankingSimulation();
     

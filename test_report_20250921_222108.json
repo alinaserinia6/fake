@@ -5,27 +5,27 @@
   "success_rate": 1.0,
   "test_details": [
     [
-      "配置系统",
+      "Configuration System",
       true
     ],
     [
-      "LLM接口",
+      "LLM Interface",
       true
     ],
     [
-      "多智能体系统",
+      "Multi-Agent System",
       true
     ],
     [
-      "示例代码分析",
+      "Sample Code Analysis",
       true
     ],
     [
-      "前端组件",
+      "Frontend Components",
       true
     ],
     [
-      "API后端",
+      "API Backend",
       true
     ]
   ]

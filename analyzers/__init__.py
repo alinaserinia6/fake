@@ -1,6 +1,6 @@
 """
-分析器模块
-包含静态分析、动态分析和安全检测功能
+Analyzer Module
+Contains static analysis, dynamic analysis, and security detection functionality
 """
 
 from .static_analyzer import StaticAnalyzer

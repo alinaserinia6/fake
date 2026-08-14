@@ -1,11 +1,11 @@
 """
-Interruptr - 高级多智能体C/C++代码调试分析工具
+Interruptr - Advanced Multi-Agent C/C++ Code Debugging and Analysis Tool
 
-功能特性：
-- 多智能体协作分析
-- 断点智能分析
-- 安全漏洞检测
-- 大模型辅助分析
+Features:
+- Multi-agent collaborative analysis
+- Intelligent breakpoint analysis
+- Security vulnerability detection
+- Large model-assisted analysis
 """
 
 __version__ = "0.1.0"

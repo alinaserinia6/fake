@@ -1,7 +1,7 @@
 /*
- * 示例C++代码 - 用于AutoGen Studio多智能体分析
- * 文件名: sample_code.cpp
- * 说明: 这个代码包含了多种典型的C++问题，适合测试多智能体分析系统
+ * Example C++ code - For AutoGen Studio multi-agent analysis
+ * Filename: sample_code.cpp
+ * Description: This code contains multiple typical C++ issues, suitable for testing the multi-agent analysis system
  */
 
 #include <iostream>
@@ -10,7 +10,7 @@
 #include <memory>
 #include <cstring>
 
-// 潜在的安全问题: 缓冲区溢出风险
+// Potential security issue: Buffer overflow risk
 class UserManager {
 private:
     char username[50];
@@ -18,50 +18,50 @@ private:
     bool isAdmin;
     
 public:
-    // 构造函数 - 存在内存安全问题
+    // Constructor - has memory safety issues
     UserManager(const char* user, const char* pass) {
-        strcpy(username, user);  // 缓冲区溢出风险
-        strcpy(password, pass);  // 缓冲区溢出风险
+        strcpy(username, user);  // Buffer overflow risk
+        strcpy(password, pass);  // Buffer overflow risk
         isAdmin = false;
     }
     
-    // 设置用户名 - 不安全的字符串操作
+    // Set username - unsafe string operation
     void setUsername(const char* user) {
-        strcpy(username, user);  // 没有边界检查
+        strcpy(username, user);  // No boundary checking
     }
     
-    // 验证密码 - 弱密码策略
+    // Validate password - weak password policy
     bool validatePassword(const char* pass) {
-        return strcmp(password, pass) == 0;  // 明文密码比较
+        return strcmp(password, pass) == 0;  // Plaintext password comparison
     }
     
-    // 提升权限 - 权限控制漏洞
+    // Elevate privileges - privilege control vulnerability
     void elevateToAdmin(const char* adminCode) {
-        if (strcmp(adminCode, "admin123") == 0) {  // 硬编码密码
+        if (strcmp(adminCode, "admin123") == 0) {  // Hard-coded password
             isAdmin = true;
         }
     }
     
-    // 获取用户信息 - 内存泄漏风险
+    // Get user info - memory leak risk
     char* getUserInfo() {
-        char* info = new char[200];  // 可能的内存泄漏
+        char* info = new char[200];  // Potential memory leak
         sprintf(info, "User: %s, Admin: %s", username, isAdmin ? "Yes" : "No");
-        return info;  // 调用者需要手动释放内存
+        return info;  // Caller must manually free memory
     }
 };
 
-// 数据处理类 - 算法效率问题
+// Data processing class - algorithm efficiency issues
 class DataProcessor {
 private:
     std::vector<int> data;
     
 public:
-    // 添加数据 - 效率低下的实现
+    // Add data - inefficient implementation
     void addData(int value) {
         data.push_back(value);
     }
     
-    // 查找元素 - O(n)算法，可以优化
+    // Find element - O(n) algorithm, can be optimised
     bool findElement(int target) {
         for (size_t i = 0; i < data.size(); i++) {
             if (data[i] == target) {
@@ -71,7 +71,7 @@ public:
         return false;
     }
     
-    // 排序数据 - 使用低效的冒泡排序
+    // Sort data - uses inefficient bubble sort
     void sortData() {
         int n = data.size();
         for (int i = 0; i < n-1; i++) {
@@ -85,22 +85,22 @@ public:
         }
     }
     
-    // 计算统计信息 - 潜在的除零错误
+    // Calculate statistics - potential division by zero
     double calculateAverage() {
         int sum = 0;
         for (int value : data) {
             sum += value;
         }
-        return sum / data.size();  // 可能除零
+        return sum / data.size();  // Possible division by zero
     }
     
-    // 数组访问 - 边界检查缺失
+    // Array access - missing boundary checking
     int getElement(int index) {
-        return data[index];  // 没有边界检查
+        return data[index];  // No boundary checking
     }
 };
 
-// 文件操作类 - 资源管理问题
+// File operation class - resource management issues
 class FileHandler {
 private:
     FILE* file;
@@ -109,87 +109,87 @@ private:
 public:
     FileHandler() : file(nullptr), buffer(nullptr) {}
     
-    // 打开文件 - 缺少错误处理
+    // Open file - missing error handling
     void openFile(const char* filename) {
         file = fopen(filename, "r");
-        // 没有检查文件是否成功打开
+        // No check for successful file opening
     }
     
-    // 读取文件 - 缓冲区溢出和资源泄漏
+    // Read file - buffer overflow and resource leak
     void readFile() {
         if (file) {
             buffer = (char*)malloc(1024);
-            fread(buffer, 1, 2048, file);  // 读取超过缓冲区大小
-            // 没有释放buffer
+            fread(buffer, 1, 2048, file);  // Reading more than buffer size
+            // buffer is not freed
         }
     }
     
-    // 析构函数 - 资源泄漏
+    // Destructor - resource leaks
     ~FileHandler() {
-        // 没有正确关闭文件和释放内存
+        // File not properly closed and memory not freed
         // if (file) fclose(file);
         // if (buffer) free(buffer);
     }
 };
 
-// 主函数 - 综合问题展示
+// Main function - comprehensive issue demonstration
 int main() {
-    // 测试用户管理
+    // Test user management
     UserManager* user = new UserManager("john_doe_with_very_long_username", "super_secret_password_that_is_way_too_long");
     
-    // 潜在的空指针解引用
+    // Potential null pointer dereference
     char* userInfo = user->getUserInfo();
     std::cout << userInfo << std::endl;
-    // 内存泄漏: 没有释放userInfo
+    // Memory leak: userInfo not freed
     
-    // 测试数据处理
+    // Test data processing
     DataProcessor processor;
     for (int i = 0; i < 1000; i++) {
         processor.addData(i);
     }
     
-    // 可能的除零错误
+    // Possible division by zero
     double avg = processor.calculateAverage();
     std::cout << "Average: " << avg << std::endl;
     
-    // 边界越界访问
-    int element = processor.getElement(1500);  // 超出范围
+    // Out-of-bounds access
+    int element = processor.getElement(1500);  // Out of range
     std::cout << "Element: " << element << std::endl;
     
-    // 测试文件处理
+    // Test file handling
     FileHandler handler;
     handler.openFile("nonexistent_file.txt");
     handler.readFile();
     
-    // 内存泄漏: 没有释放user
+    // Memory leak: user not freed
     // delete user;
     
     return 0;
 }
 
 /*
- * 代码问题汇总 (供分析师参考):
- * 
- * 安全问题:
- * 1. 缓冲区溢出 (strcpy, sprintf, fread)
- * 2. 硬编码密码
- * 3. 明文密码存储
- * 4. 权限控制不当
- * 
- * 内存管理问题:
- * 1. 内存泄漏 (getUserInfo, buffer, user对象)
- * 2. 资源未释放 (文件句柄)
- * 3. 潜在的空指针解引用
- * 
- * 算法效率问题:
- * 1. 低效排序算法 (冒泡排序)
- * 2. 线性查找可优化为二分查找
- * 3. 字符串操作效率低
- * 
- * 编程实践问题:
- * 1. 缺少边界检查
- * 2. 错误处理不完整
- * 3. 异常安全性差
- * 4. 违反RAII原则
- * 5. 魔术数字使用
+ * Code issue summary (for analyst reference):
+ *
+ * Security issues:
+ * 1. Buffer overflow (strcpy, sprintf, fread)
+ * 2. Hard-coded password
+ * 3. Plaintext password storage
+ * 4. Insecure privilege control
+ *
+ * Memory management issues:
+ * 1. Memory leaks (getUserInfo, buffer, user object)
+ * 2. Unreleased resources (file handles)
+ * 3. Potential null pointer dereference
+ *
+ * Algorithm efficiency issues:
+ * 1. Inefficient sorting algorithm (bubble sort)
+ * 2. Linear search could be optimised to binary search
+ * 3. Inefficient string operations
+ *
+ * Programming practice issues:
+ * 1. Missing boundary checking
+ * 2. Incomplete error handling
+ * 3. Poor exception safety
+ * 4. RAII principle violations
+ * 5. Magic number usage
  */

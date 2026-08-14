@@ -1,102 +1,117 @@
-# SANER 2026 Tool Demo 论文大纲
+# SANER 2026 Tool Demo Paper Outline
 
-## 论文标题
+## Paper Title
+
 **Interruptr: A Multi-LLM Collaborative Framework for Intelligent C/C++ Code Analysis**
 
-## 摘要 (Abstract) - 250词
-- **问题陈述**: 传统静态代码分析工具存在误报率高、上下文理解不足的问题
-- **解决方案**: 提出基于多LLM协作的智能代码分析框架Interruptr
-- **技术创新**: 首创多LLM协作机制，引入质疑-验证双重保障
-- **评估结果**: 在21个开源项目上的评估显示优于传统工具
-- **实用价值**: 完整可用的工程系统，支持实时可视化协作过程
+## Abstract (250 words)
 
-## 1. Introduction (1页)
+- **Problem Statement**: Traditional static code analysis tools suffer from high false positive rates and lack contextual understanding.
+- **Solution**: Propose Interruptr, an intelligent code analysis framework based on multi-LLM collaboration.
+- **Technical Innovation**: Pioneering multi-LLM collaboration mechanism with a questioning-verification dual assurance system.
+- **Evaluation Results**: Evaluation on 21 open-source projects demonstrates superiority over traditional tools.
+- **Practical Value**: Complete and usable engineering system with real-time visualisation of collaborative processes.
 
-### 1.1 背景与动机
-- C/C++代码分析的挑战：内存管理、并发问题、安全漏洞
-- 传统工具局限性：规则固化、误报率高、缺乏上下文理解
-- AI驱动分析的机遇：大语言模型在代码理解方面的优势
+## 1. Introduction (1 page)
 
-### 1.2 研究贡献
-1. **多LLM协作框架**: 首次将4个不同LLM协作应用于代码分析
-2. **质疑-验证机制**: 创新的双重验证保障分析质量
-3. **实时可视化系统**: 透明化AI协作决策过程
-4. **工程完整性**: 端到端可用的实际系统
+### 1.1 Background and Motivation
 
-### 1.3 论文结构
-- 介绍相关工作和技术背景
-- 详述系统架构和核心算法
-- 展示评估结果和对比分析
-- 讨论局限性和未来工作
+- Challenges of C/C++ code analysis: memory management, concurrency issues, security vulnerabilities
+- Limitations of traditional tools: rigid rules, high false positive rates, lack of contextual understanding
+- Opportunities in AI-driven analysis: advantages of large language models in code understanding
 
-## 2. Related Work (0.5页)
+### 1.2 Research Contributions
 
-### 2.1 传统静态代码分析工具
-- **商用工具**: SonarQube, CodeQL, Veracode
-- **开源工具**: Clang-tidy, Cppcheck, PC-lint
-- **局限性**: 规则驱动、误报率高、缺乏语义理解
 
-### 2.2 AI驱动的代码分析
-- **单一LLM方案**: GitHub Copilot, CodeT5, CodeBERT
-- **多智能体系统**: AutoGen, LangChain在代码任务中的应用
-- **本工作定位**: 多LLM协作 + 质疑验证机制
+1. **Multi-LLM Collaboration Framework**: First application of 4 different LLMs collaborating for code analysis
+2. **Questioning-Verification Mechanism**: Innovative dual verification ensuring analysis quality
+3. **Real-Time Visualisation System**: Transparent AI collaborative decision-making process
+4. **Engineering Completeness**: End-to-end usable production system
 
-### 2.3 代码分析可视化
-- 现有工具的可视化局限
-- AI决策过程透明化的重要性
+### 1.3 Paper Structure
 
-## 3. System Architecture (1.5页)
+- Introduction to related work and technical background
+- Detailed system architecture and core algorithms
+- Presentation of evaluation results and comparative analysis
+- Discussion of limitations and future work
 
-### 3.1 整体架构设计
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+## 2. Related Work (0.5 page)
+
+### 2.1 Traditional Static Code Analysis Tools
+
+- **Commercial Tools**: SonarQube, CodeQL, Veracode
+- **Open-Source Tools**: Clang-tidy, Cppcheck, PC-lint
+- **Limitations**: Rule-driven, high false positive rates, lack of semantic understanding
+
+### 2.2 AI-Driven Code Analysis
+
+- **Single-LLM Solutions**: GitHub Copilot, CodeT5, CodeBERT
+- **Multi-Agent Systems**: AutoGen, LangChain applications in code tasks
+- **Position of This Work**: Multi-LLM collaboration + questioning-verification mechanism
+
+### 2.3 Code Analysis Visualisation
+
+- Visualisation limitations of existing tools
+- Importance of transparent AI decision-making processes
+
+## 3. System Architecture (1.5 pages)
+
+### 3.1 Overall Architecture Design
+
+```txt
+┌─────────────────┐    ┌──────────────────┐    ┌──────────────────┐
 │   Web Frontend  │◄──►│  FastAPI Backend │◄──►│ Multi-Agent Core │
 │   (Streamlit)   │    │   (RESTful API)  │    │   (7 Agents)     │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
+└─────────────────┘    └──────────────────┘    └──────────────────┘
          │                       │                       │
          └───────────────────────┼───────────────────────┘
                                 │
          ┌───────────────────────▼───────────────────────┐
          │           Multi-LLM Providers                 │
-         │ OpenAI │ Claude │ Gemini │ Ollama(Local)     │
+         │ OpenAI │ Claude │ Gemini │ Ollama(Local)      │
          └───────────────────────────────────────────────┘
 ```
 
-### 3.2 多智能体协作机制
-- **7个专业智能体**:
-  - 🎯 Coordinator (OpenAI GPT-4): 流程管理和任务协调
-  - 📊 Code Analyst (Claude-3.5): 代码质量和复杂度分析  
-  - 🔒 Security Expert (Claude-3.5): 安全漏洞检测
-  - 🐛 Debug Expert (OpenAI GPT-4): 断点推荐和调试策略
-  - 🏛️ Architect (Claude-3.5): 软件架构设计评估
-  - 🤔 Critic (Google Gemini): 批判性审查和质疑
-  - ✅ Reviewer (Ollama Local): 最终审核和质量保证
+### 3.2 Multi-Agent Collaboration Mechanism
 
-### 3.3 质疑-验证双重机制
-- **质疑阶段**: Critic智能体主动寻找分析盲点
-- **验证阶段**: Reviewer智能体独立验证结果一致性
-- **多轮对话**: 确保分析的全面性和准确性
+- **7 Specialised Agents**:
+  - 🎯 Coordinator (OpenAI GPT-4): Process management and task coordination
+  - 📊 Code Analyst (Claude-3.5): Code quality and complexity analysis
+  - 🔒 Security Expert (Claude-3.5): Security vulnerability detection
+  - 🐛 Debug Expert (OpenAI GPT-4): Breakpoint recommendations and debugging strategies
+  - 🏛️ Architect (Claude-3.5): Software architecture design evaluation
+  - 🤔 Critic (Google Gemini): Critical review and questioning
+  - ✅ Reviewer (Ollama Local): Final audit and quality assurance
 
-### 3.4 实时可视化框架
-- 智能体状态实时监控
-- 协作对话过程透明化
-- 分析进度可视化展示
+### 3.3 Questioning-Verification Dual Mechanism
 
-## 4. Key Features & Innovation (1页)
+- **Questioning Phase**: Critic agent actively seeks analysis blind spots
+- **Verification Phase**: Reviewer agent independently verifies result consistency
+- **Multi-Round Dialogue**: Ensures comprehensiveness and accuracy of analysis
 
-### 4.1 多LLM协作优势
-- **优势互补**: 不同LLM的专长领域差异化
-- **交叉验证**: 多模型结果交叉校验提高准确性
-- **负载均衡**: 分布式处理提升分析效率
+### 3.4 Real-Time Visualisation Framework
 
-### 4.2 智能协作算法
+- Real-time monitoring of agent status
+- Transparent collaborative dialogue process
+- Visual analysis progress tracking
+
+## 4. Key Features & Innovation (1 page)
+
+### 4.1 Advantages of Multi-LLM Collaboration
+
+- **Complementary Strengths**: Differentiated expertise across LLMs
+- **Cross-Validation**: Multi-model cross-checking improves accuracy
+- **Load Balancing**: Distributed processing improves analysis efficiency
+
+### 4.2 Intelligent Collaboration Algorithm
+
 ```python
-# 协作流程伪代码
+# Collaboration workflow pseudocode
 def multi_agent_analysis(code):
-    # 1. 协调者分配任务
+    # 1. Coordinator distributes tasks
     tasks = coordinator.distribute_tasks(code)
     
-    # 2. 并行专业分析
+    # 2. Parallel specialised analysis
     results = parallel_analyze([
         code_analyst.analyze(code),
         security_expert.scan(code), 
@@ -104,157 +119,178 @@ def multi_agent_analysis(code):
         architect.evaluate(code)
     ])
     
-    # 3. 质疑阶段
+    # 3. Questioning phase
     concerns = critic.question(results)
     
-    # 4. 验证阶段  
+    # 4. Verification phase
     final_report = reviewer.verify(results, concerns)
     
     return final_report
 ```
 
-### 4.3 技术创新点
-1. **动态任务分配**: 根据代码特征智能选择参与智能体
-2. **上下文共享机制**: 智能体间信息传递和状态同步
-3. **自适应质疑策略**: 根据置信度调整质疑强度
-4. **增量式验证**: 分层验证减少计算开销
+### 4.3 Technical Innovation Points
 
-## 5. Implementation Details (0.5页)
+1. **Dynamic Task Allocation**: Intelligent selection of participating agents based on code characteristics
+2. **Context Sharing Mechanism**: Information transfer and state synchronisation between agents
+3. **Adaptive Questioning Strategy**: Adjust questioning intensity based on confidence levels
+4. **Incremental Verification**: Layered verification reduces computational overhead
 
-### 5.1 技术栈
-- **后端框架**: FastAPI + Uvicorn
-- **前端框架**: Streamlit + Plotly
-- **多智能体框架**: AutoGen + LangGraph
-- **LLM集成**: OpenAI + Anthropic + Google + Ollama
-- **代码分析**: tree-sitter + libclang
+## 5. Implementation Details (0.5 page)
 
-### 5.2 部署架构
-- **容器化部署**: Docker + docker-compose
-- **API网关**: 统一的RESTful接口
-- **负载均衡**: 多LLM提供商负载分配
-- **缓存机制**: Redis缓存提升响应速度
+### 5.1 Technology Stack
 
-## 6. Evaluation & Results (1.5页)
+- **Backend Framework**: FastAPI + Uvicorn
+- **Frontend Framework**: Streamlit + Plotly
+- **Multi-Agent Framework**: AutoGen + LangGraph
+- **LLM Integration**: OpenAI + Anthropic + Google + Ollama
+- **Code Analysis**: tree-sitter + libclang
 
-### 6.1 实验设置
-- **测试数据集**: 21个知名开源C++项目
-- **项目规模**: 从小型库(1K行)到大型系统(100K+行)
-- **对比基线**: SonarQube, CodeQL, Clang-tidy
-- **评估指标**: 准确率、召回率、F1分数、分析时间
+### 5.2 Deployment Architecture
 
-### 6.2 性能评估结果
-| 指标 | Interruptr | SonarQube | CodeQL | Clang-tidy |
-|------|-----------|-----------|---------|------------|
-| 准确率 | **85.2%** | 76.3% | 81.7% | 72.1% |
-| 召回率 | **82.8%** | 68.9% | 75.4% | 86.3% |
-| F1分数 | **84.0%** | 72.4% | 78.4% | 78.6% |
-| 分析速度 | 45行/秒 | **120行/秒** | 38行/秒 | 95行/秒 |
+- **Containerised Deployment**: Docker + docker-compose
+- **API Gateway**: Unified RESTful interface
+- **Load Balancing**: Load distribution across multiple LLM providers
+- **Caching Mechanism**: Redis caching for improved response speed
 
-### 6.3 创新功能评估
-- **多LLM协作效果**: 比单一LLM提升12.3%准确率
-- **质疑机制价值**: 发现并修正8.7%的初始错误判断
-- **可视化用户体验**: 90%用户认为协作过程可视化有价值
+## 6. Evaluation & Results (1.5 pages)
 
-### 6.4 案例研究
-- **缓冲区溢出检测**: 发现7个传统工具遗漏的漏洞
-- **并发问题识别**: 准确识别复杂的竞态条件
-- **架构设计评估**: 提供具体的重构建议
+### 6.1 Experimental Setup
 
-## 7. Demonstration Scenarios (0.5页)
+- **Test Dataset**: 21 well-known open-source C++ projects
+- **Project Scale**: From small libraries (1K lines) to large systems (100K+ lines)
+- **Baselines**: SonarQube, CodeQL, Clang-tidy
+- **Evaluation Metrics**: Precision, Recall, F1 Score, Analysis Time
 
-### 7.1 Demo视频内容规划 (5-8分钟)
+### 6.2 Performance Evaluation Results
 
-**第1分钟: 系统介绍**
-- Interruptr概述和核心价值
-- 与传统工具的对比优势
+| Metric | Interruptr | SonarQube | CodeQL | Clang-tidy |
+|--------|-----------|-----------|---------|------------|
+| Precision | **85.2%** | 76.3% | 81.7% | 72.1% |
+| Recall | **82.8%** | 68.9% | 75.4% | 86.3% |
+| F1 Score | **84.0%** | 72.4% | 78.4% | 78.6% |
+| Analysis Speed | 45 lines/s | **120 lines/s** | 38 lines/s | 95 lines/s |
 
-**第2-3分钟: 多智能体协作展示**
-- 上传复杂C++代码示例
-- 实时观察7个智能体协作过程
-- 展示智能体间对话和任务分工
+### 6.3 Innovative Feature Evaluation
 
-**第4-5分钟: 质疑-验证机制演示**
-- 展示Critic发现其他智能体遗漏的问题
-- Reviewer独立验证和修正过程
-- 最终生成综合分析报告
+- **Multi-LLM Collaboration Effectiveness**: 12.3% accuracy improvement over single-LLM
+- **Questioning Mechanism Value**: Identified and corrected 8.7% of initial erroneous judgments
+- **Visualisation User Experience**: 90% of users found collaborative process visualisation valuable
 
-**第6-7分钟: 可视化界面展示**
-- 智能体状态监控界面
-- 分析进度和结果可视化
-- 与传统工具结果对比
+### 6.4 Case Studies
 
-**第8分钟: 总结和未来展望**
-- 核心技术优势总结
-- 实际应用价值
-- 未来发展方向
+- **Buffer Overflow Detection**: Discovered 7 vulnerabilities missed by traditional tools
+- **Concurrency Issue Identification**: Accurately identified complex race conditions
+- **Architecture Design Assessment**: Provided concrete refactoring recommendations
 
-### 7.2 交互式演示设计
-- **在线Demo**: 提供可访问的在线演示环境
-- **API接口**: 展示RESTful API调用示例
-- **扩展性演示**: 展示如何添加新的智能体
+## 7. Demonstration Scenarios (0.5 page)
 
-## 8. Limitations & Future Work (0.5页)
+### 7.1 Demo Video Content Plan (5-8 minutes)
 
-### 8.1 当前局限性
-- **计算开销**: 多LLM协作增加了计算成本
-- **语言支持**: 目前只支持C/C++，需扩展到其他语言
-- **实时性要求**: 大型项目分析时间较长
-- **API依赖**: 依赖外部LLM服务的可用性
+#### Minute 1: System Introduction
 
-### 8.2 未来改进方向
-1. **性能优化**: 
-   - 实现智能缓存机制
-   - 优化并行处理算法
-   - 减少冗余分析
+- Interruptr overview and core value proposition
+- Comparative advantages over traditional tools
 
-2. **功能扩展**:
-   - 支持Java、Python等更多语言
-   - 集成更多静态分析工具
-   - 增强实时分析能力
+#### Minutes 2-3: Multi-Agent Collaboration Demo
 
-3. **算法改进**:
-   - 基于强化学习的智能体协调
-   - 自适应质疑策略优化
-   - 上下文感知的分析精度提升
+- Upload complex C++ code example
+- Real-time observation of 7-agent collaboration process
+- Show agent conversations and task allocation
 
-## 9. Conclusion (0.5页)
+#### Minutes 4-5: Questioning-Verification Mechanism Demo
 
-### 9.1 贡献总结
-1. **技术创新**: 首创多LLM协作代码分析框架
-2. **工程价值**: 完整可用的端到端系统
-3. **用户体验**: 透明化的AI协作过程可视化
-4. **实证验证**: 大规模评估证明有效性
+- Show Critic identifying issues missed by other agents
+- Reviewer independent verification and correction process
+- Final comprehensive analysis report generation
 
-### 9.2 学术意义
-- 为AI驱动的代码分析提供新的研究方向
-- 验证了多LLM协作在专业领域的有效性
-- 为软件工程AI化提供实用参考
+#### Minutes 6-7: Visualisation Interface Demo
 
-### 9.3 实用价值
-- 提升代码质量和安全性
-- 降低人工代码审查成本
-- 为开发团队提供智能辅助工具
+- Agent status monitoring dashboard
+- Analysis progress and results visualisation
+- Comparison with traditional tool results
+
+#### Minute 8: Summary and Future Outlook
+
+- Core technical advantages summary
+- Practical application value
+- Future development directions
+
+### 7.2 Interactive Demo Design
+
+- **Online Demo**: Provide accessible online demonstration environment
+- **API Interface**: Show RESTful API call examples
+- **Extensibility Demo**: Show how to add new agents
+
+## 8. Limitations & Future Work (0.5 page)
+
+### 8.1 Current Limitations
+
+- **Computational Overhead**: Multi-LLM collaboration increases computational cost
+- **Language Support**: Currently only supports C/C++, needs extension to other languages
+- **Real-Time Requirements**: Longer analysis time for large projects
+- **API Dependency**: Depends on availability of external LLM services
+
+### 8.2 Future Improvement Directions
+
+1. **Performance Optimisation**:
+   - Implement intelligent caching mechanism
+   - Optimise parallel processing algorithms
+   - Reduce redundant analysis
+
+2. **Feature Extension**:
+   - Support more languages (Java, Python, etc.)
+   - Integrate more static analysis tools
+   - Enhance real-time analysis capabilities
+
+3. **Algorithm Improvement**:
+   - Reinforcement learning-based agent coordination
+   - Adaptive questioning strategy optimisation
+   - Context-aware analysis precision enhancement
+
+## 9. Conclusion (0.5 page)
+
+### 9.1 Contribution Summary
+
+1. **Technical Innovation**: Pioneering multi-LLM collaboration code analysis framework
+2. **Engineering Value**: Complete end-to-end usable system
+3. **User Experience**: Transparent AI collaborative process visualisation
+4. **Empirical Validation**: Large-scale evaluation proving effectiveness
+
+### 9.2 Academic Significance
+
+- Provides new research direction for AI-driven code analysis
+- Validates effectiveness of multi-LLM collaboration in specialised domains
+- Offers practical reference for AI in software engineering
+
+### 9.3 Practical Value
+
+- Improves code quality and security
+- Reduces manual code review costs
+- Provides intelligent assistant tool for development teams
 
 ---
 
-## 附录
+## Appendix
 
-### A. 智能体提示词设计
-- 每个智能体的详细系统提示词
-- 协作协议和通信机制
+### A. Agent Prompt Design
 
-### B. 评估数据集详情
-- 21个测试项目的详细信息
-- 数据集获取和预处理方法
+- Detailed system prompts for each agent
+- Collaboration protocols and communication mechanisms
 
-### C. Demo视频链接
-- 在线观看地址
-- 交互式Demo环境访问
+### B. Evaluation Dataset Details
+
+- Detailed information on 21 test projects
+- Dataset acquisition and preprocessing methods
+
+### C. Demo Video Link
+
+- Online viewing URL
+- Interactive demo environment access
 
 ---
 
-**目标会议**: SANER 2026 Tool Demo Track  
-**截止时间**: 2025年11月17日  
-**论文长度**: 4-6页 (IEEE格式)  
-**预期评审周期**: 2025年12月-2026年1月  
-**会议时间**: 2026年3月17-20日，塞浦路斯
+**Target Conference**: SANER 2026 Tool Demo Track  
+**Deadline**: November 17, 2025  
+**Paper Length**: 4-6 pages (IEEE format)  
+**Expected Review Period**: December 2025 - January 2026  
+**Conference Dates**: March 17-20, 2026, Cyprus

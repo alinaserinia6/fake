@@ -1,23 +1,23 @@
 """
-多智能体框架对比分析
+Multi-Agent Framework Comparison Analysis
 
-AutoGen vs LangGraph 可视化能力比较
+Comparison of Visualisation Capabilities: AutoGen vs LangGraph
 """
 
-# AutoGen 优势:
-# 1. 内置对话可视化 - 自动记录智能体间的对话历史
-# 2. 简单的聊天界面 - 易于实现实时对话显示
-# 3. 内置Gradio/Streamlit集成 - 快速构建UI
-# 4. 对话流程清晰 - 轮次制对话，易于跟踪
-# 5. 丰富的可视化示例和文档
+# AutoGen Advantages:
+# 1. Built-in conversation visualisation - automatically records dialogue history between agents
+# 2. Simple chat interface - easy to implement real-time dialogue display
+# 3. Built-in Gradio/Streamlit integration - quick UI building
+# 4. Clear dialogue flow - turn-based conversations, easy to track
+# 5. Rich visualisation examples and documentation
 
-# LangGraph 优势:
-# 1. 工作流可视化 - 支持复杂的有向图可视化
-# 2. 状态管理 - 更好的状态跟踪和可视化
-# 3. 自定义节点 - 灵活的工作流设计
-# 4. 条件分支 - 复杂决策流程的可视化
-# 5. 与LangSmith集成 - 专业的调试和监控
+# LangGraph Advantages:
+# 1. Workflow visualisation - supports complex directed graph visualisation
+# 2. State management - better state tracking and visualisation
+# 3. Custom nodes - flexible workflow design
+# 4. Conditional branching - visualisation of complex decision flows
+# 5. Integration with LangSmith - professional debugging and monitoring
 
-# 推荐: 结合使用
-# - AutoGen: 智能体对话和实时交互
-# - LangGraph: 工作流编排和状态管理
+# Recommendation: Use in combination
+# - AutoGen: agent conversations and real-time interaction
+# - LangGraph: workflow orchestration and state management

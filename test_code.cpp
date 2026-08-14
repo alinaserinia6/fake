@@ -6,9 +6,9 @@ int main() {
     char input[100];
     
     std::cout << "Enter your name: ";
-    std::cin >> input;  // 潜在的缓冲区溢出
+    std::cin >> input;  // Potential buffer overflow
     
-    strcpy(buffer, input);  // 危险的字符串复制
+    strcpy(buffer, input);  // Dangerous string copy
     
     std::cout << "Hello, " << buffer << std::endl;
     

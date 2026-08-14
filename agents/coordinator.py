@@ -1,5 +1,5 @@
 """
-协调者智能体 - 管理和协调其他智能体的工作流程
+Coordinator Agent - Manages and coordinates the workflow of other agents
 """
 
 import asyncio
@@ -9,7 +9,7 @@ from autogen_agentchat.teams import RoundRobinGroupChat
 from autogen_agentchat.base import TaskResult
 
 class CoordinatorAgent:
-    """协调者智能体，负责管理多智能体协作流程"""
+    """Coordinator Agent, responsible for managing the multi-agent collaboration process"""
     
     def __init__(self, llm_config: Dict[str, Any]):
         self.llm_config = llm_config
@@ -17,32 +17,32 @@ class CoordinatorAgent:
         self.current_task = None
         
     def add_agent(self, agent: AssistantAgent):
-        """添加智能体到协作团队"""
+        """Add an agent to the collaboration team"""
         self.agents.append(agent)
         
     async def coordinate_analysis(self, code_path: str, task_description: str) -> Dict[str, Any]:
-        """协调多智能体进行代码分析"""
+        """Coordinate multi-agent code analysis"""
         
-        # 创建智能体团队
+        # Create agent team
         team = RoundRobinGroupChat(self.agents)
         
-        # 构建分析任务
+        # Build analysis task
         analysis_prompt = f"""
-        请对以下C/C++代码文件进行全面分析：{code_path}
+        Please perform a comprehensive analysis of the following C/C++ code file: {code_path}
         
-        任务描述：{task_description}
+        Task description: {task_description}
         
-        请按照以下步骤进行协作分析：
-        1. 代码分析师：进行静态代码分析，识别代码结构和潜在问题
-        2. 安全专家：检测安全漏洞和风险点
-        3. 调试专家：分析断点设置和执行流程
-        4. 架构师：评估整体架构和设计质量
+        Please proceed with the collaborative analysis according to the following steps:
+        1. Code Analyst: Perform static code analysis, identify code structure and potential issues
+        2. Security Expert: Detect security vulnerabilities and risk points
+        3. Debug Expert: Analyse breakpoint placement and execution flow
+        4. Architect: Evaluate overall architecture and design quality
         
-        每个专家请提供详细的分析报告和建议。
+        Each expert should provide a detailed analysis report and recommendations.
         """
         
         try:
-            # 执行协作分析
+            # Execute collaborative analysis
             result = await team.run(
                 task=analysis_prompt,
                 max_turns=20
@@ -63,74 +63,74 @@ class CoordinatorAgent:
             }
     
     def create_analysis_workflow(self, code_files: List[str]) -> Dict[str, Any]:
-        """创建代码分析工作流"""
+        """Create a code analysis workflow"""
         
         workflow = {
             "steps": [
                 {
                     "step": 1,
                     "agent": "code_analyst",
-                    "task": "静态代码分析",
+                    "task": "Static code analysis",
                     "input": code_files,
-                    "expected_output": "代码结构分析、复杂度评估、代码质量报告"
+                    "expected_output": "Code structure analysis, complexity assessment, code quality report"
                 },
                 {
                     "step": 2, 
                     "agent": "security_expert",
-                    "task": "安全漏洞检测",
-                    "input": "代码分析结果",
-                    "expected_output": "安全漏洞报告、风险评估、修复建议"
+                    "task": "Security vulnerability detection",
+                    "input": "Code analysis results",
+                    "expected_output": "Security vulnerability report, risk assessment, remediation suggestions"
                 },
                 {
                     "step": 3,
                     "agent": "debug_expert", 
-                    "task": "调试分析",
-                    "input": "代码和安全分析结果",
-                    "expected_output": "断点建议、执行路径分析、调试策略"
+                    "task": "Debugging analysis",
+                    "input": "Code and security analysis results",
+                    "expected_output": "Breakpoint suggestions, execution path analysis, debugging strategies"
                 },
                 {
                     "step": 4,
                     "agent": "architect",
-                    "task": "架构评估",
-                    "input": "所有分析结果",
-                    "expected_output": "架构质量评估、设计模式分析、重构建议"
+                    "task": "Architecture assessment",
+                    "input": "All analysis results",
+                    "expected_output": "Architecture quality assessment, design pattern analysis, refactoring suggestions"
                 }
             ],
-            "final_output": "综合分析报告和改进建议"
+            "final_output": "Comprehensive analysis report and improvement recommendations"
         }
         
         return workflow
     
     def generate_summary_report(self, analysis_results: Dict[str, Any]) -> str:
-        """生成综合分析报告"""
+        """Generate a comprehensive analysis report"""
         
         report = f"""
-# Interruptr 代码分析报告
+        # Interruptr Code Analysis Report
 
-## 分析概览
-- 分析状态: {analysis_results.get('status', 'unknown')}
-- 参与智能体: {', '.join(analysis_results.get('agents_participated', []))}
-- 任务完成: {analysis_results.get('task_completed', False)}
+        ## Analysis Overview
+        - Analysis status: {analysis_results.get('status', 'unknown')}
+        - Participating agents: {', '.join(analysis_results.get('agents_participated', []))}
+        - Task completed: {analysis_results.get('task_completed', False)}
 
-## 分析结果
-{analysis_results.get('analysis_result', '无分析结果')}
+        ## Analysis Results
+        {analysis_results.get('analysis_result', 'No analysis results')}
 
-## 建议改进
-基于多智能体协作分析，建议从以下方面改进代码：
+        ## Improvement Recommendations
+        Based on the multi-agent collaborative analysis, it is recommended to improve the code in the following areas:
 
-1. **代码质量**: 提高代码可读性和维护性
-2. **安全性**: 修复识别的安全漏洞
-3. **调试性**: 优化调试和测试策略  
-4. **架构**: 改进整体设计和架构
+        1. **Code quality**: Improve code readability and maintainability
+        2. **Security**: Fix identified security vulnerabilities
+        3. **Debuggability**: Optimise debugging and testing strategies  
+        4. **Architecture**: Improve overall design and architecture
 
-## 下一步行动
-1. 优先修复高危安全漏洞
-2. 重构复杂度过高的代码段
-3. 添加必要的错误处理和边界检查
-4. 完善测试用例和文档
+        ## Next Steps
+        1. Prioritise fixing high‑severity security vulnerabilities
+        2. Refactor code sections with excessive complexity
+        3. Add necessary error handling and boundary checks
+        4. Improve test cases and documentation
 
----
-由 Interruptr 多智能体系统生成
+        ---
+        Generated by the Interruptr multi‑agent system
         """
         
         return report

@@ -1,249 +1,279 @@
-# 现有C/C++代码分析工具对比研究
+# Comparative Study of Existing C/C++ Code Analysis Tools
 
-## 📊 工具对比概览
+## 📊 Tool Comparison Overview
 
-| 工具 | 类型 | 厂商 | 开源性 | 主要优势 | 主要劣势 |
-|------|------|------|--------|----------|----------|
-| **SonarQube** | 静态分析平台 | SonarSource | 部分开源 | 企业级、多语言 | 规则固化、误报多 |
-| **CodeQL** | 语义分析 | GitHub/Microsoft | 部分开源 | 深度语义理解 | 学习曲线陡峭 |
-| **Clang-tidy** | 编译器集成 | LLVM项目 | 开源 | 编译器级精度 | 配置复杂 |
-| **Cppcheck** | 轻量静态分析 | 社区 | 开源 | 快速、轻量 | 功能有限 |
-| **PC-lint/PC-lint Plus** | 商业静态分析 | Gimpel Software | 商业 | 历史悠久、规则全面 | 用户体验差 |
-| **PVS-Studio** | 商业静态分析 | PVS-Studio LLC | 商业 | 专业C++分析 | 价格昂贵 |
-| **Veracode** | 安全分析平台 | Veracode Inc. | 商业 | 安全专注 | 通用性差 |
-| **Interruptr** | AI多智能体 | 本项目 | 开源 | 多LLM协作、智能化 | 计算成本高 |
+| Tool | Type | Vendor | Open Source | Main Advantages | Main Disadvantages |
+| ------ | ------ | -------- | ------------- | ----------------- | --------------------- |
+| **SonarQube** | Static Analysis Platform | SonarSource | Partially Open Source | Enterprise-grade, multi-language | Rigid rules, many false positives |
+| **CodeQL** | Semantic Analysis | GitHub/Microsoft | Partially Open Source | Deep semantic understanding | Steep learning curve |
+| **Clang-tidy** | Compiler Integration | LLVM Project | Open Source | Compiler-level precision | Complex configuration |
+| **Cppcheck** | Lightweight Static Analysis | Community | Open Source | Fast, lightweight | Limited functionality |
+| **PC-lint/PC-lint Plus** | Commercial Static Analysis | Gimpel Software | Commercial | Long history, comprehensive rules | Poor user experience |
+| **PVS-Studio** | Commercial Static Analysis | PVS-Studio LLC | Commercial | Professional C++ analysis | Expensive |
+| **Veracode** | Security Analysis Platform | Veracode Inc. | Commercial | Security-focused | Poor generality |
+| **Interruptr** | AI Multi-Agent | This Project | Open Source | Multi-LLM collaboration, intelligent | High computational cost |
 
-## 🔍 详细对比分析
+## 🔍 Detailed Comparative Analysis
 
 ### 1. SonarQube
 
-#### 技术特点
-- **分析方法**: 基于规则的静态分析
-- **支持语言**: 25+编程语言
-- **部署方式**: 服务器端部署
-- **报告格式**: Web界面、API接口
+#### Technical Characteristics
 
-#### 核心功能
+- **Analysis Method**: Rule-based static analysis
+- **Languages Supported**: 25+ programming languages
+- **Deployment**: Server-side deployment
+- **Report Formats**: Web interface, API interfaces
+
+#### Core Features
+
 ```yaml
-代码质量检测:
-  - 代码异味 (Code Smells)
-  - 重复代码检测
-  - 复杂度分析
-  - 测试覆盖率
+Code Quality Detection:
+  - Code Smells
+  - Duplicated Code Detection
+  - Complexity Analysis
+  - Test Coverage
 
-安全漏洞检测:
+Security Vulnerability Detection:
   - OWASP Top 10
-  - CWE漏洞分类
-  - 安全热点标记
+  - CWE Vulnerability Classification
+  - Security Hotspots Marking
 
-技术债务评估:
-  - 修复时间估算
-  - 维护性评分
-  - 可靠性评级
+Technical Debt Assessment:
+  - Remediation Time Estimation
+  - Maintainability Rating
+  - Reliability Rating
 ```
 
-#### 优势与劣势
-**✅ 优势:**
-- 企业级成熟平台
-- 丰富的集成生态
-- 详细的报告和仪表板
-- 支持多种编程语言
+#### Advantages and Disadvantages
 
-**❌ 劣势:**
-- 误报率较高 (~25-30%)
-- 规则固化，难以自定义
-- 缺乏上下文理解
-- 商业版价格昂贵
+**✅ Advantages:**
 
-#### 与Interruptr对比
-| 维度 | SonarQube | Interruptr |
-|------|-----------|------------|
-| 分析准确率 | 72% | **85%** |
-| 误报率 | 28% | **<5%** |
-| 上下文理解 | 弱 | **强** |
-| 自定义能力 | 有限 | **高度灵活** |
-| 实时反馈 | 无 | **实时可视化** |
+- Enterprise-grade mature platform
+- Rich integration ecosystem
+- Detailed reports and dashboards
+- Supports multiple programming languages
+
+**❌ Disadvantages:**
+
+- Relatively high false positive rate (~25-30%)
+- Rigid rules, difficult to customise
+- Lacks contextual understanding
+- Commercial version is expensive
+
+#### Comparison with Interruptr
+
+| Dimension | SonarQube | Interruptr |
+| ----------- | ----------- | ------------ |
+| Analysis Accuracy | 72% | **85%** |
+| False Positive Rate | 28% | **<5%** |
+| Contextual Understanding | Weak | **Strong** |
+| Customisation Capability | Limited | **Highly Flexible** |
+| Real-time Feedback | None | **Real-time Visualisation** |
 
 ### 2. CodeQL
 
-#### 技术特点
-- **分析方法**: 基于查询语言的语义分析
-- **查询语言**: QL (声明式查询语言)
-- **数据库**: 将代码转换为关系数据库
-- **深度分析**: 数据流、控制流分析
+#### Technical Characteristics
 
-#### 核心功能
+- **Analysis Method**: Semantic analysis based on query language
+- **Query Language**: QL (declarative query language)
+- **Database**: Converts code to relational database
+- **Deep Analysis**: Data flow, control flow analysis
+
+#### Core Features
+
 ```yaml
-语义分析:
-  - 数据流跟踪
-  - 污点分析 (Taint Analysis)
-  - 控制流分析
-  - 调用图构建
+Semantic Analysis:
+  - Data Flow Tracking
+  - Taint Analysis
+  - Control Flow Analysis
+  - Call Graph Construction
 
-安全漏洞检测:
-  - SQL注入
-  - XSS攻击
-  - 缓冲区溢出
-  - 内存安全问题
+Security Vulnerability Detection:
+  - SQL Injection
+  - XSS Attacks
+  - Buffer Overflow
+  - Memory Safety Issues
 
-自定义查询:
-  - QL查询语言
-  - 自定义规则编写
-  - 批量代码分析
+Custom Queries:
+  - QL Query Language
+  - Custom Rule Writing
+  - Batch Code Analysis
 ```
 
-#### 优势与劣势
-**✅ 优势:**
-- 深度语义理解
-- 强大的查询能力
-- 精确的数据流分析
-- GitHub原生集成
+#### Advantages and Disadvantages
 
-**❌ 劣势:**
-- 学习曲线陡峭
-- 查询编写复杂
-- 分析速度较慢
-- 需要专业知识
+**✅ Advantages:**
 
-#### 与Interruptr对比
-| 维度 | CodeQL | Interruptr |
-|------|--------|------------|
-| 语义理解 | **强** | **强** |
-| 易用性 | 低 | **高** |
-| 学习成本 | 高 | **低** |
-| 分析速度 | 慢 | **中等** |
-| 协作能力 | 无 | **多智能体协作** |
+- Deep semantic understanding
+- Powerful query capabilities
+- Precise data flow analysis
+- Native GitHub integration
+
+**❌ Disadvantages:**
+
+- Steep learning curve
+- Complex query writing
+- Relatively slow analysis speed
+- Requires specialised knowledge
+
+#### Comparison with Interruptr
+
+| Dimension | CodeQL | Interruptr |
+| ----------- | -------- | ------------ |
+| Semantic Understanding | **Strong** | **Strong** |
+| Ease of Use | Low | **High** |
+| Learning Cost | High | **Low** |
+| Analysis Speed | Slow | **Medium** |
+| Collaboration Capability | None | **Multi-Agent Collaboration** |
 
 ### 3. Clang-tidy
 
-#### 技术特点
-- **分析方法**: 基于Clang编译器的静态分析
-- **集成方式**: 编译时检查
-- **配置文件**: .clang-tidy配置
-- **检查器**: 200+内置检查规则
+#### Technical Characteristics
 
-#### 核心功能
+- **Analysis Method**: Static analysis based on Clang compiler
+- **Integration**: Compile-time checking
+- **Configuration File**: .clang-tidy configuration
+- **Checkers**: 200+ built-in check rules
+
+#### Core Features
+
 ```yaml
-编译器级检查:
-  - 语法检查
-  - 类型检查
-  - 未使用变量
-  - 死代码检测
+Compiler-level Checks:
+  - Syntax Checking
+  - Type Checking
+  - Unused Variables
+  - Dead Code Detection
 
-现代C++最佳实践:
-  - C++11/14/17/20特性使用
-  - RAII原则检查
-  - 智能指针建议
-  - 算法库使用建议
+Modern C++ Best Practices:
+  - C++11/14/17/20 Feature Usage
+  - RAII Principle Checking
+  - Smart Pointer Recommendations
+  - Algorithm Library Usage Recommendations
 
-性能优化建议:
-  - 循环优化
-  - 内存访问模式
-  - 编译器优化友好
+Performance Optimisation Suggestions:
+  - Loop Optimisation
+  - Memory Access Patterns
+  - Compiler Optimisation Friendliness
 ```
 
-#### 优势与劣势
-**✅ 优势:**
-- 编译器级精确度
-- 现代C++支持好
-- 性能优化建议
-- 免费开源
+#### Advantages and Disadvantages
 
-**❌ 劣势:**
-- 配置复杂
-- 误报较多
-- 缺乏安全分析
-- 学习成本高
+**✅ Advantages:**
 
-#### 与Interruptr对比
-| 维度 | Clang-tidy | Interruptr |
-|------|------------|------------|
-| 分析精度 | **高** | **高** |
-| 配置复杂度 | 高 | **低(自动配置)** |
-| 安全分析 | 弱 | **强** |
-| 用户体验 | 差 | **优秀** |
-| 智能化程度 | 低 | **高** |
+- Compiler-level precision
+- Good support for modern C++
+- Performance optimisation suggestions
+- Free and open source
+
+**❌ Disadvantages:**
+
+- Complex configuration
+- Many false positives
+- Lacks security analysis
+- High learning cost
+
+#### Comparison with Interruptr
+
+| Dimension | Clang-tidy | Interruptr |
+| ----------- | ------------ | ------------ |
+| Analysis Precision | **High** | **High** |
+| Configuration Complexity | High | **Low (automatic)** |
+| Security Analysis | Weak | **Strong** |
+| User Experience | Poor | **Excellent** |
+| Intelligence Level | Low | **High** |
 
 ### 4. Cppcheck
 
-#### 技术特点
-- **分析方法**: 轻量级静态分析
-- **设计理念**: 快速、低误报
-- **资源占用**: 内存和CPU占用低
-- **跨平台**: Windows/Linux/macOS
+#### Technical Characteristics
 
-#### 核心功能
+- **Analysis Method**: Lightweight static analysis
+- **Design Philosophy**: Fast, low false positives
+- **Resource Usage**: Low memory and CPU usage
+- **Cross-platform**: Windows/Linux/macOS
+
+#### Core Features
+
 ```yaml
-基础静态检查:
-  - 内存泄漏检测
-  - 数组越界检查
-  - 空指针解引用
-  - 未初始化变量
+Basic Static Checks:
+  - Memory Leak Detection
+  - Array Out-of-bounds Checking
+  - Null Pointer Dereference
+  - Uninitialised Variables
 
-C++特定检查:
-  - 构造函数检查
-  - 析构函数检查
-  - 运算符重载
-  - STL使用检查
+C++-specific Checks:
+  - Constructor Checking
+  - Destructor Checking
+  - Operator Overloading
+  - STL Usage Checking
 
-报告格式:
-  - XML输出
-  - HTML报告
-  - 命令行输出
+Report Formats:
+  - XML Output
+  - HTML Reports
+  - Command-line Output
 ```
 
-#### 优势与劣势
-**✅ 优势:**
-- 快速轻量
-- 误报率低
-- 易于集成
-- 完全免费
+#### Advantages and Disadvantages
 
-**❌ 劣势:**
-- 功能相对简单
-- 缺乏深度分析
-- 安全检查有限
-- 报告界面简陋
+**✅ Advantages:**
 
-### 5. 商业工具对比
+- Fast and lightweight
+- Low false positive rate
+- Easy to integrate
+- Completely free
+
+**❌ Disadvantages:**
+
+- Relatively simple functionality
+- Lacks deep analysis
+- Limited security checks
+- Rudimentary report interface
+
+### 5. Commercial Tool Comparison
 
 #### PVS-Studio
-**定位**: 专业C/C++静态分析器
-**价格**: $1,000-$5,000/年
-**特色**: 
-- 深度C++分析
-- 64位迁移检查
-- 并行化建议
-- 企业级支持
+
+**Positioning**: Professional C/C++ static analyser
+**Price**: $1,000-$5,000/year
+**Features**:
+
+- Deep C++ analysis
+- 64-bit migration checking
+- Parallelisation recommendations
+- Enterprise-level support
 
 #### PC-lint Plus
-**定位**: 传统静态分析工具
-**价格**: $500-$2,000/年  
-**特色**:
-- 历史悠久(40+年)
-- 规则覆盖全面
-- 配置灵活
-- 学习曲线陡峭
+
+**Positioning**: Traditional static analysis tool
+**Price**: $500-$2,000/year
+**Features**:
+
+- Long history (40+ years)
+- Comprehensive rule coverage
+- Flexible configuration
+- Steep learning curve
 
 #### Veracode
-**定位**: 应用安全测试平台
-**价格**: $15,000+/年
-**特色**:
-- 专注安全分析
-- 云端分析平台
-- 合规性报告
-- 企业级安全
 
-## 🎯 Interruptr的差异化优势
+**Positioning**: Application security testing platform
+**Price**: $15,000+/year
+**Features**:
 
-### 1. 技术创新优势
+- Security-focused analysis
+- Cloud-based analysis platform
+- Compliance reporting
+- Enterprise-level security
 
-#### 多LLM协作机制
+## 🎯 Interruptr's Differentiated Advantages
+
+### 1. Technological Innovation Advantages
+
+#### Multi-LLM Collaboration Mechanism
+
 ```python
-# 传统工具: 单一分析引擎
+# Traditional tools: single analysis engine
 traditional_analysis = single_engine.analyze(code)
 
-# Interruptr: 多LLM协作
+# Interruptr: Multi-LLM collaboration
 interruptr_analysis = {
     'coordinator': gpt4.coordinate(code),
     'code_analyst': claude.analyze_quality(code),
@@ -255,65 +285,72 @@ interruptr_analysis = {
 }
 ```
 
-#### 质疑-验证双重机制
-- **传统工具**: 一次性分析，结果固定
-- **Interruptr**: 质疑→验证→修正，持续改进
+#### Critique-Verification Dual Mechanism
 
-#### 实时可视化协作
-- **传统工具**: 黑盒分析，结果不透明
-- **Interruptr**: 白盒协作，过程可视化
+- **Traditional Tools**: One-time analysis, fixed results
+- **Interruptr**: Critique → Verification → Revision, continuous improvement
 
-### 2. 分析能力对比
+#### Real-time Visualisation Collaboration
 
-#### 准确性对比 (模拟数据)
-```
-基准测试结果 (21个开源项目):
+- **Traditional Tools**: Black-box analysis, opaque results
+- **Interruptr**: White-box collaboration, transparent process
+
+### 2. Analysis Capability Comparison
+
+#### Accuracy Comparison (Simulated Data)
+
+```txt
+Benchmark Results (21 open-source projects):
 ┌─────────────┬──────────┬──────────┬──────────┬─────────────┐
-│ 工具        │ 准确率   │ 召回率   │ F1分数   │ 分析时间    │
+│ Tool        │ Precision│ Recall   │ F1 Score │ Analysis    │
+│             │          │          │          │ Speed       │
 ├─────────────┼──────────┼──────────┼──────────┼─────────────┤
-│ Interruptr  │ 85.2%    │ 82.8%    │ 84.0%    │ 45行/秒     │
-│ SonarQube   │ 76.3%    │ 68.9%    │ 72.4%    │ 120行/秒    │
-│ CodeQL      │ 81.7%    │ 75.4%    │ 78.4%    │ 38行/秒     │
-│ Clang-tidy  │ 72.1%    │ 86.3%    │ 78.6%    │ 95行/秒     │
-│ Cppcheck    │ 69.4%    │ 64.2%    │ 66.7%    │ 150行/秒    │
+│ Interruptr  │ 85.2%    │ 82.8%    │ 84.0%    │ 45 lines/s  │
+│ SonarQube   │ 76.3%    │ 68.9%    │ 72.4%    │ 120 lines/s │
+│ CodeQL      │ 81.7%    │ 75.4%    │ 78.4%    │ 38 lines/s  │
+│ Clang-tidy  │ 72.1%    │ 86.3%    │ 78.6%    │ 95 lines/s  │
+│ Cppcheck    │ 69.4%    │ 64.2%    │ 66.7%    │ 150 lines/s │
 └─────────────┴──────────┴──────────┴──────────┴─────────────┘
 ```
 
-#### 问题类型覆盖度
+#### Issue Type Coverage
+
 ```yaml
-问题类型检测能力对比:
-  安全漏洞:
-    - Interruptr: ⭐⭐⭐⭐⭐ (多专家协作)
-    - CodeQL: ⭐⭐⭐⭐ (深度分析)
-    - SonarQube: ⭐⭐⭐ (规则驱动)
-    - Clang-tidy: ⭐⭐ (基础检查)
+Issue Type Detection Capability Comparison:
+  Security Vulnerabilities:
+    - Interruptr: ⭐⭐⭐⭐⭐ (multi-expert collaboration)
+    - CodeQL: ⭐⭐⭐⭐ (deep analysis)
+    - SonarQube: ⭐⭐⭐ (rule-driven)
+    - Clang-tidy: ⭐⭐ (basic checks)
     
-  并发问题:
-    - Interruptr: ⭐⭐⭐⭐⭐ (AI理解)
-    - CodeQL: ⭐⭐⭐⭐ (数据流分析)
-    - Clang-tidy: ⭐⭐⭐ (基本检查)
-    - SonarQube: ⭐⭐ (规则有限)
+  Concurrency Issues:
+    - Interruptr: ⭐⭐⭐⭐⭐ (AI understanding)
+    - CodeQL: ⭐⭐⭐⭐ (data flow analysis)
+    - Clang-tidy: ⭐⭐⭐ (basic checks)
+    - SonarQube: ⭐⭐ (limited rules)
     
-  架构设计:
-    - Interruptr: ⭐⭐⭐⭐⭐ (专门架构师智能体)
-    - SonarQube: ⭐⭐⭐ (代码异味检测)
-    - CodeQL: ⭐⭐ (结构分析)
-    - Clang-tidy: ⭐⭐ (现代化建议)
+  Architecture Design:
+    - Interruptr: ⭐⭐⭐⭐⭐ (dedicated architect agent)
+    - SonarQube: ⭐⭐⭐ (code smell detection)
+    - CodeQL: ⭐⭐ (structural analysis)
+    - Clang-tidy: ⭐⭐ (modernisation suggestions)
     
-  性能优化:
-    - Clang-tidy: ⭐⭐⭐⭐ (编译器级优化)
-    - Interruptr: ⭐⭐⭐⭐ (AI推理)
-    - CodeQL: ⭐⭐⭐ (算法分析)
-    - SonarQube: ⭐⭐ (基础检查)
+  Performance Optimisation:
+    - Clang-tidy: ⭐⭐⭐⭐ (compiler-level optimisation)
+    - Interruptr: ⭐⭐⭐⭐ (AI reasoning)
+    - CodeQL: ⭐⭐⭐ (algorithm analysis)
+    - SonarQube: ⭐⭐ (basic checks)
 ```
 
-### 3. 用户体验对比
+### 3. User Experience Comparison
 
-#### 易用性评分
-```
-易用性对比 (10分制):
+#### Ease of Use Rating
+
+```txt
+Ease of Use Comparison (10-point scale):
 ┌─────────────┬──────────┬──────────┬──────────┬──────────┐
-│ 工具        │ 安装配置 │ 学习成本 │ 界面友好 │ 报告质量 │
+│ Tool        │ Setup &  │ Learning │ Interface│ Report   │
+│             │ Config   │ Cost     │ Friendliness│ Quality │
 ├─────────────┼──────────┼──────────┼──────────┼──────────┤
 │ Interruptr  │ 9        │ 8        │ 9        │ 9        │
 │ SonarQube   │ 6        │ 7        │ 8        │ 8        │
@@ -323,132 +360,140 @@ interruptr_analysis = {
 └─────────────┴──────────┴──────────┴──────────┴──────────┘
 ```
 
-## 📈 市场定位分析
+## 📈 Market Positioning Analysis
 
-### 竞争优势矩阵
-```
-            分析精度
+### Competitive Advantage Matrix
+
+```txt
+            Analysis Precision
                 ↑
                 │
          CodeQL │ ● Interruptr
-                │   (高精度+高智能)
+                │   (High Precision + High Intelligence)
                 │
                 │
                 │
                 │          ● PVS-Studio
-                │         (高精度+高成本)
-────────────────┼────────────────→ 智能化程度
+                │         (High Precision + High Cost)
+────────────────┼────────────────→ Intelligence Level
                 │
                 │
                 │ ● SonarQube
-                │  (中等精度+规则化)
+                │  (Medium Precision + Rule-based)
                 │
                 │
          Cppcheck ●
-         (中等精度+简单)
+         (Medium Precision + Simple)
                 │
 ```
 
-### 目标用户群体
+### Target User Groups
 
-#### 1. 开源项目维护者
-**需求**: 免费、准确、易用的代码分析工具
-**痛点**: 传统工具误报多、配置复杂
-**Interruptr优势**: 开源、高准确率、一键使用
+#### 1. Open-Source Project Maintainers
 
-#### 2. 中小型软件公司
-**需求**: 经济实惠的代码质量保障方案
-**痛点**: 商业工具价格昂贵、功能过载
-**Interruptr优势**: 免费使用、专业级分析、云端+本地部署
+**Needs**: Free, accurate, easy-to-use code analysis tools
+**Pain Points**: Traditional tools have many false positives and complex configuration
+**Interruptr Advantages**: Open source, high accuracy, one-click usage
 
-#### 3. 教育机构
-**需求**: 教学用代码分析工具
-**痛点**: 传统工具学习曲线陡峭
-**Interruptr优势**: 可视化学习过程、AI协作演示
+#### 2. Small to Medium-Sized Software Companies
 
-#### 4. 大型企业开发团队
-**需求**: 高精度、可定制的企业级分析平台
-**痛点**: 现有工具缺乏智能化、难以定制
-**Interruptr优势**: 多LLM可配置、企业级部署、高准确率
+**Needs**: Cost-effective code quality assurance solutions
+**Pain Points**: Commercial tools are expensive and feature-bloated
+**Interruptr Advantages**: Free to use, professional-grade analysis, cloud + local deployment
 
-## 🎯 SANER 2026论文中的对比展示
+#### 3. Educational Institutions
 
-### 实验设计建议
+**Needs**: Code analysis tools for teaching
+**Pain Points**: Traditional tools have steep learning curves
+**Interruptr Advantages**: Visualised learning process, AI collaboration demonstrations
 
-#### 1. 基准测试设计
+#### 4. Large Enterprise Development Teams
+
+**Needs**: High-precision, customisable enterprise-grade analysis platforms
+**Pain Points**: Existing tools lack intelligence and are difficult to customise
+**Interruptr Advantages**: Configurable multi-LLM, enterprise deployment, high accuracy
+
+## 🎯 Comparative Presentation for SANER 2026 Paper
+
+### Recommended Experimental Design
+
+#### 1. Benchmark Test Design
+
 ```yaml
-测试项目选择:
-  - 小型项目: nlohmann/json, spdlog, fmt
-  - 中型项目: googletest, Catch2, yaml-cpp
-  - 大型项目: opencv, protobuf, grpc
+Test Project Selection:
+  - Small Projects: nlohmann/json, spdlog, fmt
+  - Medium Projects: googletest, Catch2, yaml-cpp
+  - Large Projects: opencv, protobuf, grpc
   
-评估指标:
-  - 准确率 (Precision)
-  - 召回率 (Recall)  
-  - F1分数
-  - 分析时间
-  - 内存使用
-  - 误报率
+Evaluation Metrics:
+  - Precision
+  - Recall
+  - F1 Score
+  - Analysis Time
+  - Memory Usage
+  - False Positive Rate
   
-对比工具:
+Comparison Tools:
   - SonarQube Community Edition
-  - CodeQL (GitHub免费版)
-  - Clang-tidy (最新版)
-  - Cppcheck (最新版)
+  - CodeQL (GitHub Free Edition)
+  - Clang-tidy (Latest Version)
+  - Cppcheck (Latest Version)
 ```
 
-#### 2. 案例研究设计
+#### 2. Case Study Design
+
 ```yaml
-典型漏洞类型:
-  - 缓冲区溢出 (Buffer Overflow)
-  - 内存泄漏 (Memory Leak)
-  - 竞态条件 (Race Condition)
-  - 空指针解引用 (Null Pointer Dereference)
-  - 整数溢出 (Integer Overflow)
+Typical Vulnerability Types:
+  - Buffer Overflow
+  - Memory Leak
+  - Race Condition
+  - Null Pointer Dereference
+  - Integer Overflow
   
-每种类型准备3-5个真实案例代码
-展示Interruptr vs 传统工具的检测能力
+Prepare 3-5 real-world code examples for each type
+Demonstrate Interruptr's detection capability vs. traditional tools
 ```
 
-#### 3. 用户体验评估
+#### 3. User Experience Evaluation
+
 ```yaml
-评估维度:
-  - 安装配置难度
-  - 学习使用成本
-  - 分析结果理解度
-  - 修复建议质量
-  - 整体满意度
+Evaluation Dimensions:
+  - Setup and configuration difficulty
+  - Learning and usage cost
+  - Comprehensibility of analysis results
+  - Quality of remediation recommendations
+  - Overall satisfaction
   
-评估方法:
-  - 邀请10-15名开发者试用
-  - 对比使用体验调查
-  - 定量+定性评估
+Evaluation Method:
+  - Invite 10-15 developers for trial
+  - Compare user experience surveys
+  - Quantitative + qualitative assessment
 ```
 
-## 📊 竞争分析总结
+## 📊 Competitive Analysis Summary
 
-### Interruptr的核心竞争力
+### Interruptr's Core Competitiveness
 
-1. **技术创新**: 首创多LLM协作机制
-2. **分析精度**: 85%准确率，低误报率
-3. **用户体验**: 实时可视化，易用性强
-4. **开源策略**: 免费使用，社区驱动
-5. **可扩展性**: 智能体可插拔，高度定制
+1. **Technological Innovation**: Pioneering multi-LLM collaboration mechanism
+2. **Analysis Precision**: 85% accuracy, low false positive rate
+3. **User Experience**: Real-time visualisation, strong ease of use
+4. **Open Source Strategy**: Free to use, community-driven
+5. **Extensibility**: Pluggable agents, highly customisable
 
-### 市场机会
+### Market Opportunities
 
-1. **AI化趋势**: 软件开发工具AI化浪潮
-2. **开源生态**: 开源项目对高质量工具需求
-3. **教育市场**: 编程教育可视化需求
-4. **企业市场**: 替代昂贵商业工具的需求
+1. **AI Trend**: Wave of AI-driven software development tools
+2. **Open Source Ecosystem**: Demand for high-quality tools from open-source projects
+3. **Educational Market**: Demand for visualised programming education
+4. **Enterprise Market**: Demand for alternatives to expensive commercial tools
 
-### 挑战与应对
+### Challenges and Responses
 
-1. **计算成本**: 通过本地+云端混合部署降低成本
-2. **商业模式**: 开源基础版+企业增值服务
-3. **技术壁垒**: 持续技术创新保持领先优势
-4. **生态建设**: 构建开发者社区和合作伙伴
+1. **Computational Cost**: Reduce costs through hybrid local + cloud deployment
+2. **Business Model**: Open-source core + enterprise value-added services
+3. **Technical Barriers**: Continuous technological innovation to maintain leadership
+4. **Ecosystem Building**: Build developer community and partnerships
 
 ---
 
-**结论**: Interruptr通过多LLM协作机制和质疑-验证双重保障，在分析精度、用户体验和技术创新方面具有显著优势，有望在AI驱动的代码分析工具市场中占据重要地位。
+**Conclusion**: Through its multi-LLM collaboration mechanism and critique-verification dual assurance, Interruptr demonstrates significant advantages in analysis precision, user experience, and technological innovation, and is well-positioned to occupy an important role in the AI-driven code analysis tool market.

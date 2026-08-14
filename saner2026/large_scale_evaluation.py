@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-SANER 2026 大规模测试脚本
-用于收集20+开源C++项目的分析数据，生成性能统计报告
+SANER 2026 Large-Scale Test Script
+Used to collect analysis data from 20+ open-source C++ projects and generate performance statistics reports
 """
 
 import asyncio
@@ -14,12 +14,12 @@ import logging
 from typing import Dict, List, Tuple
 import statistics
 
-# 配置日志
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class SANER2026Evaluator:
-    """SANER 2026 大规模评估器"""
+    """SANER 2026 Large-Scale Evaluator"""
     
     def __init__(self):
         self.results = []
@@ -34,7 +34,7 @@ class SANER2026Evaluator:
         }
     
     def load_test_projects(self):
-        """加载测试项目列表（著名的开源C++项目）"""
+        """Load the list of test projects (well-known open-source C++ projects)"""
         self.test_projects = [
             {
                 'name': 'nlohmann/json',
@@ -185,41 +185,41 @@ class SANER2026Evaluator:
             }
         ]
         
-        logger.info(f"已加载 {len(self.test_projects)} 个测试项目")
+        logger.info(f"Loaded {len(self.test_projects)} test projects")
         return self.test_projects
 
     def download_project(self, project: Dict) -> bool:
-        """下载测试项目"""
+        """Download a test project"""
         try:
             project_dir = Path(f"test_projects/{project['name'].replace('/', '_')}")
             if project_dir.exists():
-                logger.info(f"项目 {project['name']} 已存在，跳过下载")
+                logger.info(f"Project {project['name']} already exists, skipping download")
                 return True
                 
             project_dir.parent.mkdir(parents=True, exist_ok=True)
             
-            # 浅克隆以节省空间和时间
+            # Shallow clone to save space and time
             cmd = f"git clone --depth 1 {project['url']} {project_dir}"
             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
             
             if result.returncode == 0:
-                logger.info(f"成功下载项目: {project['name']}")
+                logger.info(f"Successfully downloaded project: {project['name']}")
                 return True
             else:
-                logger.error(f"下载项目失败 {project['name']}: {result.stderr}")
+                logger.error(f"Failed to download project {project['name']}: {result.stderr}")
                 return False
                 
         except Exception as e:
-            logger.error(f"下载项目 {project['name']} 时出错: {e}")
+            logger.error(f"Error downloading project {project['name']}: {e}")
             return False
 
     def analyze_project_with_interruptr(self, project: Dict) -> Dict:
-        """使用Interruptr分析项目"""
+        """Analyse a project using Interruptr"""
         start_time = time.time()
         project_dir = Path(f"test_projects/{project['name'].replace('/', '_')}")
         
         try:
-            # 查找C++源文件
+            # Find C++ source files
             cpp_files = list(project_dir.rglob("*.cpp")) + list(project_dir.rglob("*.h")) + list(project_dir.rglob("*.hpp"))
             cpp_files = [f for f in cpp_files if not any(exclude in str(f) for exclude in ['test', 'example', 'demo', 'third_party', 'external'])]
             
@@ -230,7 +230,7 @@ class SANER2026Evaluator:
                     'analysis_time': time.time() - start_time
                 }
             
-            # 选择代表性文件进行分析（最多5个文件）
+            # Select representative files for analysis (up to 5 files)
             selected_files = cpp_files[:5]
             
             analysis_results = []
@@ -241,13 +241,13 @@ class SANER2026Evaluator:
                     with open(cpp_file, 'r', encoding='utf-8', errors='ignore') as f:
                         code_content = f.read()
                     
-                    # 模拟Interruptr分析（实际应该调用真实的多智能体系统）
+                    # Simulate Interruptr analysis (in reality, we would call the real multi-agent system)
                     file_result = self.simulate_interruptr_analysis(code_content, str(cpp_file))
                     analysis_results.append(file_result)
                     total_issues += len(file_result.get('issues', []))
                     
                 except Exception as e:
-                    logger.warning(f"分析文件 {cpp_file} 失败: {e}")
+                    logger.warning(f"Failed to analyse file {cpp_file}: {e}")
                     continue
             
             analysis_time = time.time() - start_time
@@ -264,7 +264,7 @@ class SANER2026Evaluator:
             }
             
         except Exception as e:
-            logger.error(f"分析项目 {project['name']} 时出错: {e}")
+            logger.error(f"Error analysing project {project['name']}: {e}")
             return {
                 'success': False,
                 'error': str(e),
@@ -272,13 +272,13 @@ class SANER2026Evaluator:
             }
 
     def simulate_interruptr_analysis(self, code_content: str, file_path: str) -> Dict:
-        """模拟Interruptr多智能体分析过程"""
+        """Simulate the Interruptr multi-agent analysis process"""
         issues = []
         
-        # 模拟常见问题检测
+        # Simulate detection of common issues
         lines = code_content.split('\n')
         
-        # 缓冲区溢出检测
+        # Buffer overflow detection
         for i, line in enumerate(lines):
             if 'strcpy(' in line or 'strcat(' in line or 'gets(' in line:
                 issues.append({
@@ -289,7 +289,7 @@ class SANER2026Evaluator:
                     'agent': 'security_expert'
                 })
         
-        # 内存泄漏检测
+        # Memory leak detection
         new_count = code_content.count('new ')
         delete_count = code_content.count('delete ')
         if new_count > delete_count:
@@ -301,7 +301,7 @@ class SANER2026Evaluator:
                 'agent': 'code_analyst'
             })
         
-        # 并发问题检测
+        # Concurrency issue detection
         if 'thread' in code_content.lower() and 'mutex' not in code_content.lower():
             issues.append({
                 'type': 'concurrency',
@@ -311,7 +311,7 @@ class SANER2026Evaluator:
                 'agent': 'security_expert'
             })
         
-        # 复杂度分析
+        # Complexity analysis
         complexity_score = min(10, len(lines) / 50 + code_content.count('{') / 10)
         if complexity_score > 7:
             issues.append({
@@ -332,77 +332,77 @@ class SANER2026Evaluator:
         }
 
     def compare_with_existing_tools(self, project_result: Dict) -> Dict:
-        """与现有工具对比（模拟）"""
-        # 模拟与SonarQube、CodeQL等工具的对比
+        """Compare with existing tools (simulated)"""
+        # Simulate comparison with SonarQube, CodeQL, etc.
         return {
             'interruptr_issues': project_result.get('total_issues', 0),
-            'sonarqube_issues': max(0, project_result.get('total_issues', 0) - 2),  # 模拟SonarQube找到稍少的问题
-            'codeql_issues': max(0, project_result.get('total_issues', 0) - 1),     # 模拟CodeQL找到类似数量的问题  
-            'clang_tidy_issues': max(0, project_result.get('total_issues', 0) + 3), # 模拟Clang-tidy找到更多但可能包含误报
-            'unique_to_interruptr': 2,  # 模拟Interruptr独有发现
+            'sonarqube_issues': max(0, project_result.get('total_issues', 0) - 2),  # Simulate SonarQube finding slightly fewer
+            'codeql_issues': max(0, project_result.get('total_issues', 0) - 1),     # Simulate CodeQL finding similar numbers
+            'clang_tidy_issues': max(0, project_result.get('total_issues', 0) + 3), # Simulate Clang-tidy finding more but with false positives
+            'unique_to_interruptr': 2,  # Simulate Interruptr unique findings
             'multi_agent_advantage': True
         }
 
     async def run_large_scale_evaluation(self):
-        """运行大规模评估"""
-        logger.info("🚀 开始SANER 2026大规模评估")
+        """Run the large-scale evaluation"""
+        logger.info("🚀 Starting SANER 2026 large-scale evaluation")
         
-        # 加载测试项目
+        # Load test projects
         projects = self.load_test_projects()
         
-        # 创建结果目录
+        # Create results directory
         results_dir = Path("saner2026/evaluation_results")
         results_dir.mkdir(parents=True, exist_ok=True)
         
         successful_analyses = 0
         
         for i, project in enumerate(projects):
-            logger.info(f"📊 处理项目 {i+1}/{len(projects)}: {project['name']}")
+            logger.info(f"📊 Processing project {i+1}/{len(projects)}: {project['name']}")
             
-            # 下载项目
+            # Download project
             if not self.download_project(project):
                 continue
             
-            # 分析项目
+            # Analyse project
             analysis_result = self.analyze_project_with_interruptr(project)
             
             if analysis_result['success']:
                 successful_analyses += 1
                 
-                # 与现有工具对比
+                # Compare with existing tools
                 comparison = self.compare_with_existing_tools(analysis_result)
                 analysis_result['tool_comparison'] = comparison
                 
-                # 保存单个项目结果
+                # Save individual project result
                 project_result_file = results_dir / f"{project['name'].replace('/', '_')}_result.json"
                 with open(project_result_file, 'w') as f:
                     json.dump(analysis_result, f, indent=2)
                 
                 self.results.append(analysis_result)
-                logger.info(f"✅ 成功分析 {project['name']}: {analysis_result['total_issues']} 问题")
+                logger.info(f"✅ Successfully analysed {project['name']}: {analysis_result['total_issues']} issues")
             else:
-                logger.error(f"❌ 分析失败 {project['name']}: {analysis_result.get('error', 'Unknown error')}")
+                logger.error(f"❌ Analysis failed for {project['name']}: {analysis_result.get('error', 'Unknown error')}")
         
-        # 生成综合报告
+        # Generate comprehensive report
         self.generate_comprehensive_report(results_dir)
         
-        logger.info(f"🎉 大规模评估完成: {successful_analyses}/{len(projects)} 项目成功分析")
+        logger.info(f"🎉 Large-scale evaluation completed: {successful_analyses}/{len(projects)} projects successfully analysed")
 
     def generate_comprehensive_report(self, results_dir: Path):
-        """生成综合评估报告"""
+        """Generate a comprehensive evaluation report"""
         
         if not self.results:
-            logger.warning("没有成功的分析结果，无法生成报告")
+            logger.warning("No successful analysis results, cannot generate report")
             return
         
-        # 计算统计指标
+        # Calculate statistical metrics
         total_projects = len(self.results)
         total_issues = sum(r['total_issues'] for r in self.results)
         avg_analysis_time = statistics.mean([r['analysis_time'] for r in self.results])
         total_files_analyzed = sum(r['files_analyzed'] for r in self.results)
         total_lines_of_code = sum(r['lines_of_code'] for r in self.results)
         
-        # 问题类型统计
+        # Issue type statistics
         issue_types = {}
         severity_stats = {}
         agent_contributions = {}
@@ -418,7 +418,7 @@ class SANER2026Evaluator:
                     severity_stats[severity] = severity_stats.get(severity, 0) + 1
                     agent_contributions[agent] = agent_contributions.get(agent, 0) + 1
         
-        # 工具对比统计
+        # Tool comparison statistics
         tool_comparison_summary = {
             'interruptr_total': total_issues,
             'sonarqube_total': sum(r['tool_comparison']['sonarqube_issues'] for r in self.results),
@@ -427,7 +427,7 @@ class SANER2026Evaluator:
             'unique_findings': sum(r['tool_comparison']['unique_to_interruptr'] for r in self.results)
         }
         
-        # 生成报告
+        # Generate report
         report = {
             'evaluation_metadata': {
                 'timestamp': datetime.now().isoformat(),
@@ -458,109 +458,109 @@ class SANER2026Evaluator:
             'detailed_results': self.results
         }
         
-        # 保存综合报告
+        # Save comprehensive report
         report_file = results_dir / "saner2026_comprehensive_evaluation.json"
         with open(report_file, 'w') as f:
             json.dump(report, f, indent=2)
         
-        # 生成Markdown报告
+        # Generate Markdown report
         self.generate_markdown_report(report, results_dir)
         
-        logger.info(f"📋 综合报告已生成: {report_file}")
+        logger.info(f"📋 Comprehensive report generated: {report_file}")
 
     def generate_markdown_report(self, report: Dict, results_dir: Path):
-        """生成Markdown格式的报告"""
+        """Generate a Markdown-format report"""
         
-        md_content = f"""# SANER 2026 Tool Demo - Interruptr 大规模评估报告
+        md_content = f"""# SANER 2026 Tool Demo - Interruptr Large-Scale Evaluation Report
 
-**生成时间**: {report['evaluation_metadata']['timestamp']}  
-**工具版本**: {report['evaluation_metadata']['tool_version']}  
-**评估目的**: {report['evaluation_metadata']['evaluation_purpose']}
+        **Generation Time**: {report['evaluation_metadata']['timestamp']}  
+        **Tool Version**: {report['evaluation_metadata']['tool_version']}  
+        **Evaluation Purpose**: {report['evaluation_metadata']['evaluation_purpose']}
 
-## 📊 评估概览
+        ## 📊 Evaluation Overview
 
-### 测试规模
-- **测试项目数**: {report['summary_statistics']['total_projects_tested']}
-- **分析文件数**: {report['summary_statistics']['total_files_analyzed']}
-- **代码总行数**: {report['summary_statistics']['total_lines_of_code']:,}
-- **发现问题数**: {report['summary_statistics']['total_issues_found']}
+        ### Test Scale
+        - **Number of Test Projects**: {report['summary_statistics']['total_projects_tested']}
+        - **Files Analysed**: {report['summary_statistics']['total_files_analyzed']}
+        - **Total Lines of Code**: {report['summary_statistics']['total_lines_of_code']:,}
+        - **Issues Found**: {report['summary_statistics']['total_issues_found']}
 
-### 性能指标
-- **平均分析时间**: {report['summary_statistics']['average_analysis_time_seconds']} 秒
-- **平均每项目问题数**: {report['summary_statistics']['issues_per_project']}
-- **分析速度**: {report['summary_statistics']['lines_per_second']} 行/秒
-- **成功率**: {report['performance_metrics']['success_rate']:.1%}
+        ### Performance Metrics
+        - **Average Analysis Time**: {report['summary_statistics']['average_analysis_time_seconds']} seconds
+        - **Average Issues per Project**: {report['summary_statistics']['issues_per_project']}
+        - **Analysis Speed**: {report['summary_statistics']['lines_per_second']} lines/second
+        - **Success Rate**: {report['performance_metrics']['success_rate']:.1%}
 
-## 🔍 问题分析
+        ## 🔍 Issue Analysis
 
-### 按类型分布
-"""
+        ### Distribution by Type
+        """
         
         for issue_type, count in report['issue_analysis']['by_type'].items():
-            md_content += f"- **{issue_type}**: {count} 个\n"
+            md_content += f"- **{issue_type}**: {count} issues\n"
         
-        md_content += "\n### 按严重程度分布\n"
+        md_content += "\n### Distribution by Severity\n"
         
         for severity, count in report['issue_analysis']['by_severity'].items():
-            md_content += f"- **{severity}**: {count} 个\n"
+            md_content += f"- **{severity}**: {count} issues\n"
         
-        md_content += "\n### 智能体贡献度\n"
+        md_content += "\n### Agent Contributions\n"
         
         for agent, count in report['issue_analysis']['by_agent'].items():
-            md_content += f"- **{agent}**: {count} 个发现\n"
+            md_content += f"- **{agent}**: {count} findings\n"
         
         md_content += f"""
 
-## 🆚 工具对比
+        ## 🆚 Tool Comparison
 
-| 工具 | 发现问题数 | 备注 |
-|------|-----------|------|
-| **Interruptr** | {report['tool_comparison']['interruptr_total']} | 多智能体协作分析 |
-| SonarQube | {report['tool_comparison']['sonarqube_total']} | 传统静态分析 |
-| CodeQL | {report['tool_comparison']['codeql_total']} | 语义分析 |
-| Clang-tidy | {report['tool_comparison']['clang_tidy_total']} | 编译器集成 |
+        | Tool | Issues Found | Notes |
+        |------|-------------|-------|
+        | **Interruptr** | {report['tool_comparison']['interruptr_total']} | Multi-agent collaboration |
+        | SonarQube | {report['tool_comparison']['sonarqube_total']} | Traditional static analysis |
+        | CodeQL | {report['tool_comparison']['codeql_total']} | Semantic analysis |
+        | Clang-tidy | {report['tool_comparison']['clang_tidy_total']} | Compiler integration |
 
-### Interruptr独有发现
-- **独特问题数**: {report['tool_comparison']['unique_findings']}
-- **多智能体协作优势**: 质疑-验证机制提高准确性
+        ### Interruptr Unique Findings
+        - **Unique Issues**: {report['tool_comparison']['unique_findings']}
+        - **Multi-Agent Collaboration Advantage**: Questioning-verification mechanism improves accuracy
 
-## 🎯 评估结论
+        ## 🎯 Evaluation Conclusions
 
-### 技术优势
-1. **多LLM协作**: 4个不同LLM提供商协作分析
-2. **质疑验证机制**: 提高分析可信度和准确性
-3. **实时可视化**: 透明化AI决策过程
-4. **工程完整性**: 端到端可用系统
+        ### Technical Advantages
+        1. **Multi-LLM Collaboration**: 4 different LLM providers working together
+        2. **Questioning-Verification Mechanism**: Increases trustworthiness and accuracy
+        3. **Real-Time Visualisation**: Transparent AI decision-making process
+        4. **Engineering Completeness**: End-to-end usable system
 
-### 性能表现
-- 分析速度: **{report['summary_statistics']['lines_per_second']} 行/秒**
-- 问题检出率: **平均每项目 {report['summary_statistics']['issues_per_project']} 个问题**
-- 系统稳定性: **{report['performance_metrics']['success_rate']:.1%} 成功率**
+        ### Performance
+        - Analysis Speed: **{report['summary_statistics']['lines_per_second']} lines/second**
+        - Issue Detection Rate: **Average {report['summary_statistics']['issues_per_project']} issues per project**
+        - System Stability: **{report['performance_metrics']['success_rate']:.1%} success rate**
 
-### 创新价值
-1. **首创多LLM协作机制** - 学术创新点
-2. **实用工程系统** - 工业应用价值
-3. **可视化协作过程** - 用户体验创新
-4. **混合AI架构** - 技术架构创新
+        ### Innovation Value
+        1. **First Multi-LLM Collaboration Mechanism** - Academic innovation
+        2. **Practical Engineering System** - Industrial application value
+        3. **Visual Collaboration Process** - User experience innovation
+        4. **Hybrid AI Architecture** - Technical architecture innovation
 
----
+        ---
 
-*本报告为SANER 2026 Tool Demo Track投稿准备材料*
-"""
+        *This report is prepared for the SANER 2026 Tool Demo Track submission*
+        """
         
-        # 保存Markdown报告
+        # Save Markdown report
         md_file = results_dir / "SANER2026_Evaluation_Report.md"
         with open(md_file, 'w', encoding='utf-8') as f:
             f.write(md_content)
         
-        logger.info(f"📄 Markdown报告已生成: {md_file}")
+        logger.info(f"📄 Markdown report generated: {md_file}")
 
 async def main():
-    """主函数"""
+    """Main function"""
     evaluator = SANER2026Evaluator()
     await evaluator.run_large_scale_evaluation()
 
 if __name__ == "__main__":
-    print("🚀 启动SANER 2026大规模评估")
+    print("🚀 Starting SANER 2026 large-scale evaluation")
     print("=" * 50)
     asyncio.run(main())

@@ -1,5 +1,5 @@
 """
-基于 AutoGen 的多智能体 C++ 代码分析系统
+Multi-Agent C++ Code Analysis System Based on AutoGen
 """
 
 import os
@@ -17,19 +17,19 @@ try:
     from autogen_core import CancellationToken
     AUTOGEN_AVAILABLE = True
 except ImportError as e:
-    print(f"AutoGen 导入失败: {e}")
+    print(f"AutoGen import failed: {e}")
     AUTOGEN_AVAILABLE = False
 
 # LangChain imports for LLM integration
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 
-# 添加项目路径
+# Add project path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.env_config import config
 
 class AutoGenCodeAnalyzer:
-    """基于 AutoGen 的多智能体代码分析器"""
+    """Multi-agent code analyzer based on AutoGen"""
     
     def __init__(self):
         self.agents = {}
@@ -37,10 +37,10 @@ class AutoGenCodeAnalyzer:
         self.analysis_results = {}
         
     def setup_llm_clients(self):
-        """设置 LLM 客户端"""
+        """Set up LLM clients"""
         llm_configs = {}
         
-        # OpenAI 配置
+        # OpenAI configuration
         if config.openai_api_key:
             llm_configs["openai"] = {
                 "config_list": [{
@@ -51,7 +51,7 @@ class AutoGenCodeAnalyzer:
                 }]
             }
         
-        # Anthropic Claude 配置
+        # Anthropic Claude configuration
         if config.anthropic_api_key:
             llm_configs["anthropic"] = {
                 "config_list": [{
@@ -65,117 +65,117 @@ class AutoGenCodeAnalyzer:
         return llm_configs
     
     def create_agents(self):
-        """创建专业的智能体团队"""
+        """Create a specialized agent team"""
         
         llm_configs = self.setup_llm_clients()
         
-        # 如果没有可用的 LLM 配置，使用模拟模式
+        # If no LLM configuration is available, use mock mode
         if not llm_configs:
-            print("⚠️ 未找到可用的 LLM 配置，将使用模拟模式")
+            print("⚠️ No LLM configuration found; using mock mode")
             return self.create_mock_agents()
         
-        # 使用第一个可用的 LLM 配置
+        # Use the first available LLM configuration
         primary_llm = list(llm_configs.values())[0]
         
-        # 协调者智能体
+        # Coordinator agent
         self.agents["coordinator"] = AssistantAgent(
-            name="协调者",
+            name="Coordinator",
             model_client=primary_llm,
-            system_message="""你是一个智能的代码分析协调者。你的职责是：
-            1. 接收用户提交的 C/C++ 代码
-            2. 协调其他专家智能体进行分析
-            3. 整理和总结所有分析结果
-            4. 制定修复优先级和建议
-            
-            请保持专业、准确，并确保分析的全面性。
+            system_message="""You are an intelligent code analysis coordinator. Your responsibilities are:
+            1. Receive C/C++ code submitted by the user
+            2. Coordinate other expert agents for analysis
+            3. Organise and summarise all analysis results
+            4. Prioritise fixes and provide recommendations
+
+            Please remain professional, accurate, and ensure comprehensive analysis.
             """,
-            description="负责协调整个分析流程"
+            description="Responsible for coordinating the entire analysis workflow"
         )
         
-        # 代码分析师
+        # Code analyst
         self.agents["code_analyst"] = AssistantAgent(
-            name="代码分析师",
+            name="Code Analyst",
             model_client=primary_llm,
-            system_message="""你是一个专业的 C/C++ 代码分析师。你的专长包括：
-            1. 静态代码分析和度量
-            2. 计算圈复杂度和代码质量指标
-            3. 检查代码结构和组织
-            4. 识别性能问题和优化建议
-            
-            请提供详细的代码质量分析报告。
+            system_message="""You are a professional C/C++ code analyst. Your expertise includes:
+            1. Static code analysis and metrics
+            2. Calculating cyclomatic complexity and code quality indicators
+            3. Checking code structure and organisation
+            4. Identifying performance issues and optimisation suggestions
+
+            Please provide a detailed code quality analysis report.
             """,
-            description="专注于代码质量和结构分析"
+            description="Focused on code quality and structural analysis"
         )
         
-        # 安全专家
+        # Security expert
         self.agents["security_expert"] = AssistantAgent(
-            name="安全专家",
+            name="Security Expert",
             model_client=primary_llm,
-            system_message="""你是一个 C/C++ 安全漏洞专家。你的专长包括：
-            1. 缓冲区溢出检测
-            2. 内存泄漏和野指针分析
-            3. 危险函数使用检查
-            4. 输入验证和边界检查
-            5. 常见安全漏洞模式识别
-            
-            请重点关注安全问题，提供具体的漏洞位置和修复建议。
+            system_message="""You are a C/C++ security vulnerability expert. Your expertise includes:
+            1. Buffer overflow detection
+            2. Memory leak and dangling pointer analysis
+            3. Dangerous function usage checks
+            4. Input validation and boundary checking
+            5. Common security vulnerability pattern recognition
+
+            Please focus on security issues and provide specific vulnerability locations and remediation suggestions.
             """,
-            description="专注于安全漏洞检测和分析"
+            description="Focused on security vulnerability detection and analysis"
         )
         
-        # 调试专家
+        # Debug expert
         self.agents["debug_expert"] = AssistantAgent(
-            name="调试专家",
+            name="Debug Expert",
             model_client=primary_llm,
-            system_message="""你是一个 C/C++ 调试专家。你的专长包括：
-            1. 分析代码的可调试性
-            2. 建议断点设置位置
-            3. 推荐调试工具和技术
-            4. 错误处理和异常分析
-            5. 日志记录和监控建议
-            
-            请提供实用的调试策略和工具建议。
+            system_message="""You are a C/C++ debugging expert. Your expertise includes:
+            1. Analysing code debuggability
+            2. Suggesting breakpoint placement
+            3. Recommending debugging tools and techniques
+            4. Error handling and exception analysis
+            5. Logging and monitoring recommendations
+
+            Please provide practical debugging strategies and tool suggestions.
             """,
-            description="专注于调试策略和工具建议"
+            description="Focused on debugging strategies and tool recommendations"
         )
         
-        # 架构师
+        # Architect
         self.agents["architect"] = AssistantAgent(
-            name="架构师",
+            name="Architect",
             model_client=primary_llm,
-            system_message="""你是一个软件架构专家。你的专长包括：
-            1. 设计模式识别和建议
-            2. SOLID 原则检查
-            3. 代码组织和模块化分析
-            4. 接口设计和依赖管理
-            5. 可维护性和扩展性评估
-            
-            请从架构角度分析代码设计质量。
+            system_message="""You are a software architecture expert. Your expertise includes:
+            1. Design pattern identification and recommendations
+            2. SOLID principle checking
+            3. Code organisation and modularisation analysis
+            4. Interface design and dependency management
+            5. Maintainability and extensibility assessment
+
+            Please analyse code design quality from an architectural perspective.
             """,
-            description="专注于软件架构和设计模式分析"
+            description="Focused on software architecture and design pattern analysis"
         )
         
-        # 评判者（使用不同的 LLM 如果可用）
+        # Critic (use a different LLM if available)
         critic_llm = llm_configs.get("anthropic", primary_llm)
         self.agents["critic"] = AssistantAgent(
-            name="评判者",
+            name="Critic",
             model_client=critic_llm,
-            system_message="""你是一个严格的代码评判者。你的职责是：
-            1. 综合所有专家的分析结果
-            2. 进行客观的质量评分
-            3. 指出分析中可能的遗漏
-            4. 提供改进优先级排序
-            5. 给出最终的评估结论
-            
-            请保持批判性思维，确保分析的准确性和完整性。
+            system_message="""You are a rigorous code critic. Your responsibilities are:
+            1. Synthesise the analysis results from all experts
+            2. Provide objective quality scoring
+            3. Point out possible omissions in the analysis
+            4. Prioritise improvements
+            5. Give a final evaluation conclusion
+
+            Please maintain a critical mindset to ensure accuracy and completeness of the analysis.
             """,
-            description="负责最终质量评估和批判性分析"
+            description="Responsible for final quality assessment and critical analysis"
         )
         
         return True
     
     def create_mock_agents(self):
-        """创建模拟智能体（当没有 LLM 配置时）"""
+        """Create mock agents (when no LLM configuration is available)"""
         
         class MockAgent:
             def __init__(self, name, role):
@@ -183,38 +183,38 @@ class AutoGenCodeAnalyzer:
                 self.role = role
             
             async def generate_response(self, message):
-                # 返回模拟响应
+                # Return mock responses
                 responses = {
-                    "协调者": f"我是协调者，收到分析请求：{message[:50]}...",
-                    "代码分析师": "进行静态代码分析中...",
-                    "安全专家": "检测安全漏洞中...",
-                    "调试专家": "分析调试需求中...", 
-                    "架构师": "评估架构设计中...",
-                    "评判者": "进行综合评估中..."
+                    "Coordinator": f"I am the Coordinator, received analysis request: {message[:50]}...",
+                    "Code Analyst": "Performing static code analysis...",
+                    "Security Expert": "Detecting security vulnerabilities...",
+                    "Debug Expert": "Analysing debugging requirements...", 
+                    "Architect": "Evaluating architecture design...",
+                    "Critic": "Conducting comprehensive assessment..."
                 }
-                return responses.get(self.name, "处理中...")
+                return responses.get(self.name, "Processing...")
         
         agent_configs = [
-            ("协调者", "协调分析流程"),
-            ("代码分析师", "代码质量分析"),
-            ("安全专家", "安全漏洞检测"),
-            ("调试专家", "调试策略建议"),
-            ("架构师", "架构设计分析"),
-            ("评判者", "综合质量评估")
+            ("Coordinator", "Coordinate analysis workflow"),
+            ("Code Analyst", "Code quality analysis"),
+            ("Security Expert", "Security vulnerability detection"),
+            ("Debug Expert", "Debugging strategy recommendations"),
+            ("Architect", "Architecture design analysis"),
+            ("Critic", "Comprehensive quality assessment")
         ]
         
         for name, role in agent_configs:
             self.agents[name] = MockAgent(name, role)
         
-        return False  # 表示使用模拟模式
+        return False  # Indicates mock mode is being used
     
     async def analyze_code(self, code_content: str, filename: str) -> Dict[str, Any]:
-        """使用多智能体分析代码"""
+        """Analyse code using multi-agent system"""
         
-        print(f"🔍 开始分析文件: {filename}")
-        print(f"📝 代码长度: {len(code_content)} 字符")
+        print(f"🔍 Starting analysis of file: {filename}")
+        print(f"📝 Code length: {len(code_content)} characters")
         
-        # 创建智能体
+        # Create agents
         has_real_llm = self.create_agents()
         
         if has_real_llm:
@@ -223,14 +223,14 @@ class AutoGenCodeAnalyzer:
             return await self.run_mock_analysis(code_content, filename)
     
     async def run_autogen_analysis(self, code_content: str, filename: str) -> Dict[str, Any]:
-        """运行真实的 AutoGen 多智能体分析"""
+        """Run real AutoGen multi-agent analysis"""
         
         if not AUTOGEN_AVAILABLE:
-            print("⚠️ AutoGen 不可用，使用模拟模式")
+            print("⚠️ AutoGen is unavailable; using mock mode")
             return await self.run_mock_analysis(code_content, filename)
         
         try:
-            # 创建团队聊天
+            # Create team chat
             team = RoundRobinGroupChat([
                 self.agents["coordinator"],
                 self.agents["code_analyst"], 
@@ -240,34 +240,32 @@ class AutoGenCodeAnalyzer:
                 self.agents["critic"]
             ])
             
-            # 准备分析提示
+            # Prepare analysis prompt
             analysis_prompt = f"""
-请分析以下 C/C++ 代码文件：{filename}
+                Please analyse the following C/C++ code file: {filename}
 
-代码内容：
-```cpp
-{code_content}
-```
+                Code content:
+                {code_content}
 
-请每个专家按照自己的专长进行分析：
-1. 协调者：总体协调和流程管理
-2. 代码分析师：代码质量、复杂度、性能分析
-3. 安全专家：安全漏洞、内存安全、危险函数检测
-4. 调试专家：调试建议、断点推荐、工具建议
-5. 架构师：设计模式、SOLID原则、架构质量
-6. 评判者：综合评估、评分、改进建议
+                Each expert should analyse according to their own expertise:
+                1. Coordinator: overall coordination and process management
+                2. Code Analyst: code quality, complexity, performance analysis
+                3. Security Expert: security vulnerabilities, memory safety, dangerous function detection
+                4. Debug Expert: debugging suggestions, breakpoint recommendations, tool advice
+                5. Architect: design patterns, SOLID principles, architecture quality
+                6. Critic: comprehensive assessment, scoring, improvement suggestions
 
-请提供详细且具体的分析结果。
-"""
+                Please provide detailed and specific analysis results.
+                """
             
-            # 运行分析
+            # Run analysis
             import sys
             result = await team.run(
                 task=analysis_prompt,
                 cancellation_token=CancellationToken()
             )
             
-            # 整理对话历史
+            # Organise conversation history
             conversation_history = []
             if hasattr(result, 'messages'):
                 for message in result.messages:
@@ -275,8 +273,8 @@ class AutoGenCodeAnalyzer:
                         "agent": getattr(message, 'source', 'unknown'),
                         "agent_name": f"🤖 {getattr(message, 'source', 'unknown')}",
                         "message": getattr(message, 'content', str(message)),
-                        "timestamp": "2025-08-30 16:40:00",  # 简化时间戳
-                        "reasoning": f"基于 {getattr(message, 'source', 'unknown')} 的专业分析"
+                        "timestamp": "2025-08-30 16:40:00",  # Simplified timestamp
+                        "reasoning": f"Based on the professional analysis of {getattr(message, 'source', 'unknown')}"
                     })
             
             return {
@@ -296,77 +294,77 @@ class AutoGenCodeAnalyzer:
             }
             
         except Exception as e:
-            print(f"❌ AutoGen 分析失败: {e}")
+            print(f"❌ AutoGen analysis failed: {e}")
             return await self.run_mock_analysis(code_content, filename)
     
     async def run_mock_analysis(self, code_content: str, filename: str) -> Dict[str, Any]:
-        """运行模拟的多智能体分析"""
+        """Run mock multi-agent analysis"""
         
-        print("🎭 运行模拟多智能体分析模式")
+        print("🎭 Running mock multi-agent analysis mode")
         
-        # 简单的代码分析
+        # Simple code analysis
         lines = code_content.split('\n')
         code_lines = [line for line in lines if line.strip() and not line.strip().startswith('//')]
         
-        # 检测问题
+        # Detect issues
         security_issues = []
         if 'strcpy' in code_content:
-            security_issues.append("发现 strcpy 函数，可能导致缓冲区溢出")
+            security_issues.append("strcpy function detected, may cause buffer overflow")
         if 'gets' in code_content:
-            security_issues.append("发现 gets 函数，极易导致缓冲区溢出")
+            security_issues.append("gets function detected, highly prone to buffer overflow")
         if 'malloc' in code_content and 'free' not in code_content:
-            security_issues.append("发现 malloc 但未找到对应的 free，可能存在内存泄漏")
+            security_issues.append("malloc found but no matching free; possible memory leak")
         
-        # 模拟智能体对话
+        # Mock agent conversations
         conversations = [
             {
                 "agent": "coordinator",
-                "agent_name": "🎯 协调者",
-                "message": f"开始分析文件 {filename}，共 {len(lines)} 行代码。分配任务给各专家智能体。",
+                "agent_name": "🎯 Coordinator",
+                "message": f"Starting analysis of file {filename}, total {len(lines)} lines. Distributing tasks to expert agents.",
                 "timestamp": "2025-08-30 16:40:01",
-                "reasoning": "初始化多智能体协作分析流程"
+                "reasoning": "Initialising multi-agent collaborative analysis process"
             },
             {
                 "agent": "code_analyst", 
-                "agent_name": "📊 代码分析师",
-                "message": f"代码结构分析完成：\n- 总行数：{len(lines)}\n- 有效代码行：{len(code_lines)}\n- 函数数量：{code_content.count('(')}\n- 复杂度：中等",
+                "agent_name": "📊 Code Analyst",
+                "message": f"Code structure analysis completed:\n- Total lines: {len(lines)}\n- Effective code lines: {len(code_lines)}\n- Function count: {code_content.count('(')}\n- Complexity: medium",
                 "timestamp": "2025-08-30 16:40:05",
-                "reasoning": "基于静态分析进行代码度量统计"
+                "reasoning": "Performed code metric statistics based on static analysis"
             },
             {
                 "agent": "security_expert",
-                "agent_name": "🔒 安全专家", 
-                "message": f"安全分析结果：\n{''.join(['- ' + issue + chr(10) for issue in security_issues]) if security_issues else '✅ 未发现明显安全问题'}",
+                "agent_name": "🔒 Security Expert", 
+                "message": f"Security analysis results:\n{''.join(['- ' + issue + chr(10) for issue in security_issues]) if security_issues else '✅ No obvious security issues detected'}",
                 "timestamp": "2025-08-30 16:40:08",
-                "reasoning": "扫描常见的C/C++安全漏洞模式"
+                "reasoning": "Scanned for common C/C++ security vulnerability patterns"
             },
             {
                 "agent": "debug_expert",
-                "agent_name": "🐛 调试专家",
-                "message": "调试建议：\n- 建议使用 gdb 进行调试\n- 关键位置设置断点\n- 开启编译器警告选项\n- 使用 Valgrind 检测内存问题",
+                "agent_name": "🐛 Debug Expert",
+                "message": "Debugging suggestions:\n- Suggest using gdb for debugging\n- Set breakpoints at critical locations\n- Enable compiler warning options\n- Use Valgrind to detect memory issues",
                 "timestamp": "2025-08-30 16:40:12",
-                "reasoning": "基于代码特征提供调试策略"
+                "reasoning": "Provided debugging strategies based on code characteristics"
             },
             {
                 "agent": "architect",
-                "agent_name": "🏗️ 架构师",
-                "message": f"架构评估：\n- 代码组织：{'简单' if len(code_lines) < 50 else '复杂'}\n- 函数设计：需要进一步模块化\n- 建议遵循 SOLID 原则",
+                "agent_name": "🏗️ Architect",
+                "message": f"Architecture assessment:\n- Code organisation: {'simple' if len(code_lines) < 50 else 'complex'}\n- Function design: needs further modularisation\n- Suggests following SOLID principles",
                 "timestamp": "2025-08-30 16:40:16",
-                "reasoning": "从软件工程角度评估代码设计"
+                "reasoning": "Evaluated code design from a software engineering perspective"
             },
             {
                 "agent": "critic",
-                "agent_name": "🧐 评判者",
-                "message": f"综合评估：\n- 代码质量：{'良好' if not security_issues else '需要改进'}\n- 安全评分：{8 if not security_issues else 4}/10\n- 建议：{'继续保持' if not security_issues else '优先修复安全问题'}",
+                "agent_name": "🧐 Critic",
+                "message": f"Comprehensive assessment:\n- Code quality: {'good' if not security_issues else 'needs improvement'}\n- Security score: {8 if not security_issues else 4}/10\n- Recommendation: {'maintain current standards' if not security_issues else 'prioritise fixing security issues'}",
                 "timestamp": "2025-08-30 16:40:20",
-                "reasoning": "综合所有专家意见进行最终评估"
+                "reasoning": "Synthesised all expert opinions for final evaluation"
             },
             {
                 "agent": "coordinator",
-                "agent_name": "🎯 协调者",
-                "message": f"分析完成！共发现 {len(security_issues)} 个潜在问题。建议按优先级修复。",
+                "agent_name": "🎯 Coordinator",
+                "message": f"Analysis complete! Found {len(security_issues)} potential issues. Suggestions to fix by priority.",
                 "timestamp": "2025-08-30 16:40:24",
-                "reasoning": "汇总分析结果并制定行动计划"
+                "reasoning": "Aggregated analysis results and developed action plan"
             }
         ]
         
@@ -393,5 +391,5 @@ class AutoGenCodeAnalyzer:
             }
         }
 
-# 全局分析器实例
+# Global analyzer instance
 autogen_analyzer = AutoGenCodeAnalyzer()

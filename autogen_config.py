@@ -1,10 +1,10 @@
 """
-AutoGen Studio 配置文件 - 多智能体代码分析系统
+AutoGen Studio Configuration File - Multi-Agent Code Analysis System
 """
 import os
 from pathlib import Path
 
-# AutoGen Studio 配置
+# AutoGen Studio Configuration
 AUTOGEN_CONFIG = {
     "models": [
         {
@@ -33,91 +33,91 @@ AUTOGEN_CONFIG = {
     "agents": [
         {
             "name": "coordinator",
-            "description": "协调器：负责任务分解和流程管理",
-            "system_message": """你是一个多智能体系统的协调器。
-你的任务是：
-1. 接收代码分析请求
-2. 将复杂任务分解为子任务
-3. 协调各个专家智能体的工作
-4. 整合分析结果
-5. 提供最终的修复建议
+            "description": "Coordinator: responsible for task decomposition and process management",
+            "system_message": """You are the coordinator of a multi-agent system.
+Your tasks are:
+1. Receive code analysis requests
+2. Decompose complex tasks into subtasks
+3. Coordinate the work of each expert agent
+4. Consolidate analysis results
+5. Provide final remediation recommendations
 
-请始终保持专业、准确和高效。""",
+Always remain professional, accurate, and efficient.""",
             "model": "gpt-4",
             "max_consecutive_auto_reply": 10
         },
         {
             "name": "code_analyst",
-            "description": "代码分析专家：专注于代码结构和逻辑分析",
-            "system_message": """你是一个专业的代码分析专家。
-你的专长包括：
-1. 静态代码分析
-2. 代码结构评估
-3. 逻辑流程分析
-4. 代码质量评估
-5. 性能瓶颈识别
+            "description": "Code Analysis Expert: focuses on code structure and logic analysis",
+            "system_message": """You are a professional code analysis expert.
+Your areas of expertise include:
+1. Static code analysis
+2. Code structure assessment
+3. Logical flow analysis
+4. Code quality evaluation
+5. Performance bottleneck identification
 
-分析时请提供详细的技术细节和改进建议。""",
+Provide detailed technical details and improvement suggestions in your analysis.""",
             "model": "claude-3-sonnet",
             "max_consecutive_auto_reply": 5
         },
         {
             "name": "security_expert",
-            "description": "安全专家：专注于安全漏洞检测",
-            "system_message": """你是一个网络安全专家。
-你的专长包括：
-1. 安全漏洞检测（缓冲区溢出、注入攻击等）
-2. 安全代码审计
-3. 威胁建模
-4. 安全最佳实践
-5. 漏洞修复建议
+            "description": "Security Expert: focuses on security vulnerability detection",
+            "system_message": """You are a cybersecurity expert.
+Your areas of expertise include:
+1. Security vulnerability detection (buffer overflows, injection attacks, etc.)
+2. Secure code auditing
+3. Threat modeling
+4. Security best practices
+5. Vulnerability remediation suggestions
 
-请提供详细的安全分析和修复方案。""",
+Provide detailed security analysis and remediation plans.""",
             "model": "gpt-4",
             "max_consecutive_auto_reply": 5
         },
         {
             "name": "debug_expert",
-            "description": "调试专家：专注于错误定位和修复",
-            "system_message": """你是一个调试专家。
-你的专长包括：
-1. 运行时错误分析
-2. 内存泄漏检测
-3. 死锁和竞态条件分析
-4. 性能问题诊断
-5. 错误修复方案
+            "description": "Debug Expert: focuses on error localization and fixing",
+            "system_message": """You are a debugging expert.
+Your areas of expertise include:
+1. Runtime error analysis
+2. Memory leak detection
+3. Deadlock and race condition analysis
+4. Performance problem diagnosis
+5. Error remediation plans
 
-请提供精确的错误定位和可行的修复方案。""",
+Provide precise error localization and feasible repair solutions.""",
             "model": "gpt-oss",
             "max_consecutive_auto_reply": 5
         },
         {
             "name": "architect",
-            "description": "架构师：专注于系统设计和重构建议",
-            "system_message": """你是一个软件架构师。
-你的专长包括：
-1. 系统架构设计
-2. 代码重构建议
-3. 设计模式应用
-4. 可维护性评估
-5. 扩展性分析
+            "description": "Architect: focuses on system design and refactoring suggestions",
+            "system_message": """You are a software architect.
+Your areas of expertise include:
+1. System architecture design
+2. Code refactoring suggestions
+3. Design pattern application
+4. Maintainability assessment
+5. Scalability analysis
 
-请提供系统级的改进建议。""",
+Provide system-level improvement suggestions.""",
             "model": "claude-3-sonnet",
             "max_consecutive_auto_reply": 5
         },
         {
             "name": "critic",
-            "description": "评审专家：负责质量控制和最终评审",
-            "system_message": """你是一个代码评审专家。
-你的职责是：
-1. 评审其他专家的分析结果
-2. 验证修复方案的可行性
-3. 提供质量保证
-4. 标识遗漏的问题
-5. 确保最终方案的完整性
+            "description": "Review Expert: responsible for quality control and final review",
+            "system_message": """You are a code review expert.
+Your responsibilities are:
+1. Review the analysis results of other experts
+2. Verify the feasibility of remediation plans
+3. Provide quality assurance
+4. Identify overlooked issues
+5. Ensure completeness of the final solution
 
-请提供客观、全面的评审意见。""",
+Provide objective and comprehensive review comments.""",
             "model": "gpt-4",
             "max_consecutive_auto_reply": 3
         }
@@ -126,7 +126,7 @@ AUTOGEN_CONFIG = {
     "workflows": [
         {
             "name": "c_cpp_code_analysis",
-            "description": "C/C++代码分析流程",
+            "description": "C/C++ Code Analysis Workflow",
             "sender": "coordinator",
             "receiver": "code_analyst",
             "summary_method": "reflection_with_llm",
@@ -145,60 +145,60 @@ AUTOGEN_CONFIG = {
     "skills": [
         {
             "name": "cpp_static_analysis",
-            "description": "C++静态代码分析",
+            "description": "C++ static code analysis",
             "content": """
 def analyze_cpp_code(code_content, file_path):
-    '''分析C++代码的静态问题'''
+    '''Analyze static issues in C++ code'''
     import subprocess
     import tempfile
     
-    # 保存代码到临时文件
+    # Save code to a temporary file
     with tempfile.NamedTemporaryFile(mode='w', suffix='.cpp', delete=False) as f:
         f.write(code_content)
         temp_file = f.name
     
     results = []
     
-    # 编译检查
+    # Compilation check
     try:
         result = subprocess.run(['g++', '-Wall', '-Wextra', '-fsyntax-only', temp_file],
                               capture_output=True, text=True)
         if result.stderr:
-            results.append(f"编译警告/错误:\\n{result.stderr}")
+            results.append(f"Compilation warnings/errors:\\n{result.stderr}")
     except Exception as e:
-        results.append(f"编译检查失败: {e}")
+        results.append(f"Compilation check failed: {e}")
     
-    # cppcheck 静态分析
+    # cppcheck static analysis
     try:
         result = subprocess.run(['cppcheck', '--enable=all', '--verbose', temp_file],
                               capture_output=True, text=True)
         if result.stderr:
-            results.append(f"cppcheck 分析:\\n{result.stderr}")
+            results.append(f"cppcheck analysis:\\n{result.stderr}")
     except Exception as e:
-        results.append(f"cppcheck 分析失败: {e}")
+        results.append(f"cppcheck analysis failed: {e}")
     
-    # 清理临时文件
+    # Clean up temporary file
     import os
     os.unlink(temp_file)
     
-    return "\\n\\n".join(results) if results else "未发现明显问题"
+    return "\\n\\n".join(results) if results else "No obvious issues found"
 """
         }
     ]
 }
 
 def create_autogen_studio_config():
-    """创建 AutoGen Studio 配置文件"""
+    """Create AutoGen Studio configuration file"""
     config_dir = Path.home() / ".autogenstudio" 
     config_dir.mkdir(exist_ok=True)
     
-    # 写入配置
+    # Write configuration
     import json
     config_file = config_dir / "config.json"
     with open(config_file, 'w', encoding='utf-8') as f:
         json.dump(AUTOGEN_CONFIG, f, indent=2, ensure_ascii=False)
     
-    print(f"AutoGen Studio 配置已保存到: {config_file}")
+    print(f"AutoGen Studio configuration saved to: {config_file}")
     return config_file
 
 if __name__ == "__main__":

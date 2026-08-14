@@ -1,6 +1,6 @@
 """
-增强的多智能体系统
-包含质疑者(Critic)和检查者(Reviewer)角色，实现更全面的代码分析
+Enhanced Multi-Agent System
+Includes Critic and Reviewer roles for more comprehensive code analysis
 """
 
 import asyncio
@@ -11,7 +11,7 @@ from dataclasses import dataclass
 import sys
 from pathlib import Path
 
-# 添加项目根目录到路径
+# Add project root directory to path
 project_root = Path(__file__).parent.parent
 sys.path.append(str(project_root))
 
@@ -19,7 +19,7 @@ from config.env_config import config
 
 @dataclass
 class AgentConfig:
-    """智能体配置"""
+    """Agent configuration"""
     name: str
     role: str
     llm_provider: str
@@ -28,11 +28,11 @@ class AgentConfig:
     max_tokens: int = 4000
 
 class LLMInterface:
-    """LLM接口抽象层"""
+    """LLM interface abstraction layer"""
     
     @staticmethod
     async def call_openai(prompt: str, system_message: str) -> str:
-        """调用OpenAI API"""
+        """Call OpenAI API"""
         try:
             from openai import AsyncOpenAI
             
@@ -54,11 +54,11 @@ class LLMInterface:
             return response.choices[0].message.content
             
         except Exception as e:
-            return f"OpenAI调用失败: {str(e)}"
+            return f"OpenAI call failed: {str(e)}"
     
     @staticmethod
     async def call_anthropic(prompt: str, system_message: str) -> str:
-        """调用Anthropic Claude API"""
+        """Call Anthropic Claude API"""
         try:
             from anthropic import AsyncAnthropic
             
@@ -79,11 +79,11 @@ class LLMInterface:
             return response.content[0].text
             
         except Exception as e:
-            return f"Anthropic调用失败: {str(e)}"
+            return f"Anthropic call failed: {str(e)}"
     
     @staticmethod
     async def call_gemini(prompt: str, system_message: str) -> str:
-        """调用Google Gemini API"""
+        """Call Google Gemini API"""
         try:
             import google.generativeai as genai
             
@@ -102,11 +102,11 @@ class LLMInterface:
             return response.text
             
         except Exception as e:
-            return f"Gemini调用失败: {str(e)}"
+            return f"Gemini call failed: {str(e)}"
     
     @staticmethod
     async def call_ollama(prompt: str, system_message: str) -> str:
-        """调用Ollama本地推理"""
+        """Call Ollama local inference"""
         try:
             import aiohttp
             
@@ -127,36 +127,36 @@ class LLMInterface:
                 ) as response:
                     if response.status == 200:
                         result = await response.json()
-                        return result.get("response", "Ollama响应为空")
+                        return result.get("response", "Ollama response is empty")
                     else:
-                        return f"Ollama调用失败: HTTP {response.status}"
+                        return f"Ollama call failed: HTTP {response.status}"
                         
         except Exception as e:
-            return f"Ollama调用失败: {str(e)}"
+            return f"Ollama call failed: {str(e)}"
 
 class EnhancedAgent:
-    """增强的智能体类"""
+    """Enhanced agent class"""
     
     def __init__(self, agent_config: AgentConfig):
         self.config = agent_config
         self.conversation_history: List[Dict[str, str]] = []
         
     async def process(self, prompt: str, context: Optional[Dict] = None) -> str:
-        """处理输入并返回响应"""
+        """Process input and return response"""
         
-        # 添加上下文信息
+        # Add context information
         if context:
             enhanced_prompt = f"""
-上下文信息:
+Context information:
 {json.dumps(context, ensure_ascii=False, indent=2)}
 
-任务:
+Task:
 {prompt}
 """
         else:
             enhanced_prompt = prompt
         
-        # 根据LLM提供商选择调用方法
+        # Select calling method based on LLM provider
         if self.config.llm_provider == "openai":
             response = await LLMInterface.call_openai(enhanced_prompt, self.config.system_message)
         elif self.config.llm_provider == "claude":
@@ -166,9 +166,9 @@ class EnhancedAgent:
         elif self.config.llm_provider == "ollama":
             response = await LLMInterface.call_ollama(enhanced_prompt, self.config.system_message)
         else:
-            response = f"不支持的LLM提供商: {self.config.llm_provider}"
+            response = f"Unsupported LLM provider: {self.config.llm_provider}"
         
-        # 记录对话历史
+        # Record conversation history
         self.conversation_history.append({
             "timestamp": datetime.now().isoformat(),
             "prompt": enhanced_prompt,
@@ -178,7 +178,7 @@ class EnhancedAgent:
         return response
 
 class EnhancedMultiAgentSystem:
-    """增强的多智能体系统"""
+    """Enhanced multi-agent system"""
     
     def __init__(self):
         self.agents: Dict[str, EnhancedAgent] = {}
@@ -188,124 +188,124 @@ class EnhancedMultiAgentSystem:
         self._initialize_agents()
     
     def _initialize_agents(self):
-        """初始化所有智能体"""
+        """Initialize all agents"""
         
-        # 协调者 - GPT-4 (综合协调能力强)
+        # Coordinator - GPT-4 (strong coordination capabilities)
         coordinator_config = AgentConfig(
             name="coordinator",
-            role="协调者",
+            role="Coordinator",
             llm_provider=config.coordinator_llm,
-            system_message="""你是Interruptr系统的协调者，负责管理整个代码分析流程。
-你的职责：
-1. 分解复杂的分析任务
-2. 协调各专家智能体的工作
-3. 整合分析结果
-4. 确保分析的完整性和准确性
-5. 生成最终的综合报告
+            system_message="""You are the coordinator of the Interruptr system, responsible for managing the entire code analysis process.
+Your responsibilities:
+1. Decompose complex analysis tasks
+2. Coordinate the work of expert agents
+3. Integrate analysis results
+4. Ensure completeness and accuracy of the analysis
+5. Generate the final comprehensive report
 
-请始终保持客观、专业的态度，确保分析过程有序进行。"""
+Always maintain an objective and professional attitude to ensure an orderly analysis process."""
         )
         
-        # 代码分析师 - Claude (深度分析能力)
+        # Code Analyst - Claude (deep analytical capabilities)
         code_analyst_config = AgentConfig(
             name="code_analyst",
-            role="代码分析师", 
+            role="Code Analyst", 
             llm_provider=config.code_analyst_llm,
-            system_message="""你是专业的C/C++代码分析师，具有深厚的编程经验。
-你的专长：
-1. 静态代码分析和结构解析
-2. 代码复杂度计算和质量评估
-3. 编程规范和最佳实践检查
-4. 性能瓶颈识别
-5. 代码可维护性评估
+            system_message="""You are a professional C/C++ code analyst with deep programming experience.
+Your expertise:
+1. Static code analysis and structure parsing
+2. Code complexity calculation and quality assessment
+3. Coding standards and best practice checks
+4. Performance bottleneck identification
+5. Code maintainability evaluation
 
-请提供详细、准确的分析报告，包含具体的改进建议。"""
+Please provide a detailed and accurate analysis report, including specific improvement suggestions."""
         )
         
-        # 安全专家 - Claude (专业安全分析)
+        # Security Expert - Claude (specialised security analysis)
         security_expert_config = AgentConfig(
             name="security_expert",
-            role="安全专家",
+            role="Security Expert",
             llm_provider=config.security_expert_llm,
-            system_message="""你是C/C++安全领域的专家，专注于识别和分析安全漏洞。
-你的专长：
-1. 缓冲区溢出检测
-2. 内存泄漏和野指针分析
-3. 整数溢出和下溢检查
-4. 格式字符串漏洞识别
-5. 竞态条件分析
-6. 加密和认证问题
+            system_message="""You are an expert in C/C++ security, focused on identifying and analysing security vulnerabilities.
+Your expertise:
+1. Buffer overflow detection
+2. Memory leak and dangling pointer analysis
+3. Integer overflow and underflow checking
+4. Format string vulnerability identification
+5. Race condition analysis
+6. Encryption and authentication issues
 
-请提供详细的安全风险评估和具体的修复方案。"""
+Please provide a detailed security risk assessment and specific remediation plans."""
         )
         
-        # 调试专家 - GPT-4 (调试经验丰富)
+        # Debug Expert - GPT-4 (rich debugging experience)
         debug_expert_config = AgentConfig(
             name="debug_expert",
-            role="调试专家",
+            role="Debug Expert",
             llm_provider=config.debug_expert_llm,
-            system_message="""你是经验丰富的调试专家，擅长分析程序执行流程和定位问题。
-你的专长：
-1. 智能断点位置推荐
-2. 程序执行路径分析
-3. 变量状态跟踪策略
-4. 异常和错误处理分析
-5. 测试用例设计
-6. 调试工具使用建议
+            system_message="""You are an experienced debugging expert, skilled in analysing program execution flows and locating issues.
+Your expertise:
+1. Intelligent breakpoint placement recommendations
+2. Program execution path analysis
+3. Variable state tracking strategies
+4. Exception and error handling analysis
+5. Test case design
+6. Debugging tool usage suggestions
 
-请提供实用的调试策略和具体的断点建议。"""
+Please provide practical debugging strategies and specific breakpoint suggestions."""
         )
         
-        # 架构师 - Claude (架构设计能力)
+        # Architect - Claude (architecture design capabilities)
         architect_config = AgentConfig(
             name="architect",
-            role="架构师",
+            role="Architect",
             llm_provider=config.architect_llm,
-            system_message="""你是软件架构师，专注于代码的整体设计和架构质量。
-你的专长：
-1. 软件架构模式识别和评估
-2. 代码组织结构分析
-3. 模块耦合度和内聚性评估
-4. 设计原则遵循情况检查
-5. 可扩展性和可维护性分析
-6. 重构建议和架构改进
+            system_message="""You are a software architect, focused on overall code design and architecture quality.
+Your expertise:
+1. Software architecture pattern identification and evaluation
+2. Code organisation structure analysis
+3. Module coupling and cohesion assessment
+4. Design principle compliance checking
+5. Scalability and maintainability analysis
+6. Refactoring suggestions and architecture improvements
 
-请从架构角度提供专业的设计建议。"""
+Please provide professional design recommendations from an architectural perspective."""
         )
         
-        # 质疑者 - Gemini (多角度质疑)
+        # Critic - Gemini (multi‑angle questioning)
         critic_config = AgentConfig(
             name="critic",
-            role="质疑者",
+            role="Critic",
             llm_provider=config.critic_llm,
-            system_message="""你是独立的质疑者，负责对其他智能体的分析结果进行批判性审查。
-你的职责：
-1. 质疑分析结论的合理性
-2. 寻找被遗漏的问题和风险
-3. 验证建议的可行性
-4. 提出反对意见和替代方案
-5. 确保分析的全面性和客观性
+            system_message="""You are an independent critic, responsible for critically reviewing the analysis results of other agents.
+Your responsibilities:
+1. Question the reasonableness of analysis conclusions
+2. Look for overlooked issues and risks
+3. Verify the feasibility of suggestions
+4. Raise objections and alternative solutions
+5. Ensure comprehensiveness and objectivity of the analysis
 
-请保持批判性思维，提出有建设性的质疑和不同观点。"""
+Maintain a critical mindset and provide constructive questions and different perspectives."""
         )
         
-        # 检查者 - Ollama本地 (独立验证)
+        # Reviewer - Ollama local (independent verification)
         reviewer_config = AgentConfig(
             name="reviewer",
-            role="检查者",
+            role="Reviewer",
             llm_provider=config.reviewer_llm,
-            system_message="""你是独立的检查者，负责最终审核和验证所有分析结果。
-你的职责：
-1. 验证分析结果的准确性
-2. 检查结论的逻辑一致性
-3. 确认建议的实用性
-4. 识别矛盾和不一致之处
-5. 提供最终的质量保证
+            system_message="""You are an independent reviewer, responsible for the final audit and verification of all analysis results.
+Your responsibilities:
+1. Verify the accuracy of analysis results
+2. Check the logical consistency of conclusions
+3. Confirm the practicality of suggestions
+4. Identify contradictions and inconsistencies
+5. Provide final quality assurance
 
-请进行严格的审核，确保输出结果的质量和可靠性。"""
+Conduct a strict review to ensure the quality and reliability of the output."""
         )
         
-        # 创建智能体实例
+        # Create agent instances
         configs = [
             coordinator_config, code_analyst_config, security_expert_config,
             debug_expert_config, architect_config, critic_config, reviewer_config
@@ -315,7 +315,7 @@ class EnhancedMultiAgentSystem:
             self.agents[agent_config.name] = EnhancedAgent(agent_config)
     
     def _log_conversation(self, sender: str, receiver: str, message: str, message_type: str = "analysis"):
-        """记录对话"""
+        """Log a conversation entry"""
         entry = {
             "timestamp": datetime.now().isoformat(),
             "sender": sender,
@@ -326,45 +326,45 @@ class EnhancedMultiAgentSystem:
         self.conversation_log.append(entry)
     
     async def analyze_code_file(self, file_path: str, code_content: str) -> Dict[str, Any]:
-        """执行完整的代码分析流程"""
+        """Execute the complete code analysis workflow"""
         
-        print(f"🚀 开始分析文件: {file_path}")
+        print(f"🚀 Starting analysis of file: {file_path}")
         
-        # 第一轮：基础分析
-        print("\n📊 第一轮：基础专家分析...")
+        # Round 1: Basic analysis
+        print("\n📊 Round 1: Basic expert analysis...")
         
-        # 1. 代码分析师分析
+        # 1. Code Analyst analysis
         code_analysis_prompt = f"""
-请分析以下C/C++代码文件：
+Please analyse the following C/C++ code file:
 
-文件路径: {file_path}
-代码内容:
+File path: {file_path}
+Code content:
 ```c
 {code_content}
 ```
 
-请提供详细的代码质量分析报告。
+Please provide a detailed code quality analysis report.
 """
         
         code_analysis = await self.agents["code_analyst"].process(code_analysis_prompt)
         self.analysis_results["code_quality"] = code_analysis
         self._log_conversation("system", "code_analyst", code_analysis_prompt)
         self._log_conversation("code_analyst", "system", code_analysis)
-        print("✅ 代码质量分析完成")
+        print("✅ Code quality analysis completed")
         
-        # 2. 安全专家分析
+        # 2. Security Expert analysis
         security_analysis_prompt = f"""
-基于代码质量分析结果，请进行安全漏洞检测：
+Based on the code quality analysis results, please perform security vulnerability detection:
 
-代码分析结果：
+Code analysis results:
 {code_analysis}
 
-原始代码：
+Original code:
 ```c
 {code_content}
 ```
 
-请重点检测安全风险和漏洞。
+Please focus on detecting security risks and vulnerabilities.
 """
         
         security_analysis = await self.agents["security_expert"].process(
@@ -374,19 +374,19 @@ class EnhancedMultiAgentSystem:
         self.analysis_results["security"] = security_analysis
         self._log_conversation("system", "security_expert", security_analysis_prompt)
         self._log_conversation("security_expert", "system", security_analysis)
-        print("✅ 安全分析完成")
+        print("✅ Security analysis completed")
         
-        # 3. 调试专家分析
+        # 3. Debug Expert analysis
         debug_analysis_prompt = f"""
-基于前面的分析结果，请提供调试建议：
+Based on the previous analysis results, please provide debugging suggestions:
 
-代码质量分析：
+Code quality analysis:
 {code_analysis}
 
-安全分析：
+Security analysis:
 {security_analysis}
 
-请推荐断点位置和调试策略。
+Please recommend breakpoint locations and debugging strategies.
 """
         
         debug_analysis = await self.agents["debug_expert"].process(
@@ -396,17 +396,17 @@ class EnhancedMultiAgentSystem:
         self.analysis_results["debug"] = debug_analysis
         self._log_conversation("system", "debug_expert", debug_analysis_prompt)
         self._log_conversation("debug_expert", "system", debug_analysis)
-        print("✅ 调试分析完成")
+        print("✅ Debugging analysis completed")
         
-        # 4. 架构师分析
+        # 4. Architect analysis
         architecture_analysis_prompt = f"""
-基于所有分析结果，请进行架构评估：
+Based on all analysis results, please perform an architecture assessment:
 
-代码质量：{code_analysis}
-安全分析：{security_analysis}
-调试分析：{debug_analysis}
+Code quality: {code_analysis}
+Security analysis: {security_analysis}
+Debugging analysis: {debug_analysis}
 
-请从架构角度提供设计建议。
+Please provide design suggestions from an architectural perspective.
 """
         
         architecture_analysis = await self.agents["architect"].process(
@@ -420,21 +420,21 @@ class EnhancedMultiAgentSystem:
         self.analysis_results["architecture"] = architecture_analysis
         self._log_conversation("system", "architect", architecture_analysis_prompt)
         self._log_conversation("architect", "system", architecture_analysis)
-        print("✅ 架构分析完成")
+        print("✅ Architecture analysis completed")
         
-        # 第二轮：质疑和检查
-        print("\n🤔 第二轮：质疑者审查...")
+        # Round 2: Critique and review
+        print("\n🤔 Round 2: Critic review...")
         
-        # 5. 质疑者审查
+        # 5. Critic review
         critic_prompt = f"""
-请对以下分析结果进行批判性审查：
+Please perform a critical review of the following analysis results:
 
-代码质量分析：{code_analysis}
-安全分析：{security_analysis}
-调试分析：{debug_analysis}
-架构分析：{architecture_analysis}
+Code quality analysis: {code_analysis}
+Security analysis: {security_analysis}
+Debugging analysis: {debug_analysis}
+Architecture analysis: {architecture_analysis}
 
-请质疑这些结论，寻找遗漏的问题，提出不同观点。
+Question these conclusions, look for overlooked issues, and raise different perspectives.
 """
         
         critic_review = await self.agents["critic"].process(
@@ -444,21 +444,21 @@ class EnhancedMultiAgentSystem:
         self.analysis_results["critic_review"] = critic_review
         self._log_conversation("system", "critic", critic_prompt)
         self._log_conversation("critic", "system", critic_review)
-        print("✅ 质疑审查完成")
+        print("✅ Critic review completed")
         
-        # 第三轮：最终检查
-        print("\n🔍 第三轮：检查者验证...")
+        # Round 3: Final verification
+        print("\n🔍 Round 3: Reviewer verification...")
         
-        # 6. 检查者验证
+        # 6. Reviewer verification
         reviewer_prompt = f"""
-请对整个分析过程进行最终验证：
+Please perform the final validation of the entire analysis process:
 
-所有分析结果：
+All analysis results:
 {json.dumps(self.analysis_results, ensure_ascii=False, indent=2)}
 
-质疑者意见：{critic_review}
+Critic's opinion: {critic_review}
 
-请验证分析的准确性、一致性和完整性，提供最终评估。
+Verify the accuracy, consistency, and completeness of the analysis, and provide a final assessment.
 """
         
         final_review = await self.agents["reviewer"].process(
@@ -468,19 +468,19 @@ class EnhancedMultiAgentSystem:
         self.analysis_results["final_review"] = final_review
         self._log_conversation("system", "reviewer", reviewer_prompt)
         self._log_conversation("reviewer", "system", final_review)
-        print("✅ 最终检查完成")
+        print("✅ Final review completed")
         
-        # 第四轮：协调者总结
-        print("\n📋 第四轮：协调者总结...")
+        # Round 4: Coordinator summarises
+        print("\n📋 Round 4: Coordinator summary...")
         
-        # 7. 协调者生成最终报告
+        # 7. Coordinator generates final report
         coordinator_prompt = f"""
-基于所有智能体的分析结果，请生成最终的综合报告：
+Based on the analysis results from all agents, please generate the final comprehensive report:
 
-完整分析结果：
+Full analysis results:
 {json.dumps(self.analysis_results, ensure_ascii=False, indent=2)}
 
-请整合所有观点，生成结构化的最终报告。
+Synthesise all viewpoints and produce a structured final report.
 """
         
         final_report = await self.agents["coordinator"].process(
@@ -490,7 +490,7 @@ class EnhancedMultiAgentSystem:
         self.analysis_results["final_report"] = final_report
         self._log_conversation("system", "coordinator", coordinator_prompt)
         self._log_conversation("coordinator", "system", final_report)
-        print("✅ 综合报告生成完成")
+        print("✅ Final report generation completed")
         
         return {
             "status": "completed",
@@ -501,7 +501,7 @@ class EnhancedMultiAgentSystem:
         }
     
     def _generate_agent_summary(self) -> Dict[str, Any]:
-        """生成智能体工作摘要"""
+        """Generate agent work summary"""
         summary = {}
         
         for agent_name, agent in self.agents.items():
@@ -514,35 +514,35 @@ class EnhancedMultiAgentSystem:
         
         return summary
 
-# 使用示例
+# Usage example
 async def main():
-    """主函数示例"""
+    """Main function example"""
     
-    # 创建增强的多智能体系统
+    # Create the enhanced multi-agent system
     system = EnhancedMultiAgentSystem()
     
-    # 分析示例文件
+    # Analyse an example file
     file_path = "examples/unsafe_code.c"
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             code_content = f.read()
         
-        # 执行分析
+        # Execute analysis
         result = await system.analyze_code_file(file_path, code_content)
         
-        # 保存结果
+        # Save results
         output_file = f"analysis_result_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(result, f, ensure_ascii=False, indent=2)
         
-        print(f"\n🎉 分析完成！结果已保存到: {output_file}")
-        print(f"📊 智能体参与数量: {len(result['agent_summary'])}")
-        print(f"💬 对话记录数量: {len(result['conversation_log'])}")
+        print(f"\n🎉 Analysis completed! Results saved to: {output_file}")
+        print(f"📊 Number of agents involved: {len(result['agent_summary'])}")
+        print(f"💬 Number of conversation entries: {len(result['conversation_log'])}")
         
     except FileNotFoundError:
-        print(f"❌ 文件不存在: {file_path}")
+        print(f"❌ File not found: {file_path}")
     except Exception as e:
-        print(f"❌ 分析失败: {str(e)}")
+        print(f"❌ Analysis failed: {str(e)}")
 
 if __name__ == "__main__":
     asyncio.run(main())

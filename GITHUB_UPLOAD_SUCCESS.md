@@ -1,130 +1,146 @@
-# 🎉 GitHub仓库上传成功！
+# 🎉 GitHub Repository Upload Successful!
 
-## 📍 仓库信息
-- **GitHub地址**: https://github.com/GeoffreyWang1117/Interruptr
-- **作者**: Zhaohui Wang (@GeoffreyWang1117)
-- **许可证**: MIT
-- **主分支**: main
+## 📍 Repository Information
 
-## ✅ 成功上传内容
+- **GitHub URL**: https://github.com/GeoffreyWang1117/Interruptr
+- **Author**: Zhaohui Wang (@GeoffreyWang1117)
+- **License**: MIT
+- **Main Branch**: main
 
-### 🎯 完整的多智能体系统
-- 7个专业智能体协作分析框架
-- 支持OpenAI、Claude、Gemini、Ollama四个LLM提供商
-- 实时可视化协作过程
-- 质疑-验证双重机制
+## ✅ Successfully Uploaded Content
 
-### 🚀 SANER 2026准备材料
-- **论文大纲**: `saner2026/TOOL_DEMO_OUTLINE.md` (4-6页结构)
-- **演示脚本**: `saner2026/DEMO_VIDEO_SCRIPT.md` (5-8分钟视频)
-- **竞品分析**: `saner2026/COMPETITIVE_ANALYSIS.md` (详细对比)
-- **项目计划**: `saner2026/SANER2026_PLAN.md` (8周时间线)
-- **评估框架**: `saner2026/large_scale_evaluation.py` (21个项目测试)
+### 🎯 Complete Multi-Agent System
 
-### 🛠️ 技术文档
-- **README.md**: 项目介绍和使用指南
-- **USAGE.md**: 详细使用说明
-- **PROJECT_SUMMARY.md**: 项目完成总结
-- **DEMO_SUMMARY.md**: 演示总结
-- **requirements.txt**: 依赖包列表
+- 7 specialised agent collaborative analysis framework
+- Supports four LLM providers: OpenAI, Claude, Gemini, and Ollama
+- Real-time visualisation of the collaboration process
+- Questioning-verification dual mechanism
 
-### 📂 核心代码
-- **agents/**: 多智能体实现
-- **config/**: 配置管理
-- **examples/**: C++测试代码示例
-- **agent_prompts/**: 智能体提示词
-- **start.py**: 一键启动脚本
+### 🚀 SANER 2026 Preparation Materials
 
-## 🔒 安全措施
-- ✅ 已移除所有真实API密钥
-- ✅ 使用占位符替代敏感信息
-- ✅ 添加.gitignore排除.env文件
-- ✅ 通过GitHub安全扫描
+- **Paper Outline**: `saner2026/TOOL_DEMO_OUTLINE.md` (4-6 page structure)
+- **Demo Script**: `saner2026/DEMO_VIDEO_SCRIPT.md` (5-8 minute video)
+- **Competitive Analysis**: `saner2026/COMPETITIVE_ANALYSIS.md` (detailed comparison)
+- **Project Plan**: `saner2026/SANER2026_PLAN.md` (8-week timeline)
+- **Evaluation Framework**: `saner2026/large_scale_evaluation.py` (21-project testing)
 
-## 📚 使用说明
+### 🛠️ Technical Documentation
 
-### 快速开始
+- **README.md**: Project introduction and usage guide
+- **USAGE.md**: Detailed usage instructions
+- **PROJECT_SUMMARY.md**: Project completion summary
+- **DEMO_SUMMARY.md**: Demo summary
+- **requirements.txt**: Dependency package list
+
+### 📂 Core Code
+
+- **agents/**: Multi-agent implementation
+- **config/**: Configuration management
+- **examples/**: C++ test code examples
+- **agent_prompts/**: Agent prompts
+- **start.py**: One-click startup script
+
+## 🔒 Security Measures
+
+- ✅ All real API keys have been removed
+- ✅ Placeholders used instead of sensitive information
+- ✅ Added .gitignore to exclude .env files
+- ✅ Passed GitHub security scanning
+
+## 📚 Usage Instructions
+
+### Quick Start
+
 ```bash
-# 1. 克隆仓库
+# 1. Clone the repository
 git clone https://github.com/GeoffreyWang1117/Interruptr.git
 cd Interruptr
 
-# 2. 配置API密钥
+# 2. Configure API keys
 cp .env.example .env
-# 编辑.env文件，填入您的真实API密钥
+# Edit the .env file and fill in your real API keys
 
-# 3. 安装依赖
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. 启动系统
+# 4. Start the system
 python start.py
 ```
 
-### 访问界面
-- **前端界面**: http://localhost:8501
-- **API文档**: http://localhost:8000/docs
+### Access Interfaces
 
-## 🎯 SANER 2026投稿进度
+- **Frontend Interface**: <http://localhost:8501>
+- **API Documentation**: <http://localhost:8000/docs>
 
-### ✅ 已完成 (第1-2周)
-- [x] 创建GitHub仓库和项目结构
-- [x] 系统稳定性测试 (100%通过率)
-- [x] Tool Demo论文大纲
-- [x] 演示视频脚本设计
-- [x] 竞品分析和对比研究
-- [x] 大规模评估框架开发
+## 🎯 SANER 2026 Submission Progress
 
-### 📋 接下来的任务 (第3-8周)
-- [ ] 执行21个开源项目的大规模测试
-- [ ] 撰写Tool Demo论文初稿 (4-6页)
-- [ ] 录制专业演示视频 (5-8分钟)
-- [ ] 进行用户体验研究
-- [ ] 论文修改和完善
-- [ ] 提交SANER 2026 (截止日期: 2025年11月17日)
+### ✅ Completed (Weeks 1-2)
 
-## 📈 技术亮点
+- [x] Created GitHub repository and project structure
+- [x] System stability testing (100% pass rate)
+- [x] Tool Demo paper outline
+- [x] Demo video script design
+- [x] Competitive analysis and comparative study
+- [x] Large-scale evaluation framework development
 
-### 创新点
-1. **首创多LLM协作机制** - 4个不同LLM协作分析
-2. **质疑-验证双重保障** - 提高分析可信度
-3. **实时可视化协作** - 透明化AI决策过程
-4. **端到端完整系统** - 可实际部署使用
+### 📋 Upcoming Tasks (Weeks 3-8)
 
-### 竞争优势
-- **准确率**: 85% vs 传统工具72%平均水平
-- **误报率**: <5% vs 传统工具25-30%
-- **用户体验**: 实时可视化协作过程
-- **开源策略**: 免费使用，社区驱动
+- [ ] Execute large-scale testing on 21 open-source projects
+- [ ] Write Tool Demo paper first draft (4-6 pages)
+- [ ] Record professional demo video (5-8 minutes)
+- [ ] Conduct user experience research
+- [ ] Revise and polish paper
+- [ ] Submit to SANER 2026 (Deadline: November 17, 2025)
 
-## 📞 联系信息
+## 📈 Technical Highlights
 
-### 作者
-- **姓名**: Zhaohui Wang
+### Innovation Points
+
+1. **Pioneering Multi-LLM Collaboration Mechanism** - 4 different LLMs working together
+2. **Questioning-Verification Dual Assurance** - Improves analysis trustworthiness
+3. **Real-Time Visualisation Collaboration** - Transparent AI decision-making process
+4. **End-to-End Complete System** - Ready for practical deployment
+
+### Competitive Advantages
+
+- **Accuracy**: 85% vs. 72% average for traditional tools
+- **False Positive Rate**: <5% vs. 25-30% for traditional tools
+- **User Experience**: Real-time visualisation of the collaboration process
+- **Open Source Strategy**: Free to use, community-driven
+
+## 📞 Contact Information
+
+### Author
+
+- **Name**: Zhaohui Wang
 - **GitHub**: [@GeoffreyWang1117](https://github.com/GeoffreyWang1117)
-- **邮箱**: 173976389+GeoffreyWang1117@users.noreply.github.com
+- **Email**: <GeoffreyWang1117@users.noreply.github.com>
 
-### 项目链接
-- **GitHub仓库**: https://github.com/GeoffreyWang1117/Interruptr
-- **在线演示**: 即将发布
-- **文档**: 请查看仓库中的Markdown文件
+### Project Links
 
-## 🏆 学术目标
+- **GitHub Repository**: <https://github.com/GeoffreyWang1117/Interruptr>
+- **Online Demo**: Coming soon
+- **Documentation**: See Markdown files in the repository
+
+## 🏆 Academic Goals
 
 ### SANER 2026 Tool Demo Track
-- **会议**: 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering
-- **时间**: 2026年3月17-20日
-- **地点**: 塞浦路斯，利马索尔
-- **截止日期**: 2025年11月17日
-- **论文类型**: Tool Demo (4-6页)
 
-### 预期贡献
-- 多智能体代码分析的首个完整框架
-- AI驱动软件工程工具的新范式
-- 开源社区的实用工具贡献
-- 学术界和工业界的桥梁
+- **Conference**: 33rd IEEE International Conference on Software Analysis, Evolution and Reengineering
+- **Dates**: March 17-20, 2026
+- **Location**: Limassol, Cyprus
+- **Deadline**: November 17, 2025
+- **Paper Type**: Tool Demo (4-6 pages)
+
+### Expected Contributions
+
+- First complete framework for multi-agent code analysis
+- New paradigm for AI-driven software engineering tools
+- Practical tool contribution to the open-source community
+- Bridge between academia and industry
 
 ---
 
-**🎊 恭喜！Interruptr项目已成功发布到GitHub，SANER 2026投稿准备工作全面启动！**
+**🎊 Congratulations! The Interruptr project has been successfully published to GitHub, and preparations for the SANER 2026 submission are now in full swing!**
 
-距离论文截止日期还有**57天**，按照8周计划稳步推进，成功概率很高！ 🚀
+There are **57 days** remaining until the paper deadline. Following the 8-week plan with steady progress, the probability of success is very high! 🚀

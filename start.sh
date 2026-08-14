@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Interruptr 项目启动脚本
+# Interruptr Project Startup Script
 
-echo "🚀 启动 Interruptr - 高级多智能体C/C++代码调试分析工具"
+echo "🚀 Starting Interruptr - Advanced Multi-Agent C/C++ Code Debugging and Analysis Tool"
 echo "========================================"
 
-# 检查conda环境
+# Check conda environment
 if [[ "$CONDA_DEFAULT_ENV" != "interruptr" ]]; then
-    echo "⚠️  请先激活conda环境: conda activate interruptr"
+    echo "⚠️  Please activate the conda environment first: conda activate interruptr"
     exit 1
 fi
 
-# 检查必要工具
-echo "🔍 检查系统工具..."
+# Check required tools
+echo "🔍 Checking system tools..."
 
 tools=("gcc" "gdb" "valgrind" "cppcheck")
 missing_tools=()
@@ -26,14 +26,14 @@ for tool in "${tools[@]}"; do
 done
 
 if [ ${#missing_tools[@]} -ne 0 ]; then
-    echo "❌ 缺少以下工具: ${missing_tools[*]}"
-    echo "请运行: sudo apt install -y ${missing_tools[*]}"
+    echo "❌ Missing tools: ${missing_tools[*]}"
+    echo "Please run: sudo apt install -y ${missing_tools[*]}"
     exit 1
 fi
 
-# 检查Python包
+# Check Python packages
 echo ""
-echo "🔍 检查Python依赖..."
+echo "🔍 Checking Python dependencies..."
 
 python -c "
 import sys
@@ -52,11 +52,11 @@ for pkg in required_packages:
         print(f'❌ {pkg}')
 
 if missing:
-    print(f'\\n缺少包: {missing}')
-    print('请运行: pip install -r requirements.txt')
+    print(f'\\nMissing packages: {missing}')
+    print('Please run: pip install -r requirements.txt')
     sys.exit(1)
 else:
-    print('\\n🎉 所有依赖已安装')
+    print('\\n🎉 All dependencies installed')
 "
 
 if [ $? -ne 0 ]; then
@@ -64,58 +64,58 @@ if [ $? -ne 0 ]; then
 fi
 
 echo ""
-echo "🎯 选择启动模式:"
-echo "1) 启动API服务"
-echo "2) 启动前端界面" 
-echo "3) 同时启动API和前端"
-echo "4) 运行示例分析"
+echo "🎯 Select startup mode:"
+echo "1) Start API service"
+echo "2) Start frontend interface"
+echo "3) Start both API and frontend"
+echo "4) Run example analysis"
 
-read -p "请选择 (1-4): " choice
+read -p "Please select (1-4): " choice
 
 case $choice in
     1)
-        echo "🚀 启动API服务..."
+        echo "🚀 Starting API service..."
         cd api && python main.py
         ;;
     2)
-        echo "🚀 启动前端界面..."
+        echo "🚀 Starting frontend interface..."
         cd frontend && streamlit run app.py
         ;;
     3)
-        echo "🚀 同时启动API和前端..."
-        echo "启动API服务..."
+        echo "🚀 Starting both API and frontend..."
+        echo "Starting API service..."
         cd api && python main.py &
         API_PID=$!
         sleep 3
         
-        echo "启动前端界面..."
+        echo "Starting frontend interface..."
         cd ../frontend && streamlit run app.py &
         FRONTEND_PID=$!
         
         echo "API PID: $API_PID"
         echo "Frontend PID: $FRONTEND_PID"
-        echo "按 Ctrl+C 停止所有服务"
+        echo "Press Ctrl+C to stop all services"
         
-        # 等待信号
+        # Wait for signal
         trap "kill $API_PID $FRONTEND_PID; exit" INT
         wait
         ;;
     4)
-        echo "🔍 运行示例分析..."
+        echo "🔍 Running example analysis..."
         cd examples
-        echo "编译示例代码..."
+        echo "Compiling example code..."
         gcc -g -o unsafe_code unsafe_code.c
         
-        echo "运行静态分析..."
+        echo "Running static analysis..."
         cppcheck --enable=all unsafe_code.c
         
-        echo "运行内存检查..."
+        echo "Running memory check..."
         valgrind --tool=memcheck --leak-check=full ./unsafe_code 2>&1 | head -20
         
-        echo "分析完成! 你可以在前端界面中上传此文件进行智能体分析。"
+        echo "Analysis complete! You can upload this file in the frontend interface for agent-based analysis."
         ;;
     *)
-        echo "无效选择"
+        echo "Invalid choice"
         exit 1
         ;;
 esac

@@ -1,5 +1,5 @@
 """
-环境变量配置管理器
+Environment Variable Configuration Manager
 """
 
 import os
@@ -8,14 +8,14 @@ from typing import Optional
 import logging
 
 class EnvConfig:
-    """环境变量配置管理"""
+    """Environment variable configuration management"""
     
     def __init__(self, env_file: Optional[str] = None):
         self.env_file = env_file or '.env'
         self.load_env()
         
     def load_env(self):
-        """加载环境变量文件"""
+        """Load environment variable file"""
         env_path = Path(self.env_file)
         
         if env_path.exists():
@@ -26,14 +26,14 @@ class EnvConfig:
                         if line and not line.startswith('#') and '=' in line:
                             key, value = line.split('=', 1)
                             os.environ[key.strip()] = value.strip()
-                logging.info(f"已加载环境配置文件: {env_path}")
+                logging.info(f"Loaded environment configuration file: {env_path}")
             except Exception as e:
-                logging.warning(f"加载环境配置文件失败: {e}")
+                logging.warning(f"Failed to load environment configuration file: {e}")
         else:
-            logging.warning(f"环境配置文件不存在: {env_path}")
+            logging.warning(f"Environment configuration file does not exist: {env_path}")
     
     # ================================
-    # LLM API 配置
+    # LLM API Configuration
     # ================================
     
     @property
@@ -117,7 +117,7 @@ class EnvConfig:
         return os.getenv('DEFAULT_LLM_PROVIDER', 'openai')
     
     # ================================
-    # 数据库配置
+    # Database Configuration
     # ================================
     
     @property
@@ -137,7 +137,7 @@ class EnvConfig:
         return int(os.getenv('REDIS_DB', '0'))
     
     # ================================
-    # API 服务配置
+    # API Service Configuration
     # ================================
     
     @property
@@ -166,7 +166,7 @@ class EnvConfig:
             return ["http://localhost:8501"]
     
     # ================================
-    # Streamlit 配置
+    # Streamlit Configuration
     # ================================
     
     @property
@@ -182,7 +182,7 @@ class EnvConfig:
         return os.getenv('STREAMLIT_DEBUG', 'true').lower() == 'true'
     
     # ================================
-    # 智能体配置
+    # Agent Configuration
     # ================================
     
     @property
@@ -194,7 +194,7 @@ class EnvConfig:
         return int(os.getenv('CONVERSATION_HISTORY_LIMIT', '100'))
     
     # ================================
-    # 智能体角色LLM分配
+    # Agent Role LLM Assignment
     # ================================
     
     @property
@@ -226,7 +226,7 @@ class EnvConfig:
         return os.getenv('REVIEWER_LLM', 'ollama')
     
     # ================================
-    # 分析工具路径
+    # Analysis Tool Paths
     # ================================
     
     @property
@@ -250,7 +250,7 @@ class EnvConfig:
         return os.getenv('CPPCHECK_PATH', '/usr/bin/cppcheck')
     
     # ================================
-    # 安全检测配置
+    # Security Detection Configuration
     # ================================
     
     @property
@@ -267,7 +267,7 @@ class EnvConfig:
         return [ext.strip() for ext in extensions.split(',')]
     
     # ================================
-    # 日志配置
+    # Logging Configuration
     # ================================
     
     @property
@@ -283,7 +283,7 @@ class EnvConfig:
         return os.getenv('LOG_FORMAT', '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     
     # ================================
-    # 可视化配置
+    # Visualisation Configuration
     # ================================
     
     @property
@@ -299,18 +299,18 @@ class EnvConfig:
         return int(os.getenv('MAX_DISPLAY_MESSAGES', '50'))
     
     # ================================
-    # 验证方法
+    # Validation Methods
     # ================================
     
     def validate_config(self) -> dict:
-        """验证配置完整性"""
+        """Validate configuration completeness"""
         issues = []
         
-        # 检查必需的API密钥
+        # Check for required API keys
         if not self.openai_api_key and not self.anthropic_api_key and not self.gemini_api_key:
-            issues.append("缺少LLM API密钥 (需要OpenAI、Anthropic或Gemini中至少一个)")
+            issues.append("Missing LLM API key (need at least one of OpenAI, Anthropic, or Gemini)")
         
-        # 检查Ollama连接
+        # Check Ollama connection
         try:
             import requests
             response = requests.get(f"{self.ollama_base_url}/api/tags", timeout=5)
@@ -318,7 +318,7 @@ class EnvConfig:
         except:
             ollama_available = False
         
-        # 检查工具路径
+        # Check tool paths
         tools = {
             'GCC': self.gcc_path,
             'GDB': self.gdb_path,
@@ -328,15 +328,15 @@ class EnvConfig:
         
         for tool_name, tool_path in tools.items():
             if not Path(tool_path).exists():
-                issues.append(f"{tool_name} 工具不存在: {tool_path}")
+                issues.append(f"{tool_name} tool does not exist: {tool_path}")
         
-        # 检查日志目录
+        # Check log directory
         log_dir = Path(self.log_file).parent
         if not log_dir.exists():
             try:
                 log_dir.mkdir(parents=True, exist_ok=True)
             except Exception:
-                issues.append(f"无法创建日志目录: {log_dir}")
+                issues.append(f"Cannot create log directory: {log_dir}")
         
         return {
             "valid": len(issues) == 0,
@@ -345,9 +345,9 @@ class EnvConfig:
         }
     
     def get_config_summary(self) -> dict:
-        """获取配置摘要"""
+        """Get configuration summary"""
         
-        # 检查Ollama可用性
+        # Check Ollama availability
         try:
             import requests
             response = requests.get(f"{self.ollama_base_url}/api/tags", timeout=5)
@@ -378,8 +378,8 @@ class EnvConfig:
             "max_file_size": f"{self.max_file_size}MB"
         }
 
-# 全局配置实例
+# Global configuration instance
 config = EnvConfig()
 
-# 导出常用配置
+# Export commonly used configurations
 __all__ = ['config', 'EnvConfig']

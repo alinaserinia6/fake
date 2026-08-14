@@ -1,76 +1,76 @@
 #!/bin/bash
 
-# AutoGen Studio 环境变量设置和启动脚本
-# 从.env文件中提取API密钥并启动AutoGen Studio
+# AutoGen Studio environment variable setup and startup script
+# Extracts API keys from the .env file and starts AutoGen Studio
 
-echo "🚀 启动AutoGen Studio与API密钥配置"
-echo "=" * 50
+echo "🚀 Starting AutoGen Studio with API key configuration"
+echo "=================================================="
 
-# 设置工作目录
+# Set working directory
 cd /home/coder-gw/Interruptr
 
-# 从.env文件读取API密钥
+# Read API keys from the .env file
 if [ -f .env ]; then
     export $(cat .env | grep -v '#' | xargs)
-    echo "✅ 已从.env文件加载API密钥"
+    echo "✅ Loaded API keys from .env file"
 else
-    echo "⚠️  未找到.env文件，请从.env.example复制并配置"
+    echo "⚠️  .env file not found. Please copy from .env.example and configure"
     echo "   cp .env.example .env"
-    echo "   然后编辑.env文件，填入您的真实API密钥"
+    echo "   Then edit the .env file and fill in your real API keys"
     exit 1
 fi
 
-# 设置本地Ollama配置
+# Set local Ollama configuration
 export OLLAMA_BASE_URL="http://localhost:11434"
 
-# 验证API密钥是否设置成功
-echo "✅ 环境变量设置完成:"
+# Verify that API keys were set successfully
+echo "✅ Environment variables configured:"
 echo "   OpenAI API Key: ${OPENAI_API_KEY:0:10}..."
 echo "   Anthropic API Key: ${ANTHROPIC_API_KEY:0:10}..."
 echo "   Gemini API Key: ${GEMINI_API_KEY:0:10}..."
 echo "   Ollama URL: $OLLAMA_BASE_URL"
 
-# 停止现有的AutoGen Studio进程
+# Stop any existing AutoGen Studio process
 echo ""
-echo "🛑 停止现有AutoGen Studio进程..."
-pkill -f "autogenstudio" 2>/dev/null || echo "   没有发现运行中的AutoGen Studio进程"
+echo "🛑 Stopping any existing AutoGen Studio processes..."
+pkill -f "autogenstudio" 2>/dev/null || echo "   No running AutoGen Studio process found"
 
-# 等待进程完全停止
+# Wait for the process to fully stop
 sleep 2
 
-# 启动AutoGen Studio (后台运行，加载环境变量)
+# Start AutoGen Studio (run in background, loading environment variables)
 echo ""
-echo "🚀 启动AutoGen Studio (带API密钥)..."
+echo "🚀 Starting AutoGen Studio (with API keys)..."
 nohup autogenstudio ui --port 8081 --host 0.0.0.0 > autogen_studio.log 2>&1 &
 
-# 等待启动
+# Wait for startup
 sleep 5
 
-# 检查启动状态
+# Check startup status
 if pgrep -f "autogenstudio" > /dev/null; then
-    echo "✅ AutoGen Studio 启动成功!"
-    echo "🌐 访问地址: http://localhost:8081"
-    echo "📋 日志文件: autogen_studio.log"
+    echo "✅ AutoGen Studio started successfully!"
+    echo "🌐 Access URL: http://localhost:8081"
+    echo "📋 Log file: autogen_studio.log"
     
-    # 检查服务是否响应
+    # Check if the service is responding
     echo ""
-    echo "🔍 检查服务状态..."
+    echo "🔍 Checking service status..."
     if curl -s http://localhost:8081 >/dev/null 2>&1; then
-        echo "✅ Web服务正常响应"
+        echo "✅ Web service is responding"
         echo ""
-        echo "🎯 现在可以在AutoGen Studio中创建团队了!"
-        echo "   API密钥已正确配置，验证问题应该解决。"
+        echo "🎯 You can now create teams in AutoGen Studio!"
+        echo "   API keys are configured correctly; validation issues should be resolved."
     else
-        echo "⚠️  Web服务可能还在启动中，请稍等片刻"
+        echo "⚠️  Web service may still be starting up; please wait a moment"
     fi
 else
-    echo "❌ AutoGen Studio 启动失败"
-    echo "📋 请检查日志: tail -f autogen_studio.log"
+    echo "❌ AutoGen Studio failed to start"
+    echo "📋 Please check the log: tail -f autogen_studio.log"
 fi
 
 echo ""
-echo "📚 接下来的步骤:"
-echo "1. 访问 http://localhost:8081"
-echo "2. 进入Team Builder"
-echo "3. 创建新团队 (API验证问题应该已解决)"
-echo "4. 使用准备好的配置文件配置智能体"
+echo "📚 Next steps:"
+echo "1. Visit http://localhost:8081"
+echo "2. Go to Team Builder"
+echo "3. Create a new team (API validation issues should be resolved)"
+echo "4. Use the prepared configuration files to set up agents"

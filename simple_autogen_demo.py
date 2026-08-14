@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-简化的多智能体代码分析演示
-展示 AutoGen 智能体间的对话
+Simplified multi-agent code analysis demonstration
+Shows dialogues between AutoGen agents
 """
 
 import os
@@ -9,155 +9,155 @@ import asyncio
 from pathlib import Path
 
 async def simulate_multi_agent_analysis():
-    """模拟多智能体分析过程"""
-    print("🤖 启动多智能体代码分析系统...")
-    print("📝 模拟智能体协作流程\\n")
+    """Simulate the multi-agent analysis process"""
+    print("🤖 Starting multi-agent code analysis system...")
+    print("📝 Simulating agent collaboration process\n")
     
-    # 读取示例代码
+    # Read example code
     examples_dir = Path("/home/coder-gw/Interruptr/examples")
     cpp_files = list(examples_dir.glob("*.cpp"))
     
     if not cpp_files:
-        print("❌ 未找到示例代码文件")
+        print("❌ No sample code files found")
         return
     
-    # 分析第一个文件
+    # Analyse the first file
     cpp_file = cpp_files[0]
     with open(cpp_file, 'r', encoding='utf-8') as f:
         code_content = f.read()
     
-    print(f"\\n{'='*60}")
-    print(f"分析文件: {cpp_file.name}")
+    print(f"\n{'='*60}")
+    print(f"Analysing file: {cpp_file.name}")
     print(f"{'='*60}")
-    print(f"代码内容:")
+    print("Code content:")
     print("-" * 40)
     print(code_content)
     print("-" * 40)
     
-    # 模拟智能体对话
+    # Simulate agent dialogue
     agents_dialogue = [
         {
             "agent": "coordinator",
-            "message": f"收到代码分析任务：{cpp_file.name}。让我协调各个专家进行分析。首先请代码分析专家进行静态分析。"
+            "message": f"Received code analysis task: {cpp_file.name}. Let me coordinate the experts for analysis. First, I'll ask the code analysis expert to perform static analysis."
         },
         {
             "agent": "code_analyst", 
-            "message": """我是代码分析专家。分析结果如下：
+            "message": """I am the code analysis expert. Here are my findings:
 
-1. **结构问题**：
-   - 缺少必要的头文件包含
-   - 函数参数类型不安全
-   - 没有输入验证
+            1. **Structural issues**:
+            - Missing necessary header includes
+            - Unsafe function parameter types
+            - No input validation
 
-2. **逻辑问题**：
-   - 可能存在缓冲区边界检查不足
-   - 错误处理机制缺失
+            2. **Logic issues**:
+            - Potential insufficient buffer boundary checks
+            - Missing error handling mechanisms
 
-请安全专家进一步检查安全漏洞。"""
+            Security expert, please further check for security vulnerabilities."""
         },
         {
             "agent": "security_expert",
-            "message": """我是安全专家。发现以下安全风险：
+            "message": """I am the security expert. I found the following security risks:
 
-🚨 **高风险漏洞**：
-1. **缓冲区溢出**：strcpy/gets等函数可能导致栈溢出
-2. **输入验证缺失**：用户输入未经验证直接使用
-3. **内存安全**：指针操作未检查空值
+            🚨 **High-risk vulnerabilities**:
+            1. **Buffer overflow**: Functions like strcpy/gets may cause stack overflows
+            2. **Missing input validation**: User input is used directly without validation
+            3. **Memory safety**: Pointer operations without null checks
 
-🔧 **修复建议**：
-- 使用安全的字符串函数（strncpy, fgets）
-- 添加边界检查
-- 验证所有输入参数
+            🔧 **Remediation recommendations**:
+            - Use safe string functions (strncpy, fgets)
+            - Add boundary checks
+            - Validate all input parameters
 
-请调试专家分析运行时问题。"""
+            Debug expert, please analyse runtime issues."""
         },
         {
             "agent": "debug_expert",
-            "message": """我是调试专家。运行时分析如下：
+            "message": """I am the debug expert. Runtime analysis as follows:
 
-🐛 **潜在运行时错误**：
-1. **段错误风险**：未初始化指针访问
-2. **内存泄漏**：动态分配的内存未释放
-3. **异常处理**：缺少异常捕获机制
+            🐛 **Potential runtime errors**:
+            1. **Segmentation fault risk**: Accessing uninitialised pointers
+            2. **Memory leaks**: Dynamically allocated memory not freed
+            3. **Exception handling**: Missing exception catch mechanisms
 
-🔧 **调试建议**：
-- 添加空指针检查
-- 使用 RAII 模式管理资源
-- 添加异常处理代码
+            🔧 **Debugging recommendations**:
+            - Add null pointer checks
+            - Use RAII pattern for resource management
+            - Add exception handling code
 
-请评审专家进行最终评审。"""
+            Review expert, please perform the final review."""
         },
         {
             "agent": "critic",
-            "message": """我是评审专家。综合评审结果：
+            "message": """I am the review expert. Comprehensive review results:
 
-✅ **分析质量评估**：
-- 代码分析专家：发现了基础结构问题 ✓
-- 安全专家：识别了关键安全漏洞 ✓  
-- 调试专家：定位了运行时风险 ✓
+            ✅ **Analysis quality assessment**:
+            - Code analysis expert: Identified fundamental structural issues ✓
+            - Security expert: Identified critical security vulnerabilities ✓
+            - Debug expert: Pinpointed runtime risks ✓
 
-📋 **遗漏问题补充**：
-1. 性能优化建议
-2. 代码可维护性评估
-3. 单元测试建议
+            📋 **Supplementary issues**:
+            1. Performance optimisation suggestions
+            2. Code maintainability assessment
+            3. Unit testing recommendations
 
-🎯 **最终评分**：7/10 分
-建议优先修复安全漏洞，然后改进代码结构。"""
+            🎯 **Final score**: 7/10
+            Recommendation: Prioritise fixing security vulnerabilities, then improve code structure."""
         },
         {
             "agent": "coordinator",
-            "message": """感谢各位专家的分析！我来整合最终建议：
+            "message": """Thank you all for your analysis! Let me consolidate the final recommendations:
 
-🎯 **修复优先级**：
-1. **紧急**：修复缓冲区溢出漏洞
-2. **重要**：添加输入验证和错误处理
-3. **建议**：改进代码结构和性能
+            🎯 **Fix priorities**:
+            1. **Urgent**: Fix buffer overflow vulnerabilities
+            2. **Important**: Add input validation and error handling
+            3. **Recommended**: Improve code structure and performance
 
-📝 **具体修复步骤**：
-```cpp
-// 1. 安全的字符串操作
-char buffer[100];
-strncpy(buffer, input, sizeof(buffer)-1);
-buffer[sizeof(buffer)-1] = '\\0';
+            📝 **Specific remediation steps**:
+            ```cpp
+            // 1. Safe string operations
+            char buffer[100];
+            strncpy(buffer, input, sizeof(buffer)-1);
+            buffer[sizeof(buffer)-1] = '\0';
 
-// 2. 输入验证
-if (input == NULL || strlen(input) == 0) {
-    return -1;
-}
+            // 2. Input validation
+            if (input == NULL || strlen(input) == 0) {
+                return -1;
+            }
 
-// 3. 错误处理
-try {
-    // 代码逻辑
-} catch (const std::exception& e) {
-    std::cerr << "错误: " << e.what() << std::endl;
-    return -1;
-}
-```
+            // 3. Error handling
+            try {
+                // Code logic
+            } catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
+                return -1;
+            }
+            ```
 
-分析完成！各智能体协作成功。"""
+            Analysis complete! All agents collaborated successfully."""
         }
     ]
     
-    # 播放对话
+    # Play the dialogue
     for i, dialogue in enumerate(agents_dialogue):
         agent = dialogue["agent"]
         message = dialogue["message"]
         
-        print(f"\\n🤖 **{agent.upper()}** 说：")
+        print(f"\n🤖 **{agent.upper()}** says:")
         print("-" * 50)
         print(message)
         
-        # 模拟思考时间
+        # Simulate thinking time
         await asyncio.sleep(1)
     
-    print(f"\\n{'='*60}")
-    print("✅ 多智能体分析完成！")
-    print("🌐 AutoGen Studio 正在运行在: http://localhost:8081")
-    print("📱 您可以在浏览器中查看完整的对话界面")
+    print(f"\n{'='*60}")
+    print("✅ Multi-agent analysis complete!")
+    print("🌐 AutoGen Studio is running at: http://localhost:8081")
+    print("📱 You can view the full conversation interface in your browser")
     print(f"{'='*60}")
 
 def check_autogen_studio_status():
-    """检查 AutoGen Studio 状态"""
+    """Check AutoGen Studio status"""
     try:
         import requests
         response = requests.get("http://localhost:8081", timeout=5)
@@ -166,15 +166,15 @@ def check_autogen_studio_status():
         return False
 
 async def main():
-    """主函数"""
-    print("🔍 检查 AutoGen Studio 状态...")
+    """Main function"""
+    print("🔍 Checking AutoGen Studio status...")
     
     if check_autogen_studio_status():
-        print("✅ AutoGen Studio 正在运行")
+        print("✅ AutoGen Studio is running")
     else:
-        print("⚠️ AutoGen Studio 可能未完全启动，请稍等...")
+        print("⚠️ AutoGen Studio may not be fully started, please wait...")
     
-    # 运行演示
+    # Run the demo
     await simulate_multi_agent_analysis()
 
 if __name__ == "__main__":

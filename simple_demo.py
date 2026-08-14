@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-简化的演示脚本 - 专注于展示多智能体分析能力
+Simplified demonstration script - focused on showcasing multi-agent analysis capabilities
 """
 
 import asyncio
@@ -9,203 +9,203 @@ from pathlib import Path
 from datetime import datetime
 
 def display_banner():
-    """显示演示横幅"""
+    """Display demo banner"""
     print("🎭" + "="*70 + "🎭")
-    print("🚀 Interruptr 多智能体C++代码分析演示")
-    print("💡 7个专业智能体协作分析C++代码缺陷")
-    print("🤖 OpenAI + Claude + Gemini + Ollama 协作")
+    print("🚀 Interruptr Multi-Agent C++ Code Analysis Demo")
+    print("💡 7 specialised agents collaboratively analysing C++ code defects")
+    print("🤖 OpenAI + Claude + Gemini + Ollama Collaboration")
     print("="*72)
 
 def analyze_buffer_overflow():
-    """分析缓冲区溢出示例"""
-    print("\n🔬 [1/4] 分析缓冲区溢出漏洞")
-    print("📁 文件: buffer_overflow.cpp")
-    print("🎯 重点: 安全漏洞检测")
+    """Analyse buffer overflow example"""
+    print("\n🔬 [1/4] Analysing Buffer Overflow Vulnerabilities")
+    print("📁 File: buffer_overflow.cpp")
+    print("🎯 Focus: Security vulnerability detection")
     print("="*50)
     
-    # 模拟7个智能体的分析过程
+    # Simulate the analysis process of 7 agents
     agents = [
-        ("🎯 协调者 (OpenAI)", "分解任务，协调分析流程"),
-        ("📊 代码分析师 (Claude)", "进行静态代码质量分析"),
-        ("🔒 安全专家 (Claude)", "检测安全漏洞和风险点"),
-        ("🐛 调试专家 (OpenAI)", "生成断点和调试策略"),
-        ("🏛️ 架构师 (Claude)", "评估代码架构设计"),
-        ("🤔 质疑者 (Gemini)", "批判性审查分析结果"),
-        ("✅ 检查者 (Ollama)", "最终验证和质量保证")
+        ("🎯 Coordinator (OpenAI)", "Decompose tasks, coordinate analysis workflow"),
+        ("📊 Code Analyst (Claude)", "Performing static code quality analysis"),
+        ("🔒 Security Expert (Claude)", "Detecting security vulnerabilities and risk points"),
+        ("🐛 Debug Expert (OpenAI)", "Generating breakpoints and debugging strategies"),
+        ("🏛️ Architect (Claude)", "Assessing code architecture design"),
+        ("🤔 Critic (Gemini)", "Critically reviewing analysis results"),
+        ("✅ Reviewer (Ollama)", "Final verification and quality assurance")
     ]
     
     for i, (agent, task) in enumerate(agents, 1):
         print(f"  [{i}/7] {agent}")
         print(f"       {task}")
     
-    print("\n🚨 发现的关键问题:")
-    print("  • 第18行: strcpy()缓冲区溢出风险 (高危)")
-    print("  • 第31行: gets()函数已弃用安全漏洞 (严重)")
-    print("  • 第24行: printf格式字符串攻击风险 (中危)")
-    print("  • 第55行: scanf边界检查不足 (中危)")
+    print("\n🚨 Critical issues discovered:")
+    print("  • Line 18: strcpy() buffer overflow risk (High severity)")
+    print("  • Line 31: gets() deprecated security vulnerability (Critical)")
+    print("  • Line 24: printf format string attack risk (Medium severity)")
+    print("  • Line 55: scanf insufficient boundary checking (Medium severity)")
     
-    print("\n🤔 质疑者意见:")
-    print("  除了已识别的问题，还需要考虑整数溢出")
-    print("  和用户输入验证层的缺失。")
+    print("\n🤔 Critic's opinion:")
+    print("  Beyond the identified issues, integer overflow and")
+    print("  missing user input validation layers should also be considered.")
     
-    print("\n✅ 检查者验证:")
-    print("  确认存在4个严重安全问题，建议立即修复。")
+    print("\n✅ Reviewer verification:")
+    print("  Confirmed 4 severe security issues; immediate remediation recommended.")
 
 def analyze_memory_leaks():
-    """分析内存管理问题"""
-    print("\n🔬 [2/4] 分析内存管理问题")
-    print("📁 文件: memory_leaks.cpp")
-    print("🎯 重点: 内存安全分析")
+    """Analyse memory management issues"""
+    print("\n🔬 [2/4] Analysing Memory Management Issues")
+    print("📁 File: memory_leaks.cpp")
+    print("🎯 Focus: Memory safety analysis")
     print("="*50)
     
     agents = [
-        ("🎯 协调者", "识别内存管理相关的分析任务"),
-        ("📊 代码分析师", "分析内存分配和释放模式"),
-        ("🔒 安全专家", "检测内存安全漏洞"),
-        ("🐛 调试专家", "推荐内存调试断点"),
-        ("🏛️ 架构师", "评估内存管理架构"),
-        ("🤔 质疑者", "质疑内存安全策略"),
-        ("✅ 检查者", "验证内存问题分析")
+        ("🎯 Coordinator", "Identify memory management related analysis tasks"),
+        ("📊 Code Analyst", "Analyse memory allocation and deallocation patterns"),
+        ("🔒 Security Expert", "Detect memory safety vulnerabilities"),
+        ("🐛 Debug Expert", "Recommend memory debugging breakpoints"),
+        ("🏛️ Architect", "Assess memory management architecture"),
+        ("🤔 Critic", "Question memory safety strategies"),
+        ("✅ Reviewer", "Verify memory issue analysis")
     ]
     
     for i, (agent, task) in enumerate(agents, 1):
         print(f"  [{i}/7] {agent}: {task}")
     
-    print("\n🚨 发现的内存问题:")
-    print("  • 第32行: backup指针重复分配导致内存泄漏")
-    print("  • 第44行: 野指针访问已释放内存")
-    print("  • 第49行: 重复释放导致程序崩溃")
-    print("  • 第156行: 异常时内存泄漏风险")
+    print("\n🚨 Memory issues discovered:")
+    print("  • Line 32: backup pointer re-allocated causing memory leak")
+    print("  • Line 44: Dangling pointer accessing freed memory")
+    print("  • Line 49: Double free causing program crash")
+    print("  • Line 156: Memory leak risk during exception")
     
-    print("\n🤔 质疑者意见:")
-    print("  应该强调使用现代C++智能指针和RAII模式")
-    print("  来从根本上解决内存管理问题。")
+    print("\n🤔 Critic's opinion:")
+    print("  Should emphasise the use of modern C++ smart pointers")
+    print("  and RAII patterns to fundamentally solve memory management problems.")
     
-    print("\n✅ 检查者验证:")
-    print("  确认多个内存管理缺陷，需要架构级重构。")
+    print("\n✅ Reviewer verification:")
+    print("  Multiple memory management defects confirmed; architectural-level refactoring required.")
 
 def analyze_race_conditions():
-    """分析并发竞态条件"""
-    print("\n🔬 [3/4] 分析并发竞态条件")
-    print("📁 文件: race_conditions.cpp")
-    print("🎯 重点: 线程安全分析")
+    """Analyse concurrency race conditions"""
+    print("\n🔬 [3/4] Analysing Concurrency Race Conditions")
+    print("📁 File: race_conditions.cpp")
+    print("🎯 Focus: Thread safety analysis")
     print("="*50)
     
     agents = [
-        ("🎯 协调者", "制定并发分析策略"),
-        ("📊 代码分析师", "分析线程交互模式"),
-        ("🔒 安全专家", "检测竞态条件和数据竞争"),
-        ("🐛 调试专家", "推荐并发调试技术"),
-        ("🏛️ 架构师", "评估并发架构设计"),
-        ("🤔 质疑者", "质疑线程安全方案"),
-        ("✅ 检查者", "验证并发安全性")
+        ("🎯 Coordinator", "Formulate concurrency analysis strategy"),
+        ("📊 Code Analyst", "Analyse thread interaction patterns"),
+        ("🔒 Security Expert", "Detect race conditions and data races"),
+        ("🐛 Debug Expert", "Recommend concurrency debugging techniques"),
+        ("🏛️ Architect", "Assess concurrency architecture design"),
+        ("🤔 Critic", "Question thread safety solutions"),
+        ("✅ Reviewer", "Verify concurrency safety")
     ]
     
     for i, (agent, task) in enumerate(agents, 1):
         print(f"  [{i}/7] {agent}: {task}")
     
-    print("\n🚨 发现的并发问题:")
-    print("  • 第18行: 静态变量accountCounter非线程安全")
-    print("  • 第28行: deposit函数锁使用不一致")
-    print("  • 第57行: transferTo死锁风险")
-    print("  • 第98行: ThreadUnsafeCounter竞态条件")
+    print("\n🚨 Concurrency issues discovered:")
+    print("  • Line 18: Static variable accountCounter is not thread-safe")
+    print("  • Line 28: Inconsistent mutex usage in deposit function")
+    print("  • Line 57: transferTo deadlock risk")
+    print("  • Line 98: ThreadUnsafeCounter race condition")
     
-    print("\n🤔 质疑者意见:")
-    print("  除了修复当前问题，还应考虑使用无锁数据结构")
-    print("  和原子操作来提高并发性能。")
+    print("\n🤔 Critic's opinion:")
+    print("  Beyond fixing current issues, consider using lock-free")
+    print("  data structures and atomic operations to improve concurrency performance.")
     
-    print("\n✅ 检查者验证:")
-    print("  线程安全问题严重，需要重新设计同步机制。")
+    print("\n✅ Reviewer verification:")
+    print("  Thread safety issues are severe; synchronisation mechanisms need redesign.")
 
 def analyze_architecture():
-    """分析架构设计问题"""
-    print("\n🔬 [4/4] 分析架构设计问题")
-    print("📁 文件: architecture_issues.cpp")
-    print("🎯 重点: 架构质量评估")
+    """Analyse architecture design issues"""
+    print("\n🔬 [4/4] Analysing Architecture Design Issues")
+    print("📁 File: architecture_issues.cpp")
+    print("🎯 Focus: Architecture quality assessment")
     print("="*50)
     
     agents = [
-        ("🎯 协调者", "规划架构质量评估任务"),
-        ("📊 代码分析师", "分析代码结构和复杂度"),
-        ("🔒 安全专家", "评估架构安全性"),
-        ("🐛 调试专家", "分析调试友好性"),
-        ("🏛️ 架构师", "深度架构设计评估"),
-        ("🤔 质疑者", "质疑设计决策"),
-        ("✅ 检查者", "验证架构改进建议")
+        ("🎯 Coordinator", "Plan architecture quality assessment tasks"),
+        ("📊 Code Analyst", "Analyse code structure and complexity"),
+        ("🔒 Security Expert", "Assess architecture security"),
+        ("🐛 Debug Expert", "Analyse debug-friendliness"),
+        ("🏛️ Architect", "In-depth architecture design assessment"),
+        ("🤔 Critic", "Question design decisions"),
+        ("✅ Reviewer", "Verify architecture improvement recommendations")
     ]
     
     for i, (agent, task) in enumerate(agents, 1):
         print(f"  [{i}/7] {agent}: {task}")
     
-    print("\n🚨 发现的架构问题:")
-    print("  • MegaClass违反单一职责原则")
-    print("  • generateComplexReport方法过于复杂")
-    print("  • updateData参数列表过长")
-    print("  • SpecialProcessor违反里式替换原则")
+    print("\n🚨 Architecture issues discovered:")
+    print("  • MegaClass violates the Single Responsibility Principle")
+    print("  • generateComplexReport method is overly complex")
+    print("  • updateData parameter list is too long")
+    print("  • SpecialProcessor violates the Liskov Substitution Principle")
     
-    print("\n🤔 质疑者意见:")
-    print("  架构问题根深蒂固，建议采用DDD和微服务")
-    print("  架构模式进行彻底重构。")
+    print("\n🤔 Critic's opinion:")
+    print("  Architecture issues are deeply rooted; recommend adopting DDD")
+    print("  and microservices architecture patterns for a complete refactoring.")
     
-    print("\n✅ 检查者验证:")
-    print("  架构设计存在严重问题，需要大规模重构。")
+    print("\n✅ Reviewer verification:")
+    print("  Severe architectural design problems; large-scale refactoring required.")
 
 def display_overall_summary():
-    """显示整体总结"""
+    """Display overall summary"""
     print("\n" + "="*72)
-    print("🎉 多智能体分析演示完成!")
+    print("🎉 Multi-Agent Analysis Demo Complete!")
     print("="*72)
     
-    print("\n📊 分析统计:")
-    print("  • 分析文件数: 4个")
-    print("  • 发现问题数: 16个")
-    print("  • 智能体参与: 7个")
-    print("  • LLM提供商: 4个")
+    print("\n📊 Analysis Statistics:")
+    print("  • Files analysed: 4")
+    print("  • Issues discovered: 16")
+    print("  • Agents involved: 7")
+    print("  • LLM providers: 4")
     
-    print("\n🎯 问题分类:")
-    print("  • 安全漏洞: 8个 (缓冲区溢出、内存问题等)")
-    print("  • 并发问题: 4个 (竞态条件、死锁风险等)")
-    print("  • 架构问题: 4个 (设计原则违反等)")
+    print("\n🎯 Issue Breakdown:")
+    print("  • Security vulnerabilities: 8 (buffer overflows, memory issues, etc.)")
+    print("  • Concurrency issues: 4 (race conditions, deadlock risks, etc.)")
+    print("  • Architecture issues: 4 (design principle violations, etc.)")
     
-    print("\n🏆 智能体协作亮点:")
-    print("  ✨ 多LLM优势互补 - 不同模型专长发挥")
-    print("  ✨ 质疑机制 - Gemini提供批判性审查")
-    print("  ✨ 独立验证 - Ollama本地验证结果")
-    print("  ✨ 协作推理 - 7个智能体信息共享")
+    print("\n🏆 Agent Collaboration Highlights:")
+    print("  ✨ Multi-LLM complementary strengths - different models leverage their expertise")
+    print("  ✨ Questioning mechanism - Gemini provides critical review")
+    print("  ✨ Independent verification - Ollama verifies results locally")
+    print("  ✨ Collaborative reasoning - 7 agents share information")
     
-    print("\n💡 演示价值:")
-    print("  🔍 全面性 - 覆盖安全、性能、架构多维度")
-    print("  🎯 专业性 - 每个智能体专注特定领域")
-    print("  🤝 协作性 - 智能体间信息传递和验证")
-    print("  🛡️ 可靠性 - 多轮验证确保结果质量")
+    print("\n💡 Demonstration Value:")
+    print("  🔍 Comprehensiveness - covers security, performance, architecture multi-dimensionally")
+    print("  🎯 Professionalism - each agent focuses on a specific domain")
+    print("  🤝 Collaboration - information transfer and verification between agents")
+    print("  🛡️ Reliability - multiple rounds of verification ensure result quality")
     
-    print("\n📈 技术创新:")
-    print("  • 首创多LLM协作代码分析")
-    print("  • 质疑者+检查者双重验证机制")
-    print("  • 实时可视化智能体协作过程")
-    print("  • 本地+云端混合LLM部署")
+    print("\n📈 Technical Innovations:")
+    print("  • First multi-LLM collaborative code analysis")
+    print("  • Critic + Reviewer dual verification mechanism")
+    print("  • Real-time visualisation of agent collaboration process")
+    print("  • Hybrid local + cloud LLM deployment")
 
 def main():
-    """主演示函数"""
+    """Main demo function"""
     display_banner()
     
-    print("\n📋 演示内容:")
-    print("  1. 缓冲区溢出漏洞分析")
-    print("  2. 内存管理问题分析")
-    print("  3. 并发竞态条件分析")
-    print("  4. 架构设计问题分析")
+    print("\n📋 Demo Contents:")
+    print("  1. Buffer Overflow Vulnerability Analysis")
+    print("  2. Memory Management Issue Analysis")
+    print("  3. Concurrency Race Condition Analysis")
+    print("  4. Architecture Design Issue Analysis")
     
-    # 运行四个分析演示
+    # Run the four analysis demos
     analyze_buffer_overflow()
     analyze_memory_leaks()
     analyze_race_conditions()
     analyze_architecture()
     
-    # 显示总结
+    # Display summary
     display_overall_summary()
     
-    print(f"\n🚀 想要完整体验? 运行: python start.py")
-    print("   访问 http://localhost:8501 进行交互式分析")
+    print(f"\n🚀 Want a full experience? Run: python start.py")
+    print("   Visit http://localhost:8501 for interactive analysis")
 
 if __name__ == "__main__":
     main()

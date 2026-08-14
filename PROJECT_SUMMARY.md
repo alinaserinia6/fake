@@ -1,60 +1,67 @@
-# 🎯 Interruptr 项目完成总结
+# 🎯 Interruptr Project Completion Summary
 
-## 项目概述
+## Project Overview
 
-**Interruptr** 是一个高级的多智能体C/C++代码调试和安全分析工具，支持断点分析和大模型驱动的深度分析。系统采用AutoGen框架构建多智能体协作，使用FastAPI作为后端，Streamlit作为前端界面。
+**Interruptr** is an advanced multi-agent C/C++ code debugging and security analysis tool that supports breakpoint analysis and deep analysis driven by large language models. The system is built on the AutoGen framework for multi-agent collaboration, with FastAPI as the backend and Streamlit as the frontend interface.
 
-## ✅ 已完成功能
+## ✅ Completed Features
 
-### 1. 核心架构 (100% 完成)
-- ✅ **多智能体系统**: 7个专业智能体协作分析
-- ✅ **配置管理**: 支持多LLM提供商的灵活配置
-- ✅ **API后端**: FastAPI RESTful接口
-- ✅ **前端界面**: Streamlit可视化界面
-- ✅ **环境管理**: conda环境和依赖管理
+### 1. Core Architecture (100% Complete)
 
-### 2. 智能体角色 (100% 完成)
-| 智能体 | LLM提供商 | 职责 | 状态 |
-|--------|-----------|------|------|
-| 🎯 协调者 | OpenAI GPT-4 | 流程管理和任务协调 | ✅ 完成 |
-| 📊 代码分析师 | Claude-3.5 | 代码质量和复杂度分析 | ✅ 完成 |
-| 🔒 安全专家 | Claude-3.5 | 安全漏洞检测和风险评估 | ✅ 完成 |
-| 🐛 调试专家 | OpenAI GPT-4 | 断点推荐和调试策略 | ✅ 完成 |
-| 🏛️ 架构师 | Claude-3.5 | 软件架构设计评估 | ✅ 完成 |
-| 🤔 质疑者 | Google Gemini | 批判性审查和质疑 | ✅ 完成 |
-| ✅ 检查者 | Ollama本地 | 最终审核和质量保证 | ✅ 完成 |
+- ✅ **Multi-Agent System**: 7 specialised agents collaborating on analysis
+- ✅ **Configuration Management**: Flexible configuration supporting multiple LLM providers
+- ✅ **API Backend**: FastAPI RESTful interface
+- ✅ **Frontend Interface**: Streamlit visualisation interface
+- ✅ **Environment Management**: conda environment and dependency management
 
-### 3. LLM集成 (100% 完成)
-- ✅ **OpenAI API**: GPT-4集成，支持协调和调试
-- ✅ **Anthropic Claude**: Claude-3.5集成，支持深度分析
-- ✅ **Google Gemini**: Gemini-Pro集成，支持批判性思考
-- ✅ **Ollama本地**: 本地推理服务，支持独立验证
+### 2. Agent Roles (100% Complete)
 
-### 4. 分析功能 (100% 完成)
-- ✅ **代码质量分析**: 复杂度、可维护性、可读性评估
-- ✅ **安全漏洞检测**: 缓冲区溢出、内存泄漏、安全风险
-- ✅ **调试策略生成**: 智能断点推荐、调试路径规划
-- ✅ **架构评估**: 设计模式识别、重构建议
-- ✅ **批判性审查**: 多角度质疑和验证
-- ✅ **最终质量保证**: 独立审核和一致性检查
+| Agent | LLM Provider | Responsibility | Status |
+| ------- | -------------- | ---------------- | -------- |
+| 🎯 Coordinator | OpenAI GPT-4 | Process management and task coordination | ✅ Complete |
+| 📊 Code Analyst | Claude-3.5 | Code quality and complexity analysis | ✅ Complete |
+| 🔒 Security Expert | Claude-3.5 | Security vulnerability detection and risk assessment | ✅ Complete |
+| 🐛 Debug Expert | OpenAI GPT-4 | Breakpoint recommendation and debugging strategy | ✅ Complete |
+| 🏛️ Architect | Claude-3.5 | Software architecture design evaluation | ✅ Complete |
+| 🤔 Critic | Google Gemini | Critical review and questioning | ✅ Complete |
+| ✅ Reviewer | Ollama Local | Final audit and quality assurance | ✅ Complete |
 
-### 5. 可视化界面 (100% 完成)
-- ✅ **智能体监控**: 实时状态显示和交互可视化
-- ✅ **对话时间线**: 智能体间对话记录和流程展示
-- ✅ **分析进度**: 实时进度条和阶段状态
-- ✅ **结果展示**: 多标签页详细结果呈现
-- ✅ **报告下载**: JSON格式完整分析报告
+### 3. LLM Integration (100% Complete)
 
-### 6. 系统工具 (100% 完成)
-- ✅ **启动脚本**: 一键启动完整系统
-- ✅ **配置验证**: 环境和API密钥检查
-- ✅ **系统测试**: 组件功能自动化测试
-- ✅ **使用文档**: 详细的使用指南和故障排除
+- ✅ **OpenAI API**: GPT-4 integration for coordination and debugging
+- ✅ **Anthropic Claude**: Claude-3.5 integration for deep analysis
+- ✅ **Google Gemini**: Gemini-Pro integration for critical thinking
+- ✅ **Ollama Local**: Local inference service for independent verification
 
-## 📊 技术规格
+### 4. Analysis Features (100% Complete)
 
-### 系统架构
-```
+- ✅ **Code Quality Analysis**: Complexity, maintainability, readability assessment
+- ✅ **Security Vulnerability Detection**: Buffer overflow, memory leaks, security risks
+- ✅ **Debugging Strategy Generation**: Intelligent breakpoint recommendations, debugging path planning
+- ✅ **Architecture Assessment**: Design pattern identification, refactoring suggestions
+- ✅ **Critical Review**: Multi‑angle questioning and verification
+- ✅ **Final Quality Assurance**: Independent audit and consistency checking
+
+### 5. Visualisation Interface (100% Complete)
+
+- ✅ **Agent Monitoring**: Real‑time status display and interaction visualisation
+- ✅ **Conversation Timeline**: Dialogue recording and workflow display between agents
+- ✅ **Analysis Progress**: Real‑time progress bars and phase status
+- ✅ **Results Display**: Multi‑tab detailed result presentation
+- ✅ **Report Download**: Complete analysis report in JSON format
+
+### 6. System Tools (100% Complete)
+
+- ✅ **Startup Script**: One‑click launch of the full system
+- ✅ **Configuration Validation**: Environment and API key checking
+- ✅ **System Testing**: Automated component functional testing
+- ✅ **User Documentation**: Detailed usage guide and troubleshooting
+
+## 📊 Technical Specifications
+
+### System Architecture
+
+```txt
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Streamlit     │    │    FastAPI      │    │  Multi-Agent    │
 │   Frontend      │◄──►│    Backend      │◄──►│    System       │
@@ -69,188 +76,206 @@
          └───────────────────────────────────────────────┘
 ```
 
-### 核心技术栈
-- **多智能体框架**: AutoGen + LangGraph
-- **后端框架**: FastAPI + Uvicorn
-- **前端框架**: Streamlit + Plotly
-- **LLM集成**: OpenAI + Anthropic + Google + Ollama
-- **代码分析**: tree-sitter + libclang + cppcheck
-- **环境管理**: conda + python-dotenv
+### Core Technology Stack
 
-### 文件结构
-```
+- **Multi-Agent Framework**: AutoGen + LangGraph
+- **Backend Framework**: FastAPI + Uvicorn
+- **Frontend Framework**: Streamlit + Plotly
+- **LLM Integration**: OpenAI + Anthropic + Google + Ollama
+- **Code Analysis**: tree-sitter + libclang + cppcheck
+- **Environment Management**: conda + python-dotenv
+
+### File Structure
+
+```txt
 Interruptr/
 ├── config/
-│   ├── env_config.py          # 环境配置管理
+│   ├── env_config.py          # Environment configuration management
 │   └── __init__.py
 ├── agents/
-│   ├── enhanced_multi_agent_system.py  # 增强多智能体系统
+│   ├── enhanced_multi_agent_system.py  # Enhanced multi-agent system
 │   ├── __init__.py
 │   └── [other agent modules]
 ├── api/
-│   ├── main.py                # FastAPI后端
+│   ├── main.py                # FastAPI backend
 │   └── __init__.py
 ├── frontend/
-│   ├── app.py                 # Streamlit主应用
-│   ├── visualization.py      # 可视化组件
-│   └── agent_visualization.py # 智能体可视化
+│   ├── app.py                 # Streamlit main application
+│   ├── visualization.py      # Visualisation components
+│   └── agent_visualization.py # Agent visualisation
 ├── examples/
-│   └── unsafe_code.c          # 示例C代码
-├── .env                       # 环境变量
-├── .env.example              # 环境变量模板
-├── requirements.txt          # Python依赖
-├── setup.py                  # 环境验证脚本
-├── start.py                  # 系统启动脚本
-├── test_system.py            # 系统测试脚本
-├── README.md                 # 项目说明
-├── USAGE.md                  # 使用指南
-└── [其他配置文件]
+│   └── unsafe_code.c          # Example C code
+├── .env                       # Environment variables
+├── .env.example              # Environment variable template
+├── requirements.txt          # Python dependencies
+├── setup.py                  # Environment validation script
+├── start.py                  # System startup script
+├── test_system.py            # System testing script
+├── README.md                 # Project description
+├── USAGE.md                  # Usage guide
+└── [other configuration files]
 ```
 
-## 🚀 使用流程
+## 🚀 Usage Workflow
 
-### 快速启动
+### Quick Start
+
 ```bash
-# 1. 克隆项目并进入目录
+# 1. Clone the project and enter the directory
 cd /home/coder-gw/Interruptr
 
-# 2. 配置环境变量
+# 2. Configure environment variables
 cp .env.example .env
-# 编辑 .env 文件，填入真实的API密钥
+# Edit the .env file and fill in real API keys
 
-# 3. 安装依赖
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. 启动系统
+# 4. Start the system
 python start.py
 
-# 5. 访问界面
-# 前端: http://localhost:8501
+# 5. Access the interfaces
+# Frontend: http://localhost:8501
 # API: http://localhost:8000/docs
 ```
 
-### 分析流程
-1. **上传代码**: 在前端界面上传C/C++文件
-2. **配置选项**: 选择分析模式和启用的智能体
-3. **开始分析**: 启动多智能体协作分析
-4. **实时监控**: 观察智能体对话和分析进度
-5. **查看结果**: 查看详细分析报告
-6. **下载报告**: 获取JSON格式完整报告
+### Analysis Workflow
 
-## 💡 创新特性
+1. **Upload Code**: Upload a C/C++ file in the frontend interface
+2. **Configure Options**: Select the analysis mode and enabled agents
+3. **Start Analysis**: Launch multi-agent collaborative analysis
+4. **Real-Time Monitoring**: Observe agent conversations and analysis progress
+5. **View Results**: Review the detailed analysis report
+6. **Download Report**: Obtain the complete report in JSON format
 
-### 1. 多角色协作分析
-- **专业分工**: 每个智能体专注特定领域
-- **协作推理**: 智能体间信息共享和协作
-- **质疑机制**: 质疑者角色提供批判性审查
-- **独立验证**: 检查者角色确保结果质量
+## 💡 Innovative Features
 
-### 2. 多LLM提供商集成
-- **OpenAI**: 强大的推理和协调能力
-- **Claude**: 深度代码分析和安全检测
-- **Gemini**: 多角度思考和批判性审查  
-- **Ollama**: 本地推理，保护代码隐私
+### 1. Multi‑Role Collaborative Analysis
 
-### 3. 实时可视化监控
-- **智能体状态**: 实时显示每个智能体工作状态
-- **对话流程**: 可视化智能体间对话和协作
-- **分析进度**: 实时进度条和阶段完成状态
-- **交互网络**: 智能体交互关系图谱
+- **Specialised Division of Labour**: Each agent focuses on a specific domain
+- **Collaborative Reasoning**: Information sharing and collaboration between agents
+- **Questioning Mechanism**: The Critic role provides critical review
+- **Independent Verification**: The Reviewer role ensures result quality
 
-### 4. 深度代码分析
-- **静态分析**: tree-sitter语法解析
-- **安全检测**: 专业安全漏洞识别
-- **调试支持**: 智能断点和调试策略
-- **架构评估**: 设计模式和重构建议
+### 2. Multi‑LLM Provider Integration
 
-## 🎖️ 项目亮点
+- **OpenAI**: Powerful reasoning and coordination capabilities
+- **Claude**: Deep code analysis and security detection
+- **Gemini**: Multi‑perspective thinking and critical review
+- **Ollama**: Local inference, protecting code privacy
 
-### 技术创新
-1. **首创多LLM协作**: 不同LLM的优势互补
-2. **智能体质疑机制**: 提高分析质量和可信度
-3. **实时可视化**: 透明的分析过程展示
-4. **本地+云端混合**: 平衡性能和隐私保护
+### 3. Real‑Time Visualisation Monitoring
 
-### 实用价值
-1. **提高代码质量**: 全方位的代码分析和建议
-2. **增强安全性**: 专业的安全漏洞检测
-3. **优化调试效率**: 智能断点和调试策略
-4. **支持架构改进**: 专业的架构评估和建议
+- **Agent Status**: Real‑time display of each agent's working status
+- **Conversation Flow**: Visualisation of dialogues and collaboration between agents
+- **Analysis Progress**: Real‑time progress bars and phase completion status
+- **Interaction Network**: Graph of agent interaction relationships
 
-### 用户体验
-1. **简单易用**: 一键启动，直观界面
-2. **实时反馈**: 分析过程可视化
-3. **详细报告**: 结构化的分析结果
-4. **可扩展性**: 易于添加新智能体和功能
+### 4. Deep Code Analysis
 
-## 📈 测试结果
+- **Static Analysis**: tree-sitter syntax parsing
+- **Security Detection**: Professional security vulnerability identification
+- **Debugging Support**: Intelligent breakpoints and debugging strategies
+- **Architecture Assessment**: Design patterns and refactoring suggestions
 
-最新系统测试结果 (4/6 通过):
-- ✅ 配置系统: 正常
-- ⚠️ LLM接口: 需要API密钥
-- ⚠️ 多智能体系统: 依赖修复
-- ✅ 示例代码分析: 正常
-- ✅ 前端组件: 正常  
-- ✅ API后端: 正常
+## 🎖️ Project Highlights
 
-## 🔮 后续优化方向
+### Technical Innovations
 
-### 短期改进 (1-2周)
-1. **修复导入问题**: 解决模块依赖问题
-2. **增强错误处理**: 更好的异常处理和恢复
-3. **性能优化**: 并发处理和缓存机制
-4. **测试覆盖**: 更全面的单元测试
+1. **First Multi‑LLM Collaboration**: Complementary strengths of different LLMs
+2. **Agent Questioning Mechanism**: Improves analysis quality and trustworthiness
+3. **Real‑Time Visualisation**: Transparent display of the analysis process
+4. **Local + Cloud Hybrid**: Balances performance and privacy protection
 
-### 中期扩展 (1-2月)
-1. **支持更多语言**: Python、Java、JavaScript等
-2. **增强分析能力**: 更多静态分析工具集成
-3. **智能体学习**: 基于历史分析结果的改进
-4. **团队协作**: 多用户和项目管理
+### Practical Value
 
-### 长期愿景 (3-6月)
-1. **AI代码修复**: 自动生成修复建议和代码
-2. **持续集成**: CI/CD pipeline集成
-3. **企业级部署**: 私有云和容器化部署
-4. **生态系统**: 插件架构和第三方扩展
+1. **Improves Code Quality**: Comprehensive code analysis and recommendations
+2. **Enhances Security**: Professional security vulnerability detection
+3. **Optimises Debugging Efficiency**: Intelligent breakpoints and debugging strategies
+4. **Supports Architecture Improvement**: Professional architecture assessment and recommendations
 
-## 🏆 项目成就
+### User Experience
 
-1. **✅ 完整实现**: 从架构设计到代码实现的完整交付
-2. **✅ 多LLM集成**: 成功集成4个主流LLM提供商
-3. **✅ 实用性验证**: 可用的C/C++代码分析工具
-4. **✅ 可扩展架构**: 易于扩展和定制的系统设计
-5. **✅ 用户友好**: 直观的Web界面和详细文档
+1. **Simple and Easy to Use**: One‑click startup, intuitive interface
+2. **Real‑Time Feedback**: Visualised analysis process
+3. **Detailed Reports**: Structured analysis results
+4. **Extensibility**: Easy to add new agents and features
 
-## 📞 技术支持
+## 📈 Test Results
 
-### 问题排查
+Latest System Test Results (4/6 Passed):
+
+- ✅ Configuration System: Normal
+- ⚠️ LLM Interface: Requires API keys
+- ⚠️ Multi‑Agent System: Dependency fixes needed
+- ✅ Sample Code Analysis: Normal
+- ✅ Frontend Components: Normal
+- ✅ API Backend: Normal
+
+## 🔮 Future Optimisation Directions
+
+### Short‑Term Improvements (1‑2 Weeks)
+
+1. **Fix Import Issues**: Resolve module dependency problems
+2. **Enhance Error Handling**: Better exception handling and recovery
+3. **Performance Optimisation**: Concurrency processing and caching mechanisms
+4. **Test Coverage**: More comprehensive unit tests
+
+### Medium‑Term Extensions (1‑2 Months)
+
+1. **Support More Languages**: Python, Java, JavaScript, etc.
+2. **Enhance Analysis Capabilities**: Integration with more static analysis tools
+3. **Agent Learning**: Improvements based on historical analysis results
+4. **Team Collaboration**: Multi‑user and project management
+
+### Long‑Term Vision (3‑6 Months)
+
+1. **AI Code Repair**: Automatic generation of fixes and code
+2. **Continuous Integration**: CI/CD pipeline integration
+3. **Enterprise Deployment**: Private cloud and containerised deployment
+4. **Ecosystem**: Plugin architecture and third‑party extensions
+
+## 🏆 Project Achievements
+
+1. **✅ Complete Implementation**: Full delivery from architectural design to code
+2. **✅ Multi‑LLM Integration**: Successfully integrated 4 major LLM providers
+3. **✅ Practical Validation**: Usable C/C++ code analysis tool
+4. **✅ Extensible Architecture**: System design that is easy to extend and customise
+5. **✅ User‑Friendly**: Intuitive web interface and comprehensive documentation
+
+## 📞 Technical Support
+
+### Troubleshooting
+
 ```bash
-# 系统诊断
+# System diagnostics
 python start.py test
 
-# 配置检查  
+# Configuration check
 python start.py config
 
-# 查看帮助
+# View help
 python start.py help
 ```
 
-### 常见问题
-1. **API密钥配置**: 检查.env文件中的密钥设置
-2. **端口冲突**: 修改start.py中的端口配置
-3. **依赖缺失**: 运行pip install -r requirements.txt
-4. **Ollama连接**: 确保Ollama服务运行在localhost:11434
+### Common Issues
+
+1. **API Key Configuration**: Check the key settings in the .env file
+2. **Port Conflicts**: Modify the port configurations in start.py
+3. **Missing Dependencies**: Run pip install -r requirements.txt
+4. **Ollama Connection**: Ensure the Ollama service is running at localhost:11434
 
 ---
 
-## 🎉 结语
+## 🎉 Conclusion
 
-**Interruptr** 项目成功实现了一个功能完整、技术先进的多智能体C/C++代码分析系统。通过创新的多LLM协作机制、实时可视化监控和深度代码分析能力，为开发者提供了一个强大的代码质量和安全分析工具。
+The **Interruptr** project has successfully delivered a fully functional and technologically advanced multi‑agent C/C++ code analysis system. Through its innovative multi‑LLM collaboration mechanism, real‑time visualisation monitoring, and deep code analysis capabilities, it provides developers with a powerful tool for code quality and security analysis.
 
-项目展示了：
-- 🔬 **技术深度**: 多智能体系统和LLM集成
-- 🎯 **实用价值**: 真实的代码分析和调试支持  
-- 🚀 **创新性**: 多LLM协作和质疑机制
-- 🛠️ **工程质量**: 完整的系统设计和实现
+The project demonstrates:
 
-这个项目为未来的AI驱动开发工具奠定了坚实的基础，展现了多智能体系统在实际应用中的巨大潜力。
+- 🔬 **Technical Depth**: Multi‑agent systems and LLM integration
+- 🎯 **Practical Value**: Real‑world code analysis and debugging support
+- 🚀 **Innovation**: Multi‑LLM collaboration and questioning mechanisms
+- 🛠️ **Engineering Quality**: Complete system design and implementation
+
+This project lays a solid foundation for future AI‑driven development tools and showcases the immense potential of multi‑agent systems in real‑world applications.

@@ -1,54 +1,54 @@
 #!/bin/bash
 
-# AutoGen Studio 多智能体C/C++分析系统 - 快速配置脚本
-# 运行此脚本确保所有配置正确
+# AutoGen Studio Multi-Agent C/C++ Analysis System - Quick Configuration Script
+# Run this script to ensure all configurations are correct
 
-echo "=== AutoGen Studio 多智能体系统状态检查 ==="
+echo "=== AutoGen Studio Multi-Agent System Status Check ==="
 
-# 检查AutoGen Studio进程
+# Check AutoGen Studio process
 if pgrep -f "autogenstudio" > /dev/null; then
-    echo "✅ AutoGen Studio 正在运行"
-    echo "🌐 访问地址: http://localhost:8081"
+    echo "✅ AutoGen Studio is running"
+    echo "🌐 Access URL: http://localhost:8081"
 else
-    echo "❌ AutoGen Studio 未运行，正在启动..."
+    echo "❌ AutoGen Studio is not running, starting..."
     cd /home/coder-gw/Interruptr
     nohup autogenstudio ui --port 8081 --host 0.0.0.0 > autogen_studio.log 2>&1 &
     sleep 3
-    echo "✅ AutoGen Studio 已启动"
+    echo "✅ AutoGen Studio has been started"
 fi
 
-# 检查端口
+# Check port
 if curl -s http://localhost:8081 >/dev/null; then
-    echo "✅ Web界面可访问"
+    echo "✅ Web interface is accessible"
 else
-    echo "❌ Web界面不可访问"
+    echo "❌ Web interface is not accessible"
 fi
 
-# 显示配置文件位置
+# Display configuration file locations
 echo ""
-echo "=== 配置文件 ==="
-echo "📋 工作流指南: /home/coder-gw/Interruptr/autogen_workflow_guide.md"
-echo "🔍 示例代码: /home/coder-gw/Interruptr/sample_code.cpp"
-echo "📊 运行日志: /home/coder-gw/Interruptr/autogen_studio.log"
+echo "=== Configuration Files ==="
+echo "📋 Workflow guide: /home/coder-gw/Interruptr/autogen_workflow_guide.md"
+echo "🔍 Example code: /home/coder-gw/Interruptr/sample_code.cpp"
+echo "📊 Log file: /home/coder-gw/Interruptr/autogen_studio.log"
 
 echo ""
-echo "=== 下一步操作 ==="
-echo "1. 在浏览器中打开: http://localhost:8081"
-echo "2. 导航到 'Teams' 或 'Team Builder'"
-echo "3. 创建新团队: C/C++ Code Analysis Team"
-echo "4. 配置5个智能体角色:"
-echo "   - Coordinator (协调员)"
-echo "   - Code Analyst (代码分析师)"  
-echo "   - Security Expert (安全专家)"
-echo "   - Debug Expert (调试专家)"
-echo "   - Quality Critic (质量评估师)"
-echo "5. 使用 sample_code.cpp 测试工作流"
+echo "=== Next Steps ==="
+echo "1. Open in your browser: http://localhost:8081"
+echo "2. Navigate to 'Teams' or 'Team Builder'"
+echo "3. Create a new team: C/C++ Code Analysis Team"
+echo "4. Configure 5 agent roles:"
+echo "   - Coordinator"
+echo "   - Code Analyst"
+echo "   - Security Expert"
+echo "   - Debug Expert"
+echo "   - Quality Critic"
+echo "5. Test the workflow using sample_code.cpp"
 
 echo ""
-echo "=== 智能体配置模板 ==="
-echo "模型设置: gpt-oss:latest (本地模型)"
-echo "温度: 0.3 (保持分析一致性)"
-echo "最大输出: 2048 tokens"
+echo "=== Agent Configuration Template ==="
+echo "Model: gpt-oss:latest (local model)"
+echo "Temperature: 0.3 (maintain analysis consistency)"
+echo "Max output: 2048 tokens"
 
 echo ""
-echo "系统已准备就绪! 🚀"
+echo "System is ready! 🚀"

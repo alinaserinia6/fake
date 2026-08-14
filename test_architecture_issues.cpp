@@ -2,42 +2,42 @@
 #include <vector>
 #include <string>
 
-// 违反单一职责原则的大类
+// Violates the Single Responsibility Principle (SRP)
 class DataProcessor {
 private:
     std::vector<int> data;
     std::string filename;
     
 public:
-    // 数据处理
+    // Data processing
     void process_data() {
         for (auto& item : data) {
             item *= 2;
         }
     }
     
-    // 文件操作 (违反SRP)
+    // File operations (violates SRP)
     void save_to_file() {
-        // 文件保存逻辑
+        // File saving logic
     }
     
-    // 网络通信 (违反SRP)
+    // Network communication (violates SRP)
     void send_to_server() {
-        // 网络发送逻辑
+        // Network sending logic
     }
     
-    // 日志记录 (违反SRP)
+    // Logging (violates SRP)
     void log_operation() {
-        // 日志记录逻辑
+        // Logging logic
     }
     
-    // UI显示 (违反SRP)
+    // UI display (violates SRP)
     void display_results() {
-        // 界面显示逻辑
+        // UI display logic
     }
 };
 
-// 高耦合的依赖关系
+// Tightly coupled dependencies
 class DatabaseConnection {
 public:
     void connect() { /* ... */ }
@@ -46,16 +46,16 @@ public:
 
 class UserService {
 private:
-    DatabaseConnection db;  // 直接依赖具体类，违反DIP
+    DatabaseConnection db;  // Direct dependency on concrete class, violates DIP
     
 public:
     void create_user(const std::string& name) {
-        db.connect();  // 紧耦合
+        db.connect();  // Tight coupling
         db.execute_query("INSERT INTO users...");
     }
 };
 
-// 违反里氏替换原则
+// Violates the Liskov Substitution Principle (LSP)
 class Bird {
 public:
     virtual void fly() { /* ... */ }
@@ -64,11 +64,11 @@ public:
 class Penguin : public Bird {
 public:
     void fly() override {
-        throw std::runtime_error("Penguins can't fly!");  // 违反LSP
+        throw std::runtime_error("Penguins can't fly!");  // Violates LSP
     }
 };
 
-// 违反接口隔离原则
+// Violates the Interface Segregation Principle (ISP)
 class AllInOneInterface {
 public:
     virtual void print() = 0;
@@ -79,10 +79,10 @@ public:
 
 class SimplePrinter : public AllInOneInterface {
 public:
-    void print() override { /* 实现打印 */ }
-    void scan() override { /* 不需要但必须实现 */ }
-    void fax() override { /* 不需要但必须实现 */ }
-    void copy() override { /* 不需要但必须实现 */ }
+    void print() override { /* Implement printing */ }
+    void scan() override { /* Not needed but must implement */ }
+    void fax() override { /* Not needed but must implement */ }
+    void copy() override { /* Not needed but must implement */ }
 };
 
 int main() {

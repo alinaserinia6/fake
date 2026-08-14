@@ -1,69 +1,75 @@
-# 🚀 Interruptr 使用指南
+# 🚀 Interruptr User Guide
 
-## 快速开始
+## Quick Start
 
-### 1. 启动系统
+### 1. Start the System
+
 ```bash
-# 完整启动
+# Full startup
 python start.py
 
-# 或者分别启动
+# Or start separately
 python start.py demo
 ```
 
-### 2. 访问界面
-- **前端界面**: http://localhost:8501
-- **API文档**: http://localhost:8000/docs
+### 2. Access the Interface
 
-### 3. 基本使用流程
-1. 打开前端界面
-2. 选择"智能体可视化"标签页
-3. 上传C/C++文件或使用示例文件
-4. 配置分析选项（启用质疑者、检查者等）
-5. 点击"开始多智能体分析"
-6. 观看实时分析过程和智能体对话
-7. 查看分析结果和下载报告
+- **Frontend Interface**: <http://localhost:8501>
+- **API Docs**: <http://localhost:8000/docs>
 
-## 系统架构
+### 3. Basic Workflow
 
-### 智能体角色配置
-| 角色 | LLM提供商 | 主要职责 |
-|------|-----------|----------|
-| 🎯 协调者 | OpenAI GPT-4 | 流程管理和任务分配 |
-| 📊 代码分析师 | Claude-3.5 | 代码质量和复杂度分析 |
-| 🔒 安全专家 | Claude-3.5 | 安全漏洞检测 |
-| 🐛 调试专家 | OpenAI GPT-4 | 断点推荐和调试策略 |
-| 🏛️ 架构师 | Claude-3.5 | 软件架构评估 |
-| 🤔 质疑者 | Google Gemini | 批判性审查 |
-| ✅ 检查者 | Ollama本地 | 最终质量验证 |
+1. Open the frontend interface
+2. Select the "Agent Visualization" tab
+3. Upload a C/C++ file or use a sample file
+4. Configure analysis options (enable Critic, Reviewer, etc.)
+5. Click "Start Multi-Agent Analysis"
+6. Watch the real-time analysis process and agent conversations
+7. View analysis results and download reports
 
-### 分析流程
-1. **第一轮**: 基础专家分析
-   - 代码分析师 → 质量评估
-   - 安全专家 → 漏洞检测
-   - 调试专家 → 断点建议
-   - 架构师 → 设计评估
+## System Architecture
 
-2. **第二轮**: 质疑和审查
-   - 质疑者 → 批判性审查
-   - 检查者 → 最终验证
+### Agent Role Configuration
 
-3. **第三轮**: 综合报告
-   - 协调者 → 整合所有分析结果
+| Role | LLM Provider | Primary Responsibility |
+| ------ | ----------- | ---------- |
+| 🎯 Coordinator | OpenAI GPT-4 | Process management and task allocation |
+| 📊 Code Analyst | Claude-3.5 | Code quality and complexity analysis |
+| 🔒 Security Expert | Claude-3.5 | Security vulnerability detection |
+| 🐛 Debug Expert | OpenAI GPT-4 | Breakpoint recommendations and debugging strategies |
+| 🏛️ Architect | Claude-3.5 | Software architecture evaluation |
+| 🤔 Critic | Google Gemini | Critical review |
+| ✅ Reviewer | Ollama (Local) | Final quality verification |
 
-## 配置说明
+### Analysis Flow
 
-### 环境变量 (.env)
+1. **Round 1**: Basic Expert Analysis
+   - Code Analyst → Quality assessment
+   - Security Expert → Vulnerability detection
+   - Debug Expert → Breakpoint suggestions
+   - Architect → Design assessment
+
+2. **Round 2**: Critique and Review
+   - Critic → Critical review
+   - Reviewer → Final verification
+
+3. **Round 3**: Comprehensive Report
+   - Coordinator → Consolidate all analysis results
+
+## Configuration Instructions
+
+### Environment Variables (.env)
+
 ```bash
-# LLM API配置
+# LLM API Configuration
 OPENAI_API_KEY=your-openai-api-key
 ANTHROPIC_API_KEY=your-anthropic-api-key
 GEMINI_API_KEY=your-gemini-api-key
 
-# Ollama本地配置
+# Ollama Local Configuration
 OLLAMA_BASE_URL=http://localhost:11434
 
-# 角色分配
+# Role Assignment
 COORDINATOR_LLM=openai
 CODE_ANALYST_LLM=claude
 SECURITY_EXPERT_LLM=claude
@@ -73,149 +79,167 @@ CRITIC_LLM=gemini
 REVIEWER_LLM=ollama
 ```
 
-### 模型配置
-- **OpenAI**: gpt-4 (推理能力强，适合协调和调试)
-- **Claude**: claude-3-sonnet (分析能力强，适合代码和安全)
-- **Gemini**: gemini-pro (多角度思考，适合批判性审查)
-- **Ollama**: llama2:7b (本地推理，独立验证)
+### Model Configuration
 
-## 常用命令
+- **OpenAI**: gpt-4 (strong reasoning, suitable for coordination and debugging)
+- **Claude**: claude-3-sonnet (strong analytical capabilities, suitable for code and security)
+- **Gemini**: gemini-pro (multi-perspective thinking, suitable for critical review)
+- **Ollama**: llama2:7b (local inference, independent verification)
 
-### 系统管理
+## Common Commands
+
+### System Management
+
 ```bash
-# 启动完整系统
+# Start the full system
 python start.py
 
-# 运行系统测试
+# Run system tests
 python start.py test
 
-# 查看配置信息
+# View configuration info
 python start.py config
 
-# 演示模式
+# Demo mode
 python start.py demo
 
-# 显示帮助
+# Show help
 python start.py help
 ```
 
-### 测试命令
+### Test Commands
+
 ```bash
-# 完整系统测试
+# Full system test
 python test_system.py
 
-# 单独测试多智能体系统
-python -c "from agents.enhanced_multi_agent_system import EnhancedMultiAgentSystem; print('✅ 多智能体系统导入成功')"
+# Test the multi-agent system separately
+python -c "from agents.enhanced_multi_agent_system import EnhancedMultiAgentSystem; print('✅ Multi-agent system imported successfully')"
 ```
 
-## 功能特性
+## Features
 
-### 🎭 多智能体可视化
-- 实时显示智能体状态和交互
-- 彩色编码的对话时间线
-- 分析进度可视化
-- 智能体网络图谱
+### 🎭 Multi-Agent Visualization
 
-### 📊 分析功能
-- **代码质量**: 复杂度、可维护性、可读性评估
-- **安全分析**: 缓冲区溢出、内存泄漏、安全漏洞检测
-- **调试建议**: 智能断点推荐、调试策略
-- **架构评估**: 设计模式、代码组织、重构建议
+- Real-time display of agent status and interactions
+- Color-coded conversation timeline
+- Analysis progress visualization
+- Agent network graph
 
-### 🔍 高级特性
-- **批判性审查**: 质疑者角色质疑分析结果
-- **独立验证**: 检查者角色进行最终审核
-- **多轮对话**: 智能体之间的协作推理
-- **可视化监控**: 实时观察分析过程
+### 📊 Analysis Features
 
-## 故障排除
+- **Code Quality**: Complexity, maintainability, readability assessment
+- **Security Analysis**: Buffer overflow, memory leak, security vulnerability detection
+- **Debugging Suggestions**: Intelligent breakpoint recommendations, debugging strategies
+- **Architecture Assessment**: Design patterns, code organization, refactoring suggestions
 
-### 常见问题
+### 🔍 Advanced Features
 
-1. **API密钥未配置**
+- **Critical Review**: Critic role challenges analysis results
+- **Independent Verification**: Reviewer role performs final review
+- **Multi-round Dialogue**: Collaborative reasoning between agents
+- **Visual Monitoring**: Real-time observation of the analysis process
+
+## Troubleshooting
+
+### Common Issues
+
+1. **API key not configured**
+
+   ```txt
+   Solution: Check the API key configuration in the .env file
    ```
-   解决方案: 检查.env文件中的API密钥配置
-   ```
 
-2. **Ollama连接失败**
-   ```
-   解决方案: 确保Ollama服务正在运行
+2. **Ollama connection failed**
+
+   ```txt
+   Solution: Ensure the Ollama service is running
    curl http://localhost:11434/api/tags
    ```
 
-3. **端口被占用**
-   ```
-   解决方案: 
-   - 前端: 修改streamlit端口 --server.port 8502
-   - API: 修改uvicorn端口 --port 8001
+3. **Port is occupied**
+
+   ```txt
+   Solution:
+   - Frontend: Modify the streamlit port --server.port 8502
+   - API: Modify the uvicorn port --port 8001
    ```
 
-4. **依赖包缺失**
-   ```
-   解决方案: 安装requirements.txt中的依赖
+4. **Missing dependency packages**
+
+   ```txt
+   Solution: Install dependencies from requirements.txt
    pip install -r requirements.txt
    ```
 
-### 调试技巧
+### Debugging Tips
 
-1. **查看详细日志**
+1. **View detailed logs**
+
    ```bash
-   # API日志
+   # API logs
    uvicorn api.main:app --log-level debug
 
-   # Streamlit日志
+   # Streamlit logs
    streamlit run frontend/app.py --logger.level debug
    ```
 
-2. **测试单个组件**
+2. **Test individual components**
+
    ```bash
-   # 测试配置
+   # Test configuration
    python -c "from config.env_config import config; print(config.openai_model)"
 
-   # 测试LLM接口
+   # Test LLM interface
    python -c "import asyncio; from agents.enhanced_multi_agent_system import LLMInterface; asyncio.run(LLMInterface.call_openai('test', 'test'))"
    ```
 
-## 性能优化
+## Performance Optimization
 
-### 建议配置
-- **并发限制**: 设置合适的LLM调用并发数
-- **缓存机制**: 启用分析结果缓存
-- **超时设置**: 配置合理的API调用超时
-- **本地推理**: 使用Ollama减少API调用成本
+### Recommended Configuration
 
-### 资源监控
-- CPU使用率 (多智能体并行处理)
-- 内存占用 (代码分析和缓存)
-- 网络带宽 (LLM API调用)
-- API配额 (避免超出限制)
+- **Concurrency limits**: Set appropriate concurrency for LLM calls
+- **Caching**: Enable analysis result caching
+- **Timeout settings**: Configure reasonable API call timeouts
+- **Local inference**: Use Ollama to reduce API call costs
 
-## 扩展开发
+### Resource Monitoring
 
-### 添加新智能体
-1. 在`EnhancedMultiAgentSystem`中定义新角色
-2. 配置LLM提供商和系统消息
-3. 在分析流程中集成新智能体
-4. 更新前端可视化界面
+- CPU usage (multi-agent parallel processing)
+- Memory usage (code analysis and caching)
+- Network bandwidth (LLM API calls)
+- API quota (avoid exceeding limits)
 
-### 支持新语言
-1. 添加语言解析器 (tree-sitter)
-2. 扩展安全规则库
-3. 更新代码质量度量
-4. 调整分析模板
+## Extension Development
 
-### 自定义分析器
-1. 继承`EnhancedAgent`类
-2. 实现特定分析逻辑
-3. 注册到多智能体系统
-4. 配置前端界面选项
+### Add a New Agent
+
+1. Define a new role in `EnhancedMultiAgentSystem`
+2. Configure the LLM provider and system messages
+3. Integrate the new agent into the analysis flow
+4. Update the frontend visualization interface
+
+### Support New Languages
+
+1. Add a language parser (tree-sitter)
+2. Extend the security rule base
+3. Update code quality metrics
+4. Adjust analysis templates
+
+### Custom Analyzer
+
+1. Inherit the `EnhancedAgent` class
+2. Implement specific analysis logic
+3. Register with the multi-agent system
+4. Configure frontend interface options
 
 ---
 
-## 📞 技术支持
+## 📞 Technical Support
 
-如有问题，请查看：
-1. 系统测试报告: `test_report_*.json`
-2. API文档: http://localhost:8000/docs
-3. 配置验证: `python start.py config`
-4. 完整测试: `python start.py test`
+If you have any questions, please check:
+
+1. System test report: `test_report_*.json`
+2. API Docs: <http://localhost:8000/docs>
+3. Configuration verification: `python start.py config`
+4. Full test: `python start.py test`

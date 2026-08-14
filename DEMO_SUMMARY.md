@@ -1,173 +1,187 @@
-# 🎉 Interruptr 多智能体演示成功完成！
+# 🎉 Interruptr Multi-Agent Demo Successfully Completed!
 
-## 演示总结
+## Demo Summary
 
-我们成功完成了 **Interruptr** 高级多智能体C/C++代码分析工具的演示！
+We have successfully completed the demonstration of **Interruptr**, an advanced multi-agent C/C++ code analysis tool!
 
-### ✅ 演示完成内容
+### ✅ Demo Completion Highlights
 
-#### 1. **4个真实缺陷代码示例**
-- 🔥 **buffer_overflow.cpp** - 缓冲区溢出漏洞集合
-- 💾 **memory_leaks.cpp** - 内存管理问题案例  
-- 🔀 **race_conditions.cpp** - 并发竞态条件示例
-- 🏗️ **architecture_issues.cpp** - 架构设计问题展示
+#### 1. **4 Real-World Defective Code Examples**
 
-#### 2. **7个专业智能体协作分析**
-- 🎯 **协调者** (OpenAI GPT-4) → 流程管理
-- 📊 **代码分析师** (Claude-3.5) → 质量分析
-- 🔒 **安全专家** (Claude-3.5) → 漏洞检测
-- 🐛 **调试专家** (OpenAI GPT-4) → 调试策略
-- 🏛️ **架构师** (Claude-3.5) → 架构评估
-- 🤔 **质疑者** (Google Gemini) → 批判审查
-- ✅ **检查者** (Ollama本地) → 质量验证
+- 🔥 **buffer_overflow.cpp** - Buffer overflow vulnerability collection
+- 💾 **memory_leaks.cpp** - Memory management issue cases
+- 🔀 **race_conditions.cpp** - Concurrency race condition examples
+- 🏗️ **architecture_issues.cpp** - Architecture design problem showcase
 
-#### 3. **16个关键问题发现**
-```
-安全漏洞 (8个):
-• strcpy()缓冲区溢出 (高危)
-• gets()已弃用函数 (严重)  
-• 格式字符串攻击 (中危)
-• 内存泄漏风险 (中危)
-• 野指针访问 (高危)
-• 重复内存释放 (高危)
-• 异常时泄漏 (中危)
-• 封装破坏 (中危)
+#### 2. **7 Specialised Agents Collaborative Analysis**
 
-并发问题 (4个):
-• 静态变量竞态条件
-• 锁使用不一致
-• 死锁风险
-• 非原子操作
+- 🎯 **Coordinator** (OpenAI GPT-4) → Process management
+- 📊 **Code Analyst** (Claude-3.5) → Quality analysis
+- 🔒 **Security Expert** (Claude-3.5) → Vulnerability detection
+- 🐛 **Debug Expert** (OpenAI GPT-4) → Debugging strategy
+- 🏛️ **Architect** (Claude-3.5) → Architecture assessment
+- 🤔 **Critic** (Google Gemini) → Critical review
+- ✅ **Reviewer** (Ollama Local) → Quality verification
 
-架构问题 (4个):
-• 单一职责原则违反
-• 方法复杂度过高
-• 参数列表过长
-• 里式替换原则违反
-```
+#### 3. **16 Key Issues Discovered**
 
-### 🏆 技术创新亮点
+```txt
+Security Vulnerabilities (8):
+• strcpy() buffer overflow (High severity)
+• gets() deprecated function (Critical)
+• Format string attack (Medium severity)
+• Memory leak risk (Medium severity)
+• Dangling pointer access (High severity)
+• Double memory free (High severity)
+• Exception-time leak (Medium severity)
+• Encapsulation breach (Medium severity)
 
-#### **多LLM协作机制**
-- **OpenAI**: 强大推理能力 → 协调和调试
-- **Claude**: 深度分析能力 → 代码、安全、架构
-- **Gemini**: 多角度思考 → 批判性审查
-- **Ollama**: 本地推理 → 独立验证
+Concurrency Issues (4):
+• Static variable race condition
+• Inconsistent mutex usage
+• Deadlock risk
+• Non-atomic operations
 
-#### **质疑+验证双重机制**
-- 🤔 **质疑者**主动寻找分析盲点
-- ✅ **检查者**独立验证结果一致性
-- 🔄 **多轮对话**确保分析全面性
-
-#### **实时可视化监控**
-- 智能体状态实时显示
-- 对话流程透明化
-- 分析进度可视化
-- 协作过程可追踪
-
-### 📊 演示数据统计
-
-```
-📈 分析效果:
-• 代码文件: 4个 (总计679行)
-• 智能体: 7个 (4个LLM提供商)
-• 发现问题: 16个 (100%有效检测)
-• 分析维度: 安全+性能+架构+调试
-
-🎯 问题覆盖:
-• 缓冲区溢出: ✅ 4/4 检出
-• 内存泄漏: ✅ 4/4 检出  
-• 竞态条件: ✅ 4/4 检出
-• 架构缺陷: ✅ 4/4 检出
-
-🤖 智能体协作:
-• 任务分工: 专业化 ✅
-• 信息共享: 充分 ✅
-• 质疑机制: 有效 ✅
-• 验证机制: 可靠 ✅
+Architecture Issues (4):
+• Single Responsibility Principle violation
+• Excessive method complexity
+• Overly long parameter lists
+• Liskov Substitution Principle violation
 ```
 
-### 🚀 系统能力展示
+### 🏆 Technical Innovation Highlights
 
-#### **深度代码分析**
-- 静态分析 + 动态推理
-- 专业安全漏洞检测
-- 智能断点推荐
-- 架构设计评估
+#### **Multi-LLM Collaboration Mechanism**
 
-#### **多维度质量保证**
-- 专家级分析深度
-- 多模型交叉验证
-- 批判性思维质疑
-- 独立第三方审核
+- **OpenAI**: Powerful reasoning → Coordination and debugging
+- **Claude**: Deep analytical capability → Code, security, architecture
+- **Gemini**: Multi-perspective thinking → Critical review
+- **Ollama**: Local inference → Independent verification
 
-#### **工程化完整性**
-- Web界面交互友好
-- API接口标准化
-- 配置管理灵活
-- 部署方式多样化
+#### **Questioning + Verification Dual Mechanism**
 
-### 💡 实用价值
+- 🤔 **Critic** actively seeks analysis blind spots
+- ✅ **Reviewer** independently verifies result consistency
+- 🔄 **Multi-round dialogue** ensures comprehensive analysis
 
-#### **开发团队**
-- 提升代码质量和安全性
-- 减少人工代码审查工作量
-- 提供专业的架构改进建议
-- 辅助新人学习最佳实践
+#### **Real-Time Visualisation Monitoring**
 
-#### **安全团队**
-- 自动化安全漏洞检测
-- 全面的威胁分析报告
-- 专业的修复建议
-- 降低安全风险
+- Real-time agent status display
+- Transparent dialogue flow
+- Visualised analysis progress
+- Traceable collaboration process
 
-#### **架构师**
-- 系统性的设计评估
-- SOLID原则合规性检查
-- 可维护性分析
-- 重构建议和优先级
+### 📊 Demo Data Statistics
 
-### 🎯 后续发展方向
+```txt
+📈 Analysis Performance:
+• Code files: 4 (679 total lines)
+• Agents: 7 (4 LLM providers)
+• Issues discovered: 16 (100% effective detection)
+• Analysis dimensions: Security + Performance + Architecture + Debugging
 
-#### **短期目标**
-- 支持更多编程语言
-- 增强实时分析能力
-- 集成更多静态分析工具
-- 改进Web界面体验
+🎯 Issue Coverage:
+• Buffer overflow: ✅ 4/4 detected
+• Memory leak: ✅ 4/4 detected
+• Race conditions: ✅ 4/4 detected
+• Architecture defects: ✅ 4/4 detected
 
-#### **中长期愿景**
-- AI自动代码修复
-- 持续集成/部署集成
-- 企业级私有化部署
-- 开发者生态系统构建
+🤖 Agent Collaboration:
+• Task division: Specialised ✅
+• Information sharing: Adequate ✅
+• Questioning mechanism: Effective ✅
+• Verification mechanism: Reliable ✅
+```
+
+### 🚀 System Capabilities Showcase
+
+#### **In-Depth Code Analysis**
+
+- Static analysis + dynamic reasoning
+- Professional security vulnerability detection
+- Intelligent breakpoint recommendations
+- Architecture design assessment
+
+#### **Multi-Dimensional Quality Assurance**
+
+- Expert-level analysis depth
+- Cross-model verification
+- Critical thinking questioning
+- Independent third-party audit
+
+#### **Engineering Completeness**
+
+- User-friendly Web interface
+- Standardised API interfaces
+- Flexible configuration management
+- Diverse deployment options
+
+### 💡 Practical Value
+
+#### **Development Teams**
+
+- Improves code quality and security
+- Reduces manual code review workload
+- Provides professional architecture improvement recommendations
+- Assists newcomers in learning best practices
+
+#### **Security Teams**
+
+- Automated security vulnerability detection
+- Comprehensive threat analysis reports
+- Professional remediation recommendations
+- Reduces security risks
+
+#### **Architects**
+
+- Systematic design assessment
+- SOLID principle compliance checking
+- Maintainability analysis
+- Refactoring recommendations with prioritisation
+
+### 🎯 Future Development Directions
+
+#### **Short-Term Goals**
+
+- Support for more programming languages
+- Enhanced real-time analysis capabilities
+- Integration with more static analysis tools
+- Improved Web interface experience
+
+#### **Medium-to-Long-Term Vision**
+
+- AI-powered automatic code fixing
+- CI/CD pipeline integration
+- Enterprise-grade private deployment
+- Developer ecosystem development
 
 ---
 
-## 🏁 演示结论
+## 🏁 Demo Conclusion
 
-**Interruptr** 成功展示了**多智能体协作代码分析**的巨大潜力：
+**Interruptr** has successfully demonstrated the immense potential of **multi-agent collaborative code analysis**:
 
-✨ **技术创新** - 首创多LLM协作机制  
-✨ **质量保证** - 质疑+验证双重机制  
-✨ **实用价值** - 真实问题检测能力  
-✨ **工程质量** - 完整的系统实现  
+✨ **Technical Innovation** - Pioneering multi-LLM collaboration mechanism  
+✨ **Quality Assurance** - Questioning + Verification dual mechanism  
+✨ **Practical Value** - Real-world issue detection capability  
+✨ **Engineering Quality** - Complete system implementation  
 
-这是一个**真正实用的AI驱动开发工具**，为代码质量提升和安全风险控制提供了强有力的技术支撑！
+This is a **truly practical AI-driven development tool** that provides strong technical support for code quality improvement and security risk control!
 
 ---
 
-### 📞 体验完整系统
+### 📞 Experience the Full System
 
 ```bash
-# 启动完整系统
+# Start the full system
 cd /home/coder-gw/Interruptr
 python start.py
 
-# 访问Web界面
+# Access the Web interface
 http://localhost:8501
 
-# 或运行演示
+# Or run the demo
 python simple_demo.py
 ```
 
-**🎉 感谢观看 Interruptr 多智能体演示！**
+**🎉 Thank you for watching the Interruptr multi-agent demo!**

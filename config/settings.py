@@ -1,19 +1,19 @@
 """
-项目配置文件
+Project Configuration File
 """
 
 import os
 from pathlib import Path
 
-# 项目根目录
+# Project root directory
 PROJECT_ROOT = Path(__file__).parent.parent
 
-# API配置
+# API Configuration
 API_HOST = "localhost"
 API_PORT = 8000
 API_DEBUG = True
 
-# 大模型配置
+# LLM Configuration
 LLM_CONFIGS = {
     "openai": {
         "model": "gpt-4",
@@ -27,11 +27,11 @@ LLM_CONFIGS = {
     }
 }
 
-# 数据库配置
+# Database Configuration
 DATABASE_URL = "sqlite:///./interruptr.db"
 REDIS_URL = "redis://localhost:6379"
 
-# 分析工具路径
+# Analysis Tool Paths
 ANALYSIS_TOOLS = {
     "gcc": "/usr/bin/gcc",
     "gdb": "/usr/bin/gdb", 
@@ -40,36 +40,36 @@ ANALYSIS_TOOLS = {
     "clang": "/usr/bin/clang"
 }
 
-# 智能体配置
+# Agent Configuration
 AGENT_CONFIGS = {
     "coordinator": {
-        "name": "协调者",
-        "role": "管理和协调其他智能体的工作流程",
+        "name": "Coordinator",
+        "role": "Manages and coordinates the workflow of other agents",
         "max_iterations": 10
     },
     "code_analyst": {
-        "name": "代码分析师", 
-        "role": "静态代码分析和代码质量评估",
+        "name": "Code Analyst", 
+        "role": "Static code analysis and code quality assessment",
         "max_iterations": 5
     },
     "security_expert": {
-        "name": "安全专家",
-        "role": "安全漏洞检测和分析", 
+        "name": "Security Expert",
+        "role": "Security vulnerability detection and analysis", 
         "max_iterations": 5
     },
     "debug_expert": {
-        "name": "调试专家",
-        "role": "断点设置和动态调试分析",
+        "name": "Debug Expert",
+        "role": "Breakpoint placement and dynamic debugging analysis",
         "max_iterations": 5
     },
     "architect": {
-        "name": "架构师",
-        "role": "整体架构和设计模式分析",
+        "name": "Architect",
+        "role": "Overall architecture and design pattern analysis",
         "max_iterations": 3
     }
 }
 
-# 安全检测规则
+# Security Detection Rules
 SECURITY_RULES = {
     "buffer_overflow": {
         "patterns": ["strcpy", "strcat", "sprintf", "gets"],
@@ -89,6 +89,6 @@ SECURITY_RULES = {
     }
 }
 
-# 日志配置
+# Logging Configuration
 LOG_LEVEL = "INFO"
 LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

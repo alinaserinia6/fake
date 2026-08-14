@@ -1,128 +1,144 @@
-# SANER 2026 Tool Demo Track 工作计划
+# SANER 2026 Tool Demo Track Work Plan
 
-## 🎯 目标：SANER 2026 Tool Demo Track 投稿成功
+## 🎯 Goal: Successful Submission to SANER 2026 Tool Demo Track
 
-**截止日期**: 2025年11月17日 (57天后)  
-**会议时间**: 2026年3月17-20日，塞浦路斯
+**Deadline**: November 17, 2025 (57 days remaining)  
+**Conference Dates**: March 17-20, 2026, Cyprus
 
-## ⏰ 8周行动计划
+## ⏰ 8-Week Action Plan
 
-### Week 1-2 (2025年9月21日 - 10月5日) - 基础准备阶段
-- [x] 创建SANER2026工作分支 ✅
-- [ ] 修复系统稳定性问题
-- [ ] 大规模测试准备 (20+开源C++项目)
-- [ ] 性能数据收集脚本开发
+### Week 1-2 (September 21 - October 5, 2025) - Foundation Preparation Phase
 
-### Week 3-4 (2025年10月6日 - 19日) - 论文撰写阶段  
-- [ ] Tool Demo论文初稿撰写
-- [ ] 与现有工具对比分析
-- [ ] 技术创新点总结
-- [ ] 实验结果整理
+- [x] Create SANER2026 working branch ✅
+- [ ] Fix system stability issues
+- [ ] Prepare for large-scale testing (20+ open-source C++ projects)
+- [ ] Develop performance data collection scripts
 
-### Week 5-6 (2025年10月20日 - 11月2日) - Demo制作阶段
-- [ ] 演示视频录制 (5-8分钟)
-- [ ] 用户研究和反馈收集
-- [ ] 系统界面优化
-- [ ] 案例研究完善
+### Week 3-4 (October 6 - 19, 2025) - Paper Writing Phase
 
-### Week 7-8 (2025年11月3日 - 17日) - 最终完善阶段
-- [ ] 论文修改和润色
-- [ ] Demo视频后期制作
-- [ ] 提交材料准备
-- [ ] 最终测试和验证
+- [ ] Write Tool Demo paper first draft
+- [ ] Comparative analysis with existing tools
+- [ ] Summarise technical innovation points
+- [ ] Organise experimental results
 
-## 📋 关键任务清单
+### Week 5-6 (October 20 - November 2, 2025) - Demo Production Phase
 
-### 🔧 系统优化任务
-- [ ] 修复LLM接口连接问题
-- [ ] 解决多智能体系统导入错误
-- [ ] 提升Web界面稳定性
-- [ ] 优化系统响应速度
+- [ ] Record demo video (5-8 minutes)
+- [ ] Conduct user studies and collect feedback
+- [ ] Optimise system interface
+- [ ] Refine case studies
 
-### 📊 实验评估任务
-- [ ] 收集20+开源C++项目测试数据
-- [ ] 统计准确率、召回率、F1分数
-- [ ] 性能基准测试 (响应时间、内存占用)
-- [ ] 与SonarQube、CodeQL等工具对比
+### Week 7-8 (November 3 - 17, 2025) - Final Refinement Phase
 
-### 📝 论文撰写任务
-- [ ] Tool Demo论文大纲制定
-- [ ] Abstract和Introduction撰写
-- [ ] System Architecture章节
-- [ ] Key Features & Innovation章节
-- [ ] Evaluation & Results章节
-- [ ] Related Work调研和撰写
+- [ ] Revise and polish paper
+- [ ] Demo video post-production
+- [ ] Prepare submission materials
+- [ ] Final testing and validation
 
-### 🎬 Demo制作任务
-- [ ] 演示脚本设计
-- [ ] 典型案例选择和准备
-- [ ] 视频录制和剪辑
-- [ ] 旁白和字幕制作
+## 📋 Key Task Checklist
 
-## 🎯 投稿重点突出
+### 🔧 System Optimisation Tasks
 
-### 技术创新点
-1. **多LLM协作机制** - 首创4个不同LLM提供商协作
-2. **质疑-验证双重机制** - 提高分析可信度
-3. **实时可视化** - 透明化AI决策过程
-4. **工程完整性** - 端到端可用系统
+- [ ] Fix LLM interface connection issues
+- [ ] Resolve multi-agent system import errors
+- [ ] Improve Web interface stability
+- [ ] Optimise system response speed
 
-### 竞争优势
-- 与传统静态分析工具相比：AI驱动，智能化程度高
-- 与单一LLM方案相比：多模型协作，结果更可靠
-- 与学术原型相比：工程完整，实际可用
+### 📊 Experimental Evaluation Tasks
 
-## 📈 成功指标
+- [ ] Collect test data from 20+ open-source C++ projects
+- [ ] Calculate precision, recall, and F1 scores
+- [ ] Performance benchmarking (response time, memory usage)
+- [ ] Comparison with tools such as SonarQube and CodeQL
 
-### 技术指标
-- 系统稳定性 > 95%
-- 分析准确率 > 80%
-- 响应时间 < 60秒
-- 支持项目规模 > 10K行代码
+### 📝 Paper Writing Tasks
 
-### 论文质量指标
-- 论文长度: 4-6页
-- 创新性评分: 高
-- 实用性评分: 高
-- 技术深度: 中等
+- [ ] Develop Tool Demo paper outline
+- [ ] Write Abstract and Introduction
+- [ ] System Architecture chapter
+- [ ] Key Features & Innovation chapter
+- [ ] Evaluation & Results chapter
+- [ ] Related Work research and writing
 
-### Demo效果指标
-- 视频时长: 5-8分钟
-- 演示完整性: 100%
-- 视觉效果: 专业级
-- 技术展示: 全面
+### 🎬 Demo Production Tasks
 
-## 🚀 里程碑节点
+- [ ] Design demo script
+- [ ] Select and prepare representative case studies
+- [ ] Record and edit video
+- [ ] Produce voiceover and subtitles
 
-- **10月1日**: 系统稳定性修复完成
-- **10月15日**: 大规模测试数据收集完成
-- **10月30日**: 论文初稿完成
-- **11月7日**: Demo视频制作完成
-- **11月15日**: 最终提交材料准备完成
-- **11月17日**: 正式提交SANER 2026
+## 🎯 Key Focus Areas for Submission
 
-## 📞 资源需求
+### Technical Innovation Points
 
-### 人力资源
-- 主要开发者: 1人 (全职)
-- 系统测试: 支持
-- 论文写作: 主导
-- 视频制作: 主导
+1. **Multi-LLM Collaboration Mechanism** – First-ever collaboration of 4 different LLM providers
+2. **Questioning-Verification Dual Mechanism** – Improves analysis trustworthiness
+3. **Real-Time Visualisation** – Transparent AI decision-making process
+4. **Engineering Completeness** – End-to-end usable system
 
-### 技术资源
-- 开发环境: 已具备
-- 测试数据: 需收集
-- LLM API: 已配置
-- 视频制作工具: 需准备
+### Competitive Advantages
 
-### 时间分配
-- 系统开发/优化: 30%
-- 实验评估: 25%
-- 论文撰写: 25%
-- Demo制作: 20%
+- Compared with traditional static analysis tools: AI-driven, high intelligence
+- Compared with single-LLM solutions: multi-model collaboration, more reliable results
+- Compared with academic prototypes: engineering completeness, practically usable
+
+## 📈 Success Metrics
+
+### Technical Metrics
+
+- System stability > 95%
+- Analysis accuracy > 80%
+- Response time < 60 seconds
+- Supported project scale > 10K lines of code
+
+### Paper Quality Metrics
+
+- Paper length: 4-6 pages
+- Innovation score: High
+- Practicality score: High
+- Technical depth: Medium
+
+### Demo Effectiveness Metrics
+
+- Video duration: 5-8 minutes
+- Demo completeness: 100%
+- Visual quality: Professional grade
+- Technical coverage: Comprehensive
+
+## 🚀 Milestones
+
+- **October 1**: System stability fixes completed
+- **October 15**: Large-scale test data collection completed
+- **October 30**: Paper first draft completed
+- **November 7**: Demo video production completed
+- **November 15**: Final submission materials prepared
+- **November 17**: Formal submission to SANER 2026
+
+## 📞 Resource Requirements
+
+### Human Resources
+
+- Lead developer: 1 person (full-time)
+- System testing: Support provided
+- Paper writing: Lead
+- Video production: Lead
+
+### Technical Resources
+
+- Development environment: Already available
+- Test data: Needs to be collected
+- LLM APIs: Already configured
+- Video production tools: Need to be prepared
+
+### Time Allocation
+
+- System development/optimisation: 30%
+- Experimental evaluation: 25%
+- Paper writing: 25%
+- Demo production: 20%
 
 ---
 
-**项目状态**: 🟢 已启动  
-**下次更新**: 2025年9月28日  
-**负责人**: Interruptr开发团队
+**Project Status**: 🟢 Active  
+**Next Update**: September 28, 2025  
+**Responsible**: Interruptr Development Team
